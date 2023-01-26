@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 14:22:25 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:39:29 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_minishell	*ft_init(void)
 
 	i = 0;
 	shell = (t_minishell *)malloc(sizeof(t_minishell));
+	if (!shell)
+		return(NULL);
 	while (environ[i])
 		i++;
 	shell->env = (char **)malloc(sizeof(char *) * i + 1);
