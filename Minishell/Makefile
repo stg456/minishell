@@ -3,40 +3,72 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
+#    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/01/25 15:07:10 by stgerard         ###   ########.fr        #
+#    Updated: 2023/01/26 15:38:03 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+ #	NAME :
+NAME	:= 	minishell
+#	FILE :
+SRC_DIR	:= 	src
 
-CC = gcc
+SRCS	:=	builtins.c				\
+			minishell.c				\
+			parse.c					\
+			quote.c					\
+			signal.c				\
+			utils.c					\
 
-CFLAGS = -Wall -Wextra -Werror -g
 
-RM = rm -f
+SRCS := 	$(SRCS:%=$(SRC_DIR)/%)
 
-SRCS = minishell.c utils.c parse.c signal.c builtins.c \
-../libft/ft_putstr.c ../libft/ft_split.c ../libft/ft_strlen.c \
-../libft/ft_strdup.c ../libft/ft_strjoin.c ../libft/ft_isspace.c \
-../libft/ft_isascii.c ../libft/ft_strncmp.c
+#	COMPILATION:
+CC := 		@gcc
+CFLAGS := 	-Wall -Werror -Wextra
+LIBS :=		-Llibft -lft
+DANGER := -fsanitize=address
 
-OBJS = ${SRCS:.c=.o}
+#	STATIC LIB CREATION:
+AR :=		@ar
+ARFLAG :=	-rcs
 
-all: ${NAME}
+#	BUILD:
+OBJS_DIR := .build
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJS_DIR)/%.o)
+LIBFILE := libft
 
-${NAME}: ${OBJS}
-			${CC} -lreadline ${OBJS} ${CFLAGS} -o ${NAME} 
-# -g3 -fsanitize=address
+#	TOOLS:
 
-clean:
-			${RM} ${OBJS}
+RM	:= @rm -rf
+DUP_DIR = @mkdir -p $(@D)
+CREATE_DIR = [ ! -d $(OBJS_DIR) ] && mkdir $(OBJS_DIR)
+ALLOBJS = $(OBJS_DIR)/%.o
 
-fclean: clean
-			${RM} ${NAME}
+#	COMMAND:
 
-re: fclean all
+all : $(NAME)
 
-.PHONY: all clean fclean re
+.create.build :
+	$(CREATE_DIR)
+	$(CLONE_LIB)
+
+$(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
+	@make -sC libft
+	$(DUP_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "\033[1A\033[0J\033[32;1m\rMinishell compilation >>\033[0m\033[30;1m $@\033[0m"
+
+$(NAME) : $(OBJS)
+	$(CC) -o $(NAME) $(OBJS) $(LIBS) -g -lreadline
+clean :
+	@make clean -sC libft
+	$(RM) $(OBJS_DIR)
+
+fclean : clean
+	@make fclean -sC libft
+	$(RM) $(NAME)
+
+re : fclean all
