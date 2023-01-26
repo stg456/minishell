@@ -6,11 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-<<<<<<< HEAD:Minishell/minishell.c
 /*   Updated: 2023/01/26 15:44:39 by stgerard         ###   ########.fr       */
-=======
-/*   Updated: 2023/01/26 15:44:57 by misimon          ###   ########.fr       */
->>>>>>> 3b431b4ffe2b7cede4a4d360b6b4dd6181941988:Minishell/src/minishell.c
 /*                                                                            */
 /* ************************************************************************** */
 
