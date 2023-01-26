@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 16:32:59 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:46:47 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		ft_free_shell(t_minishell *shell);
 
 // parse.c
 
-// void		ft_parse(char *buf, t_minishell *shell);
+char		*ft_strtok(char *str, char *delimiter);
+void		cmd_parsing(char *buf, t_minishell *shell);
 
 // builtins.c
 
