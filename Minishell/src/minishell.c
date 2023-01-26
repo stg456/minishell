@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 16:32:21 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:47:44 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,20 @@ int	check_input(char *str)
 
 void	ft_prompt(void)
 {
-	int				first; // check 1ere ligne, eviter seg fault
 	char			*buf;
 	t_minishell		*shell;
 
 	// signal(SIGQUIT, sigint_handler);
 	// signal(SIGINT, sigint_handler);
 
-	first = 0;
-	buf = malloc(sizeof(char));
+	buf = NULL;
 	shell = ft_init();
-	while (buf != NULL)
+	while (1)
 	{
-		if (first == 0)
-		{
-			first = 1;
+		if (buf)
 			free(buf);
-		}
-		buf = readline("minishell $>");
+		buf = readline("Minishell$> ");
+		cmd_parsing(buf, shell);
 		if (buf)
 		{
 			if (check_input(buf) == 1) // check ascii et ' '
