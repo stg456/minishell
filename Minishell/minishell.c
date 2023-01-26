@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 14:39:29 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:44:39 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_prompt(void)
 			}
 			if (ft_strncmp(buf, "echo", 4) == 0)
 				ft_echo(buf);
-			if (strcmp == )
+			// if (strcmp == )
 
 		}
 		// free(buf);
