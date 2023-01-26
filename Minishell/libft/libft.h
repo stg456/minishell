@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 13:57:30 by misimon           #+#    #+#             */
-/*   Updated: 2023/01/26 15:41:08 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:34:20 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_bool	ft_isalnum(int c);
 t_bool	ft_isascii(int c);
 t_bool	ft_isprint(int c);
 t_bool	ft_issign(char c);
-t_bool	ft_ispace(char c);
+t_bool	ft_isspace(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_error(void);

@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 16:09:14 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:32:21 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,6 @@ t_minishell	*ft_init(void)
 	shell->fd_in = 0;
 	shell->fd_out = 0;
 	return (shell);
-}
-
-int	ft_isspace(int c)
-{
-	if (c == '\t' || c == '\n' || c == '\f' || c == '\r' || c == ' ')
-		return (1);
-	return (0);
 }
 
 int	check_input(char *str)
@@ -99,11 +92,11 @@ void	ft_prompt(void)
 		{
 			if (check_input(buf) == 1) // check ascii et ' '
 				add_history(buf);
-			if (ft_strcmp(buf, "env") == 1)
+			if (ft_strcmp(buf, "env") == 0)
 			{
 				ft_env(shell);
 			}
-			if (ft_strcmp(buf, "pwd") == 1)
+			if (ft_strcmp(buf, "pwd") == 0)
 			{
 				ft_pwd(shell);
 			}
