@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 14:22:25 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:43:31 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@
 
 typedef struct s_minishell
 {
-	// int		ac;
-	// char	**av;
+	// int		ac; //  temporairement pas besoin
+	// char	**av; // temporairement pas besoin
 	char	**env;
 	char	**path;
+	char	*cmd;
 	int		fd_in;
 	int		fd_out;
 }				t_minishell;
