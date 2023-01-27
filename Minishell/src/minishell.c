@@ -6,7 +6,11 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/27 11:20:07 by stgerard         ###   ########.fr       */
+=======
+/*   Updated: 2023/01/26 16:47:44 by misimon          ###   ########.fr       */
+>>>>>>> 58791da05f1076a0d5e680f6ff9c358a7fefe404
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +74,20 @@ int	check_input(char *str)
 
 void	ft_prompt(void)
 {
-	int				first; // check 1ere ligne, eviter seg fault
 	char			*buf;
 	t_minishell		*shell;
 
 	// signal(SIGQUIT, sigint_handler);
 	// signal(SIGINT, sigint_handler);
 
-	first = 0;
-	buf = malloc(sizeof(char));
+	buf = NULL;
 	shell = ft_init();
-	while (buf != NULL)
+	while (1)
 	{
-		if (first == 0)
-		{
-			first = 1;
+		if (buf)
 			free(buf);
-		}
-		buf = readline("minishell $>");
+		buf = readline("Minishell$> ");
+		cmd_parsing(buf, shell);
 		if (buf)
 		{
 			if (check_input(buf) == 1) // check ascii et ' '

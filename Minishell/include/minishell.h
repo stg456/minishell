@@ -6,7 +6,11 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/27 11:18:37 by stgerard         ###   ########.fr       */
+=======
+/*   Updated: 2023/01/26 16:46:47 by misimon          ###   ########.fr       */
+>>>>>>> 58791da05f1076a0d5e680f6ff9c358a7fefe404
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +49,8 @@ void		ft_free_shell(t_minishell *shell);
 
 // parse.c
 
-// void		ft_parse(char *buf, t_minishell *shell);
+char		*ft_strtok(char *str, char *delimiter);
+void		cmd_parsing(char *buf, t_minishell *shell);
 
 // builtins.c
 
