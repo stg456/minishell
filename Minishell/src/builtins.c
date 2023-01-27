@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 15:39:48 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:18:37 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,33 @@ int		ft_echo(char *buf)
 // pas encore le -n
 // pas mal mais le trim ne free pas 
 
-// int		ft_cd(char **path)
-// {
-// 	int		i;
-// 	char	*tmp; // 
-// 	char	**env;
+int	ft_export(char *buf)
+{
+	char	*str;
+	t_minishell	*shell; // mettre dedans
+	char	*var;
+	char	*value;
+	int		i;
+	int		j;
 
-// 	i = 0;
+	if (!buf)
+		return (EXIT_FAILURE);
+	str = trimer("export", buf);
+	if (!str)
+		return (EXIT_FAILURE);
+	i = 0;
+	while (str[i] != '=')
+	{
+		var[i] = str[i];
+	}
+	i++;
+	j = 0;
+	while (str[i] != ' ')
+	{
+		value[j] = str[i];
+	}
+	// protections !!
+	return 1;
+}
 
-// }
-
+ // pas encore bon mais logique

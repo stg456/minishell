@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/26 16:32:59 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:18:37 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		ft_free_shell(t_minishell *shell);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_minishell *shell);
 int			ft_echo(char *buf);
+int			ft_export(char *buf);
 
 // quote.c
 
@@ -65,5 +66,6 @@ void		sigint_handler(int sig_num);
 // utils
 
 char		*trimecho(char *s1);
+char		*trimer(char *s1, char *buf);
 
 #endif
