@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/27 11:18:37 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:58:50 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ int	ft_env(t_minishell *shell)
 
 int	ft_pwd(t_minishell *shell)
 {
-	(void)shell;
-	char buffer[256];
+	char	buffer[256];
 
-    if (getcwd(buffer, 256) == NULL)
+	(void)shell;
+	if (getcwd(buffer, 256) == NULL)
 	{
 		perror("Cannot get current working directory path\n");
-        if (errno == ERANGE)
+		if (errno == ERANGE)
 		{
 			perror("Buffer size is too small.\n");
-        }
-        exit(EXIT_FAILURE);
+		}
+		exit(EXIT_FAILURE);
     }
-    printf("%s\n", buffer);
-    return EXIT_SUCCESS;
+	printf("%s\n", buffer);
+	return EXIT_SUCCESS;
 }
 
 // doit remonter une erreur si il y a un argument en plus !!
@@ -75,6 +75,9 @@ int	ft_export(char *buf)
 	int		i;
 	int		j;
 
+	(void)shell;
+	value = NULL;
+	var = NULL;
 	if (!buf)
 		return (EXIT_FAILURE);
 	str = trimer("export", buf);

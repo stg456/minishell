@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/19 00:55:09 by misimon           #+#    #+#              #
-#    Updated: 2022/11/09 15:57:13 by misimon          ###   ########.fr        #
+#    Updated: 2023/01/29 16:07:24 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,10 +71,6 @@ SRCS	:=	is_fct/ft_isalpha.c			\
 			ft_end_fct/ft_error.c		\
 										\
 			ft_free_fct/ft_tabfree.c	\
-										\
-			linked_lst/create_list.c	\
-			linked_lst/delete_list.c	\
-			linked_lst/add_list.c		\
 
 SRCS := 	$(SRCS:%=$(SRC_DIR)/%)
 
