@@ -1,26 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_list.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:35:15 by misimon           #+#    #+#             */
-/*   Updated: 2022/11/09 15:49:19 by misimon          ###   ########.fr       */
+/*   Created: 2023/01/30 15:16:45 by stgerard          #+#    #+#             */
+/*   Updated: 2023/01/30 16:08:27 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../include/minishell.h"
 
-t_list	*create_list(void)
-{
-	t_list	*ptr;
-
-	ptr = malloc(sizeof(t_list));
-	if (!ptr)
-		return (NULL);
-	ptr->head = NULL;
-	ptr->tail = NULL;
-	ptr->size = 0;
-	return (ptr);
-}

@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/01/26 15:38:03 by misimon          ###   ########.fr        #
+#    Updated: 2023/01/29 16:44:40 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS	:=	builtins.c				\
 			quote.c					\
 			signal.c				\
 			utils.c					\
+			linked_list.c			\
 
 
 SRCS := 	$(SRCS:%=$(SRC_DIR)/%)

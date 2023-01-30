@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:49:50 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/30 11:51:07 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:08:27 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_minishell	*ft_init(void)
 
 	i = 0;
 	shell = (t_minishell *)malloc(sizeof(t_minishell));
-	if (!shell)
+	shell->cmd = create_list();
+	if (!shell || !shell->cmd)
 		return (NULL);
 	while (environ[i])
 		i++;
@@ -97,9 +98,8 @@ void	ft_prompt(void)
 			}
 			if (ft_strncmp(buf, "echo", 4) == 0)
 				ft_echo(buf);
-			if (strcmp == "export" == 1)
+			if (ft_strcmp(buf, "export") == 0) //FIX: le if etait faux je te l'ai corriger
 				ft_export(buf);
-
 		}
 		// free(buf);
 		// ft_parse(buf, shell);
