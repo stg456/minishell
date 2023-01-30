@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/30 15:20:51 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:05:57 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,35 @@ int	ft_pwd(t_minishell *shell)
 
 // doit remonter une erreur si il y a un argument en plus !!
 
-int		ft_echo(char *buf)
+int		ft_echo(t_node *lst)
 {
-	char	*res;
+	int		i;
 
-	if (!buf)
+	i = 0;
+	if (!lst->cmd && !lst->cmd[1])
 		return (-1);
-	res = trimecho(buf);
-	printf("%s\n", res);
+	if (ft_strcmp(lst->cmd[1], "-n") != 0)
+	{
+		i = 0;
+		while (lst->cmd[++i])
+		{
+			printf("%s ", lst->cmd[i]);
+		}
+		printf("\n");
+	}
+	else if (ft_strcmp(lst->cmd[1], "-n") == 0)
+	{
+		i = 1;
+		while (lst->cmd[++i])
+		{
+			printf("%s", lst->cmd[i]);
+		}
+	}
 	return EXIT_SUCCESS;
 }
 
-// pas encore le -n
-// pas mal mais le trim ne free pas 
+// echo seul seg fault
+// gerer l'espace entre les arguments
 
 int	ft_export(char *buf)
 {
@@ -101,7 +117,7 @@ int	ft_export(char *buf)
 
  // pas encore bon mais logique
 
- int	ft_unset(char *buf)
- {
+// int	ft_unset(char *buf)
+//  {
 	
- }
+//  }

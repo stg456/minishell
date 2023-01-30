@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/30 16:11:50 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:05:57 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void		add_tail(t_list *ptr, char **cmd);
 // void		ft_exit(t_minishell *shell);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_minishell *shell);
-int			ft_echo(char *buf);
+int			ft_echo(t_node *lst);
 int			ft_export(char *buf);
 
 // quote.c
@@ -90,7 +90,7 @@ int			ft_in_quote(char *c, int i);
 
 // utils
 
-char		*trimecho(char *s1);
+// char		*trimecho(char *s1);
 char		*trimer(char *s1, char *buf);
 
 #endif
