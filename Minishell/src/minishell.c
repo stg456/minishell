@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 11:49:50 by stgerard          #+#    #+#             */
+/*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
 /*   Updated: 2023/01/30 16:08:27 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -68,6 +68,29 @@ int	check_input(char *str)
 	return (0);
 }
 
+void	do_cmd(t_minishell *shell, char *buf)
+{
+	t_node	*actual_cmd;
+
+	actual_cmd = shell->cmd->head;
+	while (actual_cmd)
+	{
+		if (check_input(buf) == 1)
+			add_history(buf);
+		if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
+			ft_env(shell);
+		else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
+			ft_pwd(shell);
+		else if (ft_strncmp(actual_cmd->cmd[0], "echo", 4) == 0)
+			ft_echo(buf);
+		else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
+			ft_export(buf);
+		else
+			printf("stop\n");
+		actual_cmd = actual_cmd->next;
+	}
+}
+
 void	ft_prompt(void)
 {
 	char			*buf;
@@ -84,25 +107,9 @@ void	ft_prompt(void)
 			free(buf);
 		buf = readline("Minishell$> ");
 		cmd_parsing(buf, shell);
-		if (buf)
-		{
-			if (check_input(buf) == 1) // check ascii et ' '
-				add_history(buf);
-			if (ft_strcmp(buf, "env") == 0)
-			{
-				ft_env(shell);
-			}
-			if (ft_strcmp(buf, "pwd") == 0)
-			{
-				ft_pwd(shell);
-			}
-			if (ft_strncmp(buf, "echo", 4) == 0)
-				ft_echo(buf);
-			if (ft_strcmp(buf, "export") == 0) //FIX: le if etait faux je te l'ai corriger
-				ft_export(buf);
-		}
+		do_cmd(shell, buf);
+		delete_all_list(shell->cmd);
 		// free(buf);
-		// ft_parse(buf, shell);
 		// builtins(buf);
 
 	}
