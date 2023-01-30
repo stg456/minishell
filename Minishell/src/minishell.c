@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/27 11:20:07 by stgerard         ###   ########.fr       */
-=======
-/*   Updated: 2023/01/26 16:47:44 by misimon          ###   ########.fr       */
->>>>>>> 58791da05f1076a0d5e680f6ff9c358a7fefe404
+/*   Updated: 2023/01/29 17:41:25 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +32,8 @@ t_minishell	*ft_init(void)
 
 	i = 0;
 	shell = (t_minishell *)malloc(sizeof(t_minishell));
-	if (!shell)
+	shell->cmd = create_list();
+	if (!shell || !shell->cmd)
 		return (NULL);
 	while (environ[i])
 		i++;
@@ -102,9 +99,8 @@ void	ft_prompt(void)
 			}
 			if (ft_strncmp(buf, "echo", 4) == 0)
 				ft_echo(buf);
-			if (strcmp == "export" == 1)
+			if (ft_strcmp(buf, "export") == 0) //FIX: le if etait faux je te l'ai corriger
 				ft_export(buf);
-
 		}
 		// free(buf);
 		// ft_parse(buf, shell);

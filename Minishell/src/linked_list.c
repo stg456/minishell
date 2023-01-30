@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_list.c                                         :+:      :+:    :+:   */
+/*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:52:26 by misimon           #+#    #+#             */
-/*   Updated: 2022/11/09 15:53:54 by misimon          ###   ########.fr       */
+/*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
+/*   Updated: 2023/01/29 16:54:21 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../include/minishell.h"
 
-void	add_tail(t_list *ptr, void *data)
+t_list	*create_list(void)
+{
+	t_list	*ptr;
+
+	ptr = malloc(sizeof(t_list));
+	if (!ptr)
+		return (NULL);
+	ptr->head = NULL;
+	ptr->tail = NULL;
+	ptr->size = 0;
+	return (ptr);
+}
+
+void	add_tail(t_list *ptr, char **cmd)
 {
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		exit(EXIT_FAILURE);
-	new_node->content = data;
+	new_node->cmd = cmd;
 	new_node->prev = ptr->tail;
 	new_node->next = NULL;
 	if (ptr->tail)
@@ -27,23 +40,5 @@ void	add_tail(t_list *ptr, void *data)
 	else
 		ptr->head = new_node;
 	ptr->tail = new_node;
-	ptr->size++;
-}
-
-void	add_head(t_list *ptr, void *data)
-{
-	t_node	*new_node;
-
-	new_node = malloc(sizeof(t_node));
-	if (!new_node)
-		exit(EXIT_FAILURE);
-	new_node->content = data;
-	new_node->prev = NULL;
-	new_node->next = ptr->head;
-	if (ptr->head)
-		ptr->head->prev = new_node;
-	else
-		ptr->tail = new_node;
-	ptr->head = new_node;
 	ptr->size++;
 }

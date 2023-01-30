@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:35:18 by misimon           #+#    #+#             */
-/*   Updated: 2022/11/09 15:40:27 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/29 16:38:51 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,5 @@ typedef int	t_bool;
 # ifndef FALSE
 #  define FALSE 0
 # endif
-
-typedef struct s_node
-{
-	void			*content;
-	struct s_node	*next;
-	struct s_node	*prev;
-}	t_node;
-
-typedef struct s_list
-{
-	size_t	size;
-	t_node	*head;
-	t_node	*tail;
-}	t_list;
 
 #endif
