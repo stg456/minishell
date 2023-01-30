@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/29 17:49:25 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:11:50 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		cmd_parsing(char *buf, t_minishell *shell);
 
 //linked_list.c
 t_list		*create_list(void);
+void		delete_all_list(t_list *ptr);
 void		add_tail(t_list *ptr, char **cmd);
 
 // void		ft_exit(t_minishell *shell);
@@ -85,7 +86,7 @@ int			ft_in_quote(char *c, int i);
 
 // signal.c
 
-void		sigint_handler(int sig_num);
+// void			(int sig_num);
 
 // utils
 

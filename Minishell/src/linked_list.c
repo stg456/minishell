@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
-/*   Updated: 2023/01/29 16:54:21 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:12:36 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,23 @@ void	add_tail(t_list *ptr, char **cmd)
 		ptr->head = new_node;
 	ptr->tail = new_node;
 	ptr->size++;
+}
+
+void	delete_all_list(t_list *ptr)
+{
+	t_node	*tmp_node;
+	t_node	*node;
+
+	node = ptr->head;
+	while (node)
+	{
+		tmp_node = node;
+		free_tab(tmp_node->cmd);
+		free(tmp_node->path);
+		node = node->next;
+		free(tmp_node);
+	}
+	ptr->head = NULL;
+	ptr->tail = NULL;
+	ptr->size = 0;
 }
