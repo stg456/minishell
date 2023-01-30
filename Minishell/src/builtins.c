@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
 /*   Updated: 2023/01/30 15:20:51 by misimon          ###   ########.fr       */
@@ -95,7 +95,13 @@ int	ft_export(char *buf)
 		value[j] = str[i];
 	}
 	// protections !!
+	printf("var:%s value:%s\n", var, value);
 	return 1;
 }
 
  // pas encore bon mais logique
+
+ int	ft_unset(char *buf)
+ {
+	
+ }
