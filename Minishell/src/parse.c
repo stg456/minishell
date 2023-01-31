@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/30 16:09:03 by misimon          ###   ########.fr       */
+/*   Updated: 2023/01/31 19:04:51 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,31 @@ char	*cmd_path(t_minishell *shell)
 	return (str);
 }
 
+t_bool	is_delimitor(char c)
+{
+	if (c == '>' || c == '<' || c == '|' || c == '&')
+		return (TRUE);
+	return (FALSE);
+}
+
+void	get_separator(char *buf, t_minishell *shell)
+{
+	size_t i;
+
+	i = -1;
+	while (buf[++i])
+	{
+		if (is_delimitor(buf[i]) == TRUE)
+		{
+			shell->cmd->tail->separator = malloc(sizeof(char) * 2);
+			shell->cmd->tail->separator[0] = buf[i];
+			shell->cmd->tail->separator[1] = '\0';
+		}
+	}
+}
+
+// petit problème concernant cette fonction par rapport au fait qu'il prendra forcément le dernier délimiteur
+
 void	cmd_parsing(char *buf, t_minishell *shell)
 {
 	char	*str;
@@ -61,5 +86,7 @@ void	cmd_parsing(char *buf, t_minishell *shell)
 	{
 		add_tail(shell->cmd, ft_split(tab[i], ' '));
 		shell->cmd->tail->path = cmd_path(shell);
+		get_separator(buf, shell);
+		printf("%s\n", shell->cmd->tail->separator);
 	}
 }

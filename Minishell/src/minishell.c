@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 13:41:14 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:15:22 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 			ft_env(shell);
 		else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
 			ft_pwd(actual_cmd);
-		else if (ft_strncmp(actual_cmd->cmd[0], "echo", 4) == 0)
+		else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
 			ft_echo(actual_cmd);
 		else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
 			ft_export(buf);
