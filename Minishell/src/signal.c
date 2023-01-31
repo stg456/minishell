@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 17:26:02 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:40:46 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	sigint_handler(int sig_num)
 {
-	// if (sig_num == SIGINT)
-	// {
-	// 	;
-	// }
+	// printf("%d", sig_num);
+	if (sig_num == 2)
+	{
+		return ;
+	}
 	// else if (sig_num == SIGQUIT)
 	// {
 	// 	;
@@ -25,6 +26,7 @@ void	sigint_handler(int sig_num)
 	// else if (sig_num == EOF)
 	// {
 	// 	;
-	// }
-	printf("%d", sig_num);
+	// }	
 }
+
+// ne marche pas, il faut 'enter'
