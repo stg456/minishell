@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 13:51:07 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:47:40 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,19 @@ int		ft_echo(t_node *lst)
 	int		i;
 
 	i = 0;
-	if (!lst->cmd && !lst->cmd[1])
-		return (-1);
+	if (lst->cmd[0] && !lst->cmd[1])
+	{
+		printf("\n");
+		return EXIT_SUCCESS;
+	}
 	if (ft_strcmp(lst->cmd[1], "-n") != 0)
 	{
-		i = 0;
-		while (lst->cmd[++i])
+		i = 1;
+		while (lst->cmd[i])
 		{
 			printf("%s", lst->cmd[i]);
-			if (lst->cmd[++i])
+			i++;
+			if (lst->cmd[i])
 				printf(" ");
 		}
 		printf("\n");
@@ -88,9 +92,7 @@ int		ft_echo(t_node *lst)
 	return EXIT_SUCCESS;
 }
 
-// pas bon, prend pas tous les arguments !!
-// echo seul seg fault et dans certains cas !!
-// gerer l'espace entre les arguments
+// parait bon, mais faut pas me demander pourquoi !
 
 int	ft_export(char *buf)
 {
