@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 14:47:40 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:55:23 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,19 @@ int		ft_echo(t_node *lst)
 	}
 	else if (ft_strcmp(lst->cmd[1], "-n") == 0)
 	{
-		i = 1;
-		while (lst->cmd[++i])
+		i = 2;
+		while (lst->cmd[i])
 		{
 			printf("%s", lst->cmd[i]);
+			i++;
+			if (lst->cmd[i])
+				printf(" ");
 		}
 	}
 	return EXIT_SUCCESS;
 }
 
-// parait bon, mais faut pas me demander pourquoi !
+// parait bon
 
 int	ft_export(char *buf)
 {
