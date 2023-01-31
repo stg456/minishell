@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 17:36:08 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:46:21 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ char		*ft_strtok(char *str, char *delimiter);
 char		*cmd_path(t_minishell *shell);
 void		cmd_parsing(char *buf, t_minishell *shell);
 
-// builtins.c
+// linked_list.c
 
-//linked_list.c
 t_list		*create_list(void);
 void		delete_all_list(t_list *ptr);
 void		add_tail(t_list *ptr, char **cmd);
+
+// builtins.c
 
 // void		ft_exit(t_minishell *shell);
 int			ft_env(t_minishell *shell);
@@ -91,7 +92,6 @@ void		sigint_handler(int sig_num);
 
 // utils
 
-// char		*trimecho(char *s1);
 char		*trimer(char *s1, char *buf);
 
 #endif
