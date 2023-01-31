@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/30 17:05:57 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 13:51:07 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,32 @@ int	ft_env(t_minishell *shell)
 
 // parait bon
 
-int	ft_pwd(t_minishell *shell)
+int	ft_pwd(t_node *lst)
 {
 	char	buffer[256];
 
-	(void)shell;
-	if (getcwd(buffer, 256) == NULL)
+	// (void)shell;
+	if (lst->cmd[0] && !lst->cmd[1])
 	{
-		perror("Cannot get current working directory path\n");
-		if (errno == ERANGE)
+		if (getcwd(buffer, 256) == NULL)
 		{
-			perror("Buffer size is too small.\n");
-		}
-		exit(EXIT_FAILURE);
-    }
-	printf("%s\n", buffer);
+			perror("Cannot get current working directory path\n");
+			if (errno == ERANGE)
+			{
+				perror("Buffer size is too small.\n");
+			}
+			exit(EXIT_FAILURE);
+    	}
+		printf("%s\n", buffer);
+	}
+	else if (lst->cmd[0] && lst->cmd[1])
+	{
+		printf("pwd: too many arguments\n");
+	}
 	return EXIT_SUCCESS;
 }
 
-// doit remonter une erreur si il y a un argument en plus !!
+// parait bon
 
 int		ft_echo(t_node *lst)
 {
@@ -64,7 +71,9 @@ int		ft_echo(t_node *lst)
 		i = 0;
 		while (lst->cmd[++i])
 		{
-			printf("%s ", lst->cmd[i]);
+			printf("%s", lst->cmd[i]);
+			if (lst->cmd[++i])
+				printf(" ");
 		}
 		printf("\n");
 	}
@@ -79,7 +88,8 @@ int		ft_echo(t_node *lst)
 	return EXIT_SUCCESS;
 }
 
-// echo seul seg fault
+// pas bon, prend pas tous les arguments !!
+// echo seul seg fault et dans certains cas !!
 // gerer l'espace entre les arguments
 
 int	ft_export(char *buf)
