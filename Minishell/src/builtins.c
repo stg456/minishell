@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 14:55:23 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:25:56 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		ft_echo(t_node *lst)
 		i = 1;
 		while (lst->cmd[i])
 		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"");
 			printf("%s", lst->cmd[i]);
 			i++;
 			if (lst->cmd[i])
@@ -86,6 +87,7 @@ int		ft_echo(t_node *lst)
 		i = 2;
 		while (lst->cmd[i])
 		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"");
 			printf("%s", lst->cmd[i]);
 			i++;
 			if (lst->cmd[i])
@@ -97,40 +99,55 @@ int		ft_echo(t_node *lst)
 
 // parait bon
 
-int	ft_export(char *buf)
+int	ft_export(t_node *lst)
 {
-	char	*str;
-	t_minishell	*shell; // mettre dedans
 	char	*var;
 	char	*value;
 	int		i;
 	int		j;
+	int		k;
 
-	(void)shell;
 	value = NULL;
 	var = NULL;
-	if (!buf)
-		return (EXIT_FAILURE);
-	str = trimer("export", buf);
-	if (!str)
-		return (EXIT_FAILURE);
 	i = 0;
-	while (str[i] != '=')
-	{
-		var[i] = str[i];
-	}
-	i++;
 	j = 0;
-	while (str[i] != ' ')
+	k = 0;
+	if (lst->cmd[0] && !lst->cmd[1])
 	{
-		value[j] = str[i];
+		printf("\n"); // pas ca, doit afficher tout
+		return EXIT_SUCCESS;
 	}
-	// protections !!
+	// printf("a");
+	if (lst->cmd[0] && lst->cmd[1])
+	{
+		printf("%s\n", lst->cmd[1]);
+		while (lst->cmd[1])
+		{
+			while (lst->cmd[1][i] != '=')
+			{
+				printf("b");
+				var[j] = lst->cmd[1][i];
+				printf("%s\n", var);
+				i++;
+				j++;
+			}
+		}
+		i += 2;
+		while (lst->cmd[1][i])
+		{
+			printf("c");
+			value[k] = lst->cmd[1][i];
+			i++;
+			k++;
+		}
+		printf("d");
+	}
 	printf("var:%s value:%s\n", var, value);
 	return 1;
 }
 
- // pas encore bon mais logique
+ // export a=1 : seg fault !!!
+
 
 // int	ft_unset(char *buf)
 //  {

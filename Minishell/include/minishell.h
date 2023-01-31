@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 13:41:14 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:43:10 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		ft_free_shell(t_minishell *shell);
 // parse.c
 
 char		*ft_strtok(char *str, char *delimiter);
+char		*cmd_path(t_minishell *shell);
 void		cmd_parsing(char *buf, t_minishell *shell);
 
 // builtins.c
@@ -78,7 +79,7 @@ void		add_tail(t_list *ptr, char **cmd);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);
-int			ft_export(char *buf);
+int			ft_export(t_node *lst);
 
 // quote.c
 
