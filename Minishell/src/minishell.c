@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 15:43:10 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:23:00 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ void	ft_prompt(void)
 	char			*buf;
 	t_minishell		*shell;
 
-	// signal(SIGQUIT, sigint_handler);
-	// signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
+	signal(SIGINT, sigint_handler);
+	signal(SIGTERM, sigint_handler);
 
 	buf = NULL;
 	shell = ft_init();
