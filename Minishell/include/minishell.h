@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 17:46:21 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:34:07 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		add_tail(t_list *ptr, char **cmd);
 
 // builtins.c
 
-// void		ft_exit(t_minishell *shell);
+void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);

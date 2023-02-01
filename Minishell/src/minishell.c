@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 17:23:00 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:58:09 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	do_cmd(t_minishell *shell, char *buf)
 			ft_echo(actual_cmd);
 		else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
 			ft_export(actual_cmd);
+		else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
+			ft_exit(actual_cmd);
 		else
 			printf("stop\n");
 		actual_cmd = actual_cmd->next;
@@ -96,8 +98,8 @@ void	ft_prompt(void)
 	char			*buf;
 	t_minishell		*shell;
 
-	signal(SIGQUIT, sigint_handler);
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
 	signal(SIGTERM, sigint_handler);
 
 	buf = NULL;

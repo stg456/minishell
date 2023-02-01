@@ -6,16 +6,28 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 16:25:56 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:51:35 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void	ft_exit(t_minishell *shell)
-// {
+void	ft_exit(t_node *lst)
+{
+	int		i;
 
-// }
+	i = 0;
+	if (lst->cmd[0] && !lst->cmd[1])
+	{
+		// free quelque chose
+		// free le export ou le env et les variables
+		exit (0);
+	}
+	else
+		printf("exit: too many arguments\n");
+}
+
+// parait bon, mais y'a clairement des trucs à revoir !!
 
 int	ft_env(t_minishell *shell)
 {
