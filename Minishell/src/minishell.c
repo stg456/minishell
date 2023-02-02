@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/02 12:19:56 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:15:02 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 		else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
 			ft_exit(actual_cmd);
 		else if (ft_strcmp(actual_cmd->cmd[0], "cd") == 0)
-			ft_cd(shell);
+			ft_cd(shell, actual_cmd);
 		else
 			printf("stop\n");
 		actual_cmd = actual_cmd->next;

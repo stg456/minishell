@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/02 11:55:31 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:12:31 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sigint_handler(int sig_num)
         rl_redisplay();
 		// (void) sig_num;
 	}
-	if (sig_num == SIGQUIT)
+	else if (sig_num == SIGQUIT)
 	{
 		printf("%d\n", sig_num);
 		// seg fault
