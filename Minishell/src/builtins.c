@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/02 17:49:31 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:06:11 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int		ft_echo(t_node *lst)
 	}
 	if (lst->next->token && ft_strcmp(lst->next->token, "-n") != 0)
 	{
-		while (actual && actual->is_cmd && !actual->path)
+		while (actual && actual->is_cmd)
 		{
 			actual->token = ft_strtok(actual->token, "\"", 7);
 			printf("%s", actual->token);
 			actual = actual->next;
-			if (actual && actual->is_cmd && !actual->path)
+			if (actual && actual->is_cmd)
 				printf(" ");
 		}
 		printf("\n");
@@ -89,12 +89,12 @@ int		ft_echo(t_node *lst)
 	else if (lst->next->token && ft_strcmp(lst->next->token, "-n") == 0)
 	{
 		actual = actual->next;
-		while (actual && actual->is_cmd && !actual->path)
+		while (actual && actual->is_cmd)
 		{
 			actual->token = ft_strtok(actual->token, "\"", 7);
 			printf("%s", actual->token);
 			actual = actual->next;
-			if (actual && actual->is_cmd && !actual->path)
+			if (actual && actual->is_cmd)
 				printf(" ");
 		}
 	}
@@ -165,24 +165,20 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	int		i;
 
 	shell->dir = getenv("PWD=");
-	// printf("%s\n", shell->dir);
-	if (lst->token && !lst->next->is_cmd && !lst->path)
+	if (lst->token && ((lst->next && !lst->next->is_cmd) || !lst->next))
 	{
 		shell->dir = getenv("HOME=");
 		chdir(shell->dir);
-		// printf("%s\n", shell->dir);
 	}
-	else if (lst->token && lst->next->is_cmd == TRUE && !lst->path)
+	else if (lst->token && (lst->next && lst->next->is_cmd))
 	{
 		i = chdir(lst->next->token);
-		// printf("arg de cd: %s\n", lst->cmd[1]);
 		if (i == 0)
 		{
 			shell->dir = ft_strjoin(lst->token, " ");
 			shell->dir = ft_strjoin(shell->dir, lst->next->token);
 		}
 		chdir(shell->dir);
-		// printf("%s\n", shell->dir);
 	}
 	return 0;
 }
