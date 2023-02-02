@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/02 14:15:02 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:37:01 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 
 typedef struct s_node
 {
-	char			**cmd;
+	char			*token;
 	char			*path;
+	t_bool			is_cmd;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -39,12 +40,6 @@ typedef struct s_list
 	t_node	*head;
 	t_node	*tail;
 }	t_list;
-
-/*
-	Ajout de la structure pour les Linked list (n'hésite pas à me demander si ta des questions sur ma partie) mais sache que
-	le faire de cette manière est quasiment obligatoire pour faciliter le parsing ne serais ce que pour reconstituer correctement
-	la commande.
-*/
 
 typedef struct s_minishell
 {
@@ -65,7 +60,7 @@ void		ft_free_shell(t_minishell *shell);
 
 // parse.c
 
-char		*ft_strtok(char *str, char *delimiter);
+char		*ft_strtok(char *str, char *delimiter, char replace);
 char		*cmd_path(t_minishell *shell);
 void		cmd_parsing(char *buf, t_minishell *shell);
 
@@ -73,7 +68,7 @@ void		cmd_parsing(char *buf, t_minishell *shell);
 
 t_list		*create_list(void);
 void		delete_all_list(t_list *ptr);
-void		add_tail(t_list *ptr, char **cmd);
+void		add_tail(t_list *ptr, char *cmd);
 
 // builtins.c
 
