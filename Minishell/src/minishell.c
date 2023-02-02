@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/02 16:04:37 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/02 17:40:20 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,28 +68,33 @@ int	check_input(char *str)
 	return (0);
 }
 
-// void	do_cmd(t_minishell *shell, char *buf)
-// {
-// 	t_node	*actual_cmd;
+void	do_cmd(t_minishell *shell, char *buf)
+{
+	t_node	*actual_cmd;
 
-// 	actual_cmd = shell->cmd->head;
-// 	while (actual_cmd)
-// 	{
-		// if (check_input(buf) == 1)
-		// 	add_history(buf);
-		// if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
-		// 	ft_env(shell);
-		// else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
-		// 	ft_pwd(actual_cmd);
-		// else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
-		// 	ft_echo(actual_cmd);
-		// else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
-		// 	ft_export(buf);
-		// else
-		// 	printf("stop\n");
-// 		actual_cmd = actual_cmd->next;
-// 	}
-// }
+	actual_cmd = shell->cmd->head;
+	while (actual_cmd != NULL)
+	{
+		if (check_input(buf) == 1)
+			add_history(buf);
+		if (!actual_cmd->prev || actual_cmd->prev->is_cmd == FALSE)
+		{
+			if (ft_strcmp(actual_cmd->token, "env") == 0)
+				ft_env(shell);
+			else if (ft_strcmp(actual_cmd->token, "pwd") == 0)
+				ft_pwd(actual_cmd);
+			else if (ft_strcmp(actual_cmd->token, "echo") == 0)
+				ft_echo(actual_cmd);
+			// else if (ft_strcmp(actual_cmd->token, "export") == 0)
+			// 	ft_export(buf);
+			else if (ft_strcmp(actual_cmd->token, "cd") == 0)
+				ft_cd(shell, actual_cmd);
+			else
+				printf("stop\n");
+		}
+		actual_cmd = actual_cmd->next;
+	}
+}
 
 void	ft_prompt(void)
 {
@@ -110,7 +115,7 @@ void	ft_prompt(void)
 			free(buf);
 		buf = readline("Minishell$> ");
 		cmd_parsing(buf, shell);
-		// do_cmd(shell, buf);
+		do_cmd(shell, buf);
 		delete_all_list(shell->cmd);
 		// free(buf);
 		// builtins(buf);
