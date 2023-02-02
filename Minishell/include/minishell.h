@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 16:08:33 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:37:01 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 typedef struct s_node
 {
-	char			**cmd;
+	char			*token;
 	char			*path;
-	char			*separator;
+	t_bool			is_cmd;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -40,12 +40,6 @@ typedef struct s_list
 	t_node	*head;
 	t_node	*tail;
 }	t_list;
-
-/*
-	Ajout de la structure pour les Linked list (n'hésite pas à me demander si ta des questions sur ma partie) mais sache que
-	le faire de cette manière est quasiment obligatoire pour faciliter le parsing ne serais ce que pour reconstituer correctement
-	la commande.
-*/
 
 typedef struct s_minishell
 {
@@ -65,7 +59,7 @@ void		ft_free_shell(t_minishell *shell);
 
 // parse.c
 
-char		*ft_strtok(char *str, char *delimiter);
+char		*ft_strtok(char *str, char *delimiter, char replace);
 void		cmd_parsing(char *buf, t_minishell *shell);
 
 // builtins.c
@@ -73,7 +67,7 @@ void		cmd_parsing(char *buf, t_minishell *shell);
 //linked_list.c
 t_list		*create_list(void);
 void		delete_all_list(t_list *ptr);
-void		add_tail(t_list *ptr, char **cmd);
+void		add_tail(t_list *ptr, char *cmd);
 
 // void		ft_exit(t_minishell *shell);
 int			ft_env(t_minishell *shell);

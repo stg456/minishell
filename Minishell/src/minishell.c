@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 15:15:22 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:04:37 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_minishell	*ft_init(void)
 	extern char	**environ;
 
 	i = 0;
-	shell = (t_minishell *)malloc(sizeof(t_minishell));
+	shell = malloc(sizeof(t_minishell));
 	shell->cmd = create_list();
 	if (!shell || !shell->cmd)
 		return (NULL);
@@ -68,28 +68,28 @@ int	check_input(char *str)
 	return (0);
 }
 
-void	do_cmd(t_minishell *shell, char *buf)
-{
-	t_node	*actual_cmd;
+// void	do_cmd(t_minishell *shell, char *buf)
+// {
+// 	t_node	*actual_cmd;
 
-	actual_cmd = shell->cmd->head;
-	while (actual_cmd)
-	{
-		if (check_input(buf) == 1)
-			add_history(buf);
-		if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
-			ft_env(shell);
-		else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
-			ft_pwd(actual_cmd);
-		else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
-			ft_echo(actual_cmd);
-		else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
-			ft_export(buf);
-		else
-			printf("stop\n");
-		actual_cmd = actual_cmd->next;
-	}
-}
+// 	actual_cmd = shell->cmd->head;
+// 	while (actual_cmd)
+// 	{
+		// if (check_input(buf) == 1)
+		// 	add_history(buf);
+		// if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
+		// 	ft_env(shell);
+		// else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
+		// 	ft_pwd(actual_cmd);
+		// else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
+		// 	ft_echo(actual_cmd);
+		// else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
+		// 	ft_export(buf);
+		// else
+		// 	printf("stop\n");
+// 		actual_cmd = actual_cmd->next;
+// 	}
+// }
 
 void	ft_prompt(void)
 {
@@ -107,7 +107,7 @@ void	ft_prompt(void)
 			free(buf);
 		buf = readline("Minishell$> ");
 		cmd_parsing(buf, shell);
-		do_cmd(shell, buf);
+		// do_cmd(shell, buf);
 		delete_all_list(shell->cmd);
 		// free(buf);
 		// builtins(buf);

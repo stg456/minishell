@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/01/31 15:08:09 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:44:44 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,68 +32,68 @@ int	ft_env(t_minishell *shell)
 
 // parait bon
 
-int	ft_pwd(t_node *lst)
-{
-	char	buffer[256];
+// int	ft_pwd(t_node *lst)
+// {
+// 	char	buffer[256];
 
-	// (void)shell;
-	if (lst->cmd[0] && !lst->cmd[1])
-	{
-		if (getcwd(buffer, 256) == NULL)
-		{
-			perror("Cannot get current working directory path\n");
-			if (errno == ERANGE)
-			{
-				perror("Buffer size is too small.\n");
-			}
-			exit(EXIT_FAILURE);
-    	}
-		printf("%s\n", buffer);
-	}
-	else if (lst->cmd[0] && lst->cmd[1])
-	{
-		printf("pwd: too many arguments\n");
-	}
-	return EXIT_SUCCESS;
-}
+// 	// (void)shell;
+// 	if (lst->cmd[0] && !lst->cmd[1])
+// 	{
+// 		if (getcwd(buffer, 256) == NULL)
+// 		{
+// 			perror("Cannot get current working directory path\n");
+// 			if (errno == ERANGE)
+// 			{
+// 				perror("Buffer size is too small.\n");
+// 			}
+// 			exit(EXIT_FAILURE);
+//     	}
+// 		printf("%s\n", buffer);
+// 	}
+// 	else if (lst->cmd[0] && lst->cmd[1])
+// 	{
+// 		printf("pwd: too many arguments\n");
+// 	}
+// 	return EXIT_SUCCESS;
+// }
 
 // parait bon
 
-int		ft_echo(t_node *lst)
-{
-	int		i;
+// int		ft_echo(t_node *lst)
+// {
+// 	int		i;
 
-	i = 0;
-	if (lst->cmd[0] && !lst->cmd[1])
-	{
-		printf("\n");
-		return EXIT_SUCCESS;
-	}
-	if (ft_strcmp(lst->cmd[1], "-n") != 0)
-	{
-		i = 1;
-		while (lst->cmd[i])
-		{
-			printf("%s", lst->cmd[i]);
-			i++;
-			if (lst->cmd[i])
-				printf(" ");
-		}
-		printf("\n");
-	}
-	else if (ft_strcmp(lst->cmd[1], "-n") == 0)
-	{
-		i = 2;
-		while (lst->cmd[i])
-		{
-			printf("%s", lst->cmd[i]);
-			i++;
-			if (lst->cmd[i])
-				printf(" ");
-		}
-	}
-	return EXIT_SUCCESS;
-}
+// 	i = 0;
+// 	if (lst->cmd[0] && !lst->cmd[1])
+// 	{
+// 		printf("\n");
+// 		return EXIT_SUCCESS;
+// 	}
+// 	if (ft_strcmp(lst->cmd[1], "-n") != 0)
+// 	{
+// 		i = 1;
+// 		while (lst->cmd[i])
+// 		{
+// 			printf("%s", lst->cmd[i]);
+// 			i++;
+// 			if (lst->cmd[i])
+// 				printf(" ");
+// 		}
+// 		printf("\n");
+// 	}
+// 	else if (ft_strcmp(lst->cmd[1], "-n") == 0)
+// 	{
+// 		i = 2;
+// 		while (lst->cmd[i])
+// 		{
+// 			printf("%s", lst->cmd[i]);
+// 			i++;
+// 			if (lst->cmd[i])
+// 				printf(" ");
+// 		}
+// 	}
+// 	return EXIT_SUCCESS;
+// }
 
 // parait bon
 

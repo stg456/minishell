@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
-/*   Updated: 2023/01/30 16:12:36 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:06:18 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_list	*create_list(void)
 	return (ptr);
 }
 
-void	add_tail(t_list *ptr, char **cmd)
+void	add_tail(t_list *ptr, char *cmd)
 {
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		exit(EXIT_FAILURE);
-	new_node->cmd = cmd;
+	new_node->token = ft_strdup(cmd);
 	new_node->prev = ptr->tail;
 	new_node->next = NULL;
 	if (ptr->tail)
@@ -52,7 +52,7 @@ void	delete_all_list(t_list *ptr)
 	while (node)
 	{
 		tmp_node = node;
-		free_tab(tmp_node->cmd);
+		free(tmp_node->token);
 		free(tmp_node->path);
 		node = node->next;
 		free(tmp_node);
