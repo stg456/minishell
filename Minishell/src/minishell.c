@@ -96,13 +96,16 @@ void	ft_prompt(void)
 	char			*buf;
 	t_minishell		*shell;
 
-	// signal(SIGQUIT, sigint_handler);
-	// signal(SIGINT, sigint_handler);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
+	signal(SIGTERM, sigint_handler);
+	// sigint_handler(1);
 
 	buf = NULL;
 	shell = ft_init();
 	while (1)
 	{
+		// sigint_handler(2);
 		if (buf)
 			free(buf);
 		buf = readline("Minishell$> ");

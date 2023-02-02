@@ -12,10 +12,22 @@
 
 #include "../include/minishell.h"
 
-// void	ft_exit(t_minishell *shell)
-// {
+void	ft_exit(t_node *lst)
+{
+	int		i;
 
-// }
+	i = 0;
+	if (lst->cmd[0] && !lst->cmd[1])
+	{
+		// free quelque chose
+		// free le export ou le env et les variables
+		exit (0);
+	}
+	else
+		printf("exit: too many arguments\n");
+}
+
+// parait bon, mais y'a clairement des trucs à revoir !!
 
 int	ft_env(t_minishell *shell)
 {
@@ -59,80 +71,128 @@ int	ft_env(t_minishell *shell)
 
 // parait bon
 
-// int		ft_echo(t_node *lst)
-// {
-// 	int		i;
+int		ft_echo(t_node *lst)
+{
+	int		i;
 
-// 	i = 0;
-// 	if (lst->cmd[0] && !lst->cmd[1])
-// 	{
-// 		printf("\n");
-// 		return EXIT_SUCCESS;
-// 	}
-// 	if (ft_strcmp(lst->cmd[1], "-n") != 0)
-// 	{
-// 		i = 1;
-// 		while (lst->cmd[i])
-// 		{
-// 			printf("%s", lst->cmd[i]);
-// 			i++;
-// 			if (lst->cmd[i])
-// 				printf(" ");
-// 		}
-// 		printf("\n");
-// 	}
-// 	else if (ft_strcmp(lst->cmd[1], "-n") == 0)
-// 	{
-// 		i = 2;
-// 		while (lst->cmd[i])
-// 		{
-// 			printf("%s", lst->cmd[i]);
-// 			i++;
-// 			if (lst->cmd[i])
-// 				printf(" ");
-// 		}
-// 	}
-// 	return EXIT_SUCCESS;
-// }
+	i = 0;
+	if (lst->cmd[0] && !lst->cmd[1])
+	{
+		printf("\n");
+		return EXIT_SUCCESS;
+	}
+	if (ft_strcmp(lst->cmd[1], "-n") != 0)
+	{
+		i = 1;
+		while (lst->cmd[i])
+		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"");
+			printf("%s", lst->cmd[i]);
+			i++;
+			if (lst->cmd[i])
+				printf(" ");
+		}
+		printf("\n");
+	}
+	else if (ft_strcmp(lst->cmd[1], "-n") == 0)
+	{
+		i = 2;
+		while (lst->cmd[i])
+		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"");
+			printf("%s", lst->cmd[i]);
+			i++;
+			if (lst->cmd[i])
+				printf(" ");
+		}
+	}
+	return EXIT_SUCCESS;
+}
 
 // parait bon
 
-int	ft_export(char *buf)
+int	ft_export(t_node *lst)
 {
-	char	*str;
-	t_minishell	*shell; // mettre dedans
 	char	*var;
 	char	*value;
 	int		i;
 	int		j;
+	int		k;
 
-	(void)shell;
 	value = NULL;
 	var = NULL;
-	if (!buf)
-		return (EXIT_FAILURE);
-	str = trimer("export", buf);
-	if (!str)
-		return (EXIT_FAILURE);
 	i = 0;
-	while (str[i] != '=')
-	{
-		var[i] = str[i];
-	}
-	i++;
 	j = 0;
-	while (str[i] != ' ')
+	k = 0;
+	if (lst->cmd[0] && !lst->cmd[1])
 	{
-		value[j] = str[i];
+		printf("\n"); // pas ca, doit afficher tout
+		return EXIT_SUCCESS;
 	}
-	// protections !!
+	// printf("a");
+	if (lst->cmd[0] && lst->cmd[1])
+	{
+		printf("%s\n", lst->cmd[1]);
+		while (lst->cmd[1])
+		{
+			while (lst->cmd[1][i] != '=')
+			{
+				printf("b");
+				var[j] = lst->cmd[1][i];
+				printf("%s\n", var);
+				i++;
+				j++;
+			}
+		}
+		i += 2;
+		while (lst->cmd[1][i])
+		{
+			printf("c");
+			value[k] = lst->cmd[1][i];
+			i++;
+			k++;
+		}
+		printf("d");
+	}
 	printf("var:%s value:%s\n", var, value);
 	return 1;
 }
 
- // pas encore bon mais logique
+ // export a=1 : seg fault !!!
+
 
 // int	ft_unset(char *buf)
 //  {
 	
 //  }
+
+// que dalle
+
+int	ft_cd(t_minishell *shell, t_node *lst)
+{
+	int		i;
+
+	shell->dir = getenv("PWD=");
+	// printf("%s\n", shell->dir);
+	if ((lst->cmd[0] && !lst->cmd[1]))
+	{
+		shell->dir = getenv("HOME=");
+		chdir(shell->dir);
+		// printf("%s\n", shell->dir);
+	}
+	else if (lst->cmd[0] && lst->cmd[1])
+	{
+		i = chdir(lst->cmd[1]);
+		// printf("arg de cd: %s\n", lst->cmd[1]);
+		if (i == 0)
+		{
+			shell->dir = ft_strjoin(lst->cmd[0], " ");
+			shell->dir = ft_strjoin(shell->dir, lst->cmd[1]);
+		}
+		chdir(shell->dir);
+		// printf("%s\n", shell->dir);
+	}
+	return 0;
+}
+
+// parait bon !!!

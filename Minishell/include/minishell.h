@@ -46,6 +46,7 @@ typedef struct s_minishell
 	t_list	*cmd;
 	char	**env;
 	char	**path;
+	char	*dir;
 	int		fd_in;
 	int		fd_out;
 }				t_minishell;
@@ -60,20 +61,23 @@ void		ft_free_shell(t_minishell *shell);
 // parse.c
 
 char		*ft_strtok(char *str, char *delimiter, char replace);
+char		*cmd_path(t_minishell *shell);
 void		cmd_parsing(char *buf, t_minishell *shell);
 
-// builtins.c
+// linked_list.c
 
-//linked_list.c
 t_list		*create_list(void);
 void		delete_all_list(t_list *ptr);
 void		add_tail(t_list *ptr, char *cmd);
 
-// void		ft_exit(t_minishell *shell);
+// builtins.c
+
+void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);
-int			ft_export(char *buf);
+int			ft_export(t_node *lst);
+int			ft_cd(t_minishell *shell, t_node *lst);
 
 // quote.c
 
@@ -81,11 +85,10 @@ int			ft_in_quote(char *c, int i);
 
 // signal.c
 
-// void			(int sig_num);
+void		sigint_handler(int sig_num);
 
 // utils
 
-// char		*trimecho(char *s1);
 char		*trimer(char *s1, char *buf);
 
 #endif
