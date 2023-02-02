@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/01 16:10:32 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:37:49 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,22 @@ int	ft_export(t_node *lst)
 	
 //  }
 
-// int		ft_cd(t_node *lst)
-// {
+int	ft_cd(t_minishell *shell)
+{
+	t_node *lst;
 
-// }
+	shell->dir = getenv("PWD=");
+	printf("%s\n", shell->dir);
+	if (lst->cmd[0] && !lst->cmd[1])
+	{
+		shell->dir = getenv("HOME=");
+		chdir(shell->dir);
+	}
+	else if (lst->cmd[0] && !lst->cmd[1])
+	{
+
+	}
+	return 0;
+}
+
+// un petit debut

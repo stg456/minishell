@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/01 13:34:07 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:17:53 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_minishell
 	t_list	*cmd;
 	char	**env;
 	char	**path;
+	char	*dir;
 	int		fd_in;
 	int		fd_out;
 }				t_minishell;
@@ -81,6 +82,7 @@ int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);
 int			ft_export(t_node *lst);
+int			ft_cd(t_minishell *shell);
 
 // quote.c
 

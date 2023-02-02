@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/01 16:44:18 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:19:56 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	do_cmd(t_minishell *shell, char *buf)
 			ft_export(actual_cmd);
 		else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
 			ft_exit(actual_cmd);
+		else if (ft_strcmp(actual_cmd->cmd[0], "cd") == 0)
+			ft_cd(shell);
 		else
 			printf("stop\n");
 		actual_cmd = actual_cmd->next;
@@ -98,15 +100,16 @@ void	ft_prompt(void)
 	char			*buf;
 	t_minishell		*shell;
 
-	// signal(SIGINT, sigint_handler);
-	// signal(SIGQUIT, sigint_handler);
-	// signal(SIGTERM, sigint_handler);
-	sigint_handler(1);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
+	signal(SIGTERM, sigint_handler);
+	// sigint_handler(1);
 
 	buf = NULL;
 	shell = ft_init();
 	while (1)
 	{
+		// sigint_handler(2);
 		if (buf)
 			free(buf);
 		buf = readline("Minishell$> ");
