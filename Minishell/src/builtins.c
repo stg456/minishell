@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/02 18:06:11 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:09:27 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,4 +183,5 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	return 0;
 }
 
+// manque le ~ 
 // parait bon !!!
