@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
+#    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/01 16:06:20 by misimon          ###   ########.fr        #
+#    Updated: 2023/02/05 17:31:09 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
 	@echo "\033[1A\033[0J\033[32;1m\rMinishell compilation >>\033[0m\033[30;1m $@\033[0m"
 
 $(NAME) : $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBS) -g3 -lreadline
+	$(CC) -o $(NAME) $(OBJS) $(LIBS) -g3 -lreadline -lreadline -I .brew/opt/readline/include
 clean :
 	@make clean -sC libft
 	$(RM) $(OBJS_DIR)
