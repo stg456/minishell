@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/03 15:09:27 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:14:43 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int			ft_in_quote(char *c, int i);
 
 // signal.c
 
-void		sigint_handler(int sig_num);
-void		cc(int sig_num);
-void		ret_prompt(int sig_num);
+void		sigint_handler(int signum);
+void		cc(int signum);
+void		ret_prompt(int signum);
 
 // utils
 

@@ -6,35 +6,37 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/03 18:17:01 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:14:43 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	sigint_handler(int sig_num)
+void	sigint_handler(int signum)
 {
-	// printf("signal %d\n", sig_num);
-	if (sig_num == SIGINT)
+	// printf("signal %d\n", signum);
+	if (signum == SIGINT)
 	{
-		
+		printf("a");
 		// ft_putendl("");
-		write(1, "\n", 1);
-		rl_on_new_line();
+		// write(1, "\n", 1);
+		// rl_on_new_line();
 		// rl_replace_line("", 0); // pb compil
-		rl_redisplay();
+		// rl_redisplay();
 		// exit (EXIT_SUCCESS);
 	}
-	if (sig_num == SIGQUIT)
+	if (signum == SIGQUIT)
 	{
+		// signal(SIGSEGV, SIG_IGN);
 		// ft_exit;
-		write(1, "\n", 1);
-		rl_on_new_line();
+		printf("b");
+		// write(1, "\n", 1);
+		// rl_on_new_line();
 		// rl_replace_line("", 0); // pb compil
-		rl_redisplay();
+		// rl_redisplay();
 		exit (EXIT_SUCCESS);
 	}
-	// printf("apres %d\n", sig_num);
+	// printf("apres %d\n", signum);
 }
 // ^C fait ^D
 // ^D seg fault ... again !!!
