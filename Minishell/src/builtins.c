@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/03 15:09:27 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:59:34 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 	{
 // 		// free quelque chose
 // 		// free le export ou le env et les variables
-// 		exit (0);
+// 		return EXIT_SUCCESS;
 // 	}
 // 	else
 // 		printf("exit: too many arguments\n");
@@ -32,14 +32,25 @@
 int	ft_env(t_minishell *shell)
 {
 	size_t	i;
+	int		j; // index sur les variables avec valeurs
 
+	j = 0;
 	i = -1;
 	while (shell->env[++i])
 		printf("%s\n", shell->env[i]);
-	return (EXIT_SUCCESS);
+	while (shell->inenv->varvalue)
+	{
+		printf("%s\n", shell->inenv->varvalue[j++]);
+	}
+	while (shell->inenv->varvalue)
+	{
+		printf("%s\n", shell->inenv->varvalue[j]);
+		j++;
+	}
+	return (EXIT_SUCCESS);	
 }
 
-// parait bon
+// parait bon mais manque variables
 
 int	ft_pwd(t_node *lst)
 {
@@ -103,55 +114,70 @@ int		ft_echo(t_node *lst)
 
 // parait bon
 
-// int	ft_export(t_node *lst)
-// {
-// 	char	*var;
-// 	char	*value;
-// 	int		i;
-// 	int		j;
-// 	int		k;
+int	ft_export(t_node *lst, t_minishell *shell, t_set *inenv)
+{
+	(void)lst;
+	t_node *actual;
+	char	*var;
+	char	*value;
+	char	**varvalue;
+	int		i; // index sur varvalue
+	int		j; // index sur var
+	int		k; // index sur value
 
-// 	value = NULL;
-// 	var = NULL;
-// 	i = 0;
-// 	j = 0;
-// 	k = 0;
-// 	if (lst->cmd[0] && !lst->cmd[1])
-// 	{
-// 		printf("\n"); // pas ca, doit afficher tout
-// 		return EXIT_SUCCESS;
-// 	}
-// 	// printf("a");
-// 	if (lst->cmd[0] && lst->cmd[1])
-// 	{
-// 		printf("%s\n", lst->cmd[1]);
-// 		while (lst->cmd[1])
-// 		{
-// 			while (lst->cmd[1][i] != '=')
-// 			{
-// 				printf("b");
-// 				var[j] = lst->cmd[1][i];
-// 				printf("%s\n", var);
-// 				i++;
-// 				j++;
-// 			}
-// 		}
-// 		i += 2;
-// 		while (lst->cmd[1][i])
-// 		{
-// 			printf("c");
-// 			value[k] = lst->cmd[1][i];
-// 			i++;
-// 			k++;
-// 		}
-// 		printf("d");
-// 	}
+	i = 0;
+	actual = actual->next;
+	if (actual && !actual->next)
+		ft_env(shell);
+	varvalue = actual; // pb
+	// verif  var exist
+	if (actual && actual->is_var == TRUE)
+	{
+		while (*varvalue[i] != '=')
+		{
+			var[j++] = *varvalue[i++];
+		}
+		i++;
+		while (*varvalue[i])
+		{
+			value[k++] = *varvalue[i++];
+		}
+		// stocker dans env !!!
+	}
+	// change var
+	i = 0;
+	if ()
+	{
+		if (ft_strcmp(actual, *var) == 0)
+		{
+			varvalue = actual;
+		}
+		else
+		{
+			break ; // pas qe ce soit autorisé
+		}
+	}
+
+
+	// add new var dans env
+	if (actual && actual->is_var == FALSE)
+	{
+		while (*varvalue[i] != '=')
+		{
+			var[j++] = *varvalue[i++];
+		}
+		i++;
+		while (*varvalue[i])
+		{
+			value[k++] = *varvalue[i++];
+		}
+		// stocker dans env !!
+	}
 // 	printf("var:%s value:%s\n", var, value);
 // 	return 1;
-// }
+}
 
- // export a=1 : seg fault !!!
-
+// pas encore, doit enregistrer une nouvelle var
 
 // int	ft_unset(char *buf)
 //  {

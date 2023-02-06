@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/03 18:16:25 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:34:28 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	check_input(char *str)
 void	do_cmd(t_minishell *shell, char *buf)
 {
 	t_node	*actual_cmd;
+	t_set	*inenv;
 
 	actual_cmd = shell->cmd->head;
 	while (actual_cmd != NULL)
@@ -86,9 +87,11 @@ void	do_cmd(t_minishell *shell, char *buf)
 			else if (ft_strcmp(actual_cmd->token, "echo") == 0)
 				ft_echo(actual_cmd);
 			// else if (ft_strcmp(actual_cmd->token, "export") == 0)
-			// 	ft_export(buf);
+			// 	ft_export(lst, shell, inenv);
 			else if (ft_strcmp(actual_cmd->token, "cd") == 0)
 				ft_cd(shell, actual_cmd);
+			// else if (ft_strcmp(actual_cmd->token, "exit"))
+			// 	exit (0);
 			else
 				printf("stop\n");
 		}

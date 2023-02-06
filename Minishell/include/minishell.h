@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/05 17:26:04 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:34:28 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_node
 	char			*token;
 	char			*path;
 	t_bool			is_cmd;
+	t_bool			is_var;
+	// t_bool			in_env;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -39,7 +41,7 @@ typedef struct s_list
 	size_t	size;
 	t_node	*head;
 	t_node	*tail;
-}	t_list;
+}				t_list;
 
 typedef struct s_minishell
 {
@@ -49,7 +51,17 @@ typedef struct s_minishell
 	char	*dir;
 	int		fd_in;
 	int		fd_out;
+	t_set	*inenv;
 }				t_minishell;
+
+typedef struct	s_set
+{
+	char	*var;
+	char	*value;
+	char	**varvalue; // pas si next
+	// t_set	*next;
+	t_bool	set;
+}				t_set;
 
 // minishell.c
 
@@ -76,7 +88,7 @@ void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);
-int			ft_export(t_node *lst);
+int			ft_export(t_node *lst, t_minishell *shell, t_set *inenv);
 int			ft_cd(t_minishell *shell, t_node *lst);
 
 // quote.c
@@ -86,8 +98,6 @@ int			ft_in_quote(char *c, int i);
 // signal.c
 
 void		sigint_handler(int signum);
-void		cc(int signum);
-void		ret_prompt(int signum);
 
 // utils
 
