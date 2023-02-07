@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/06 16:59:34 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:28:50 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	ft_env(t_minishell *shell)
 	i = -1;
 	while (shell->env[++i])
 		printf("%s\n", shell->env[i]);
-	while (shell->inenv->varvalue)
-	{
-		printf("%s\n", shell->inenv->varvalue[j++]);
-	}
-	while (shell->inenv->varvalue)
-	{
-		printf("%s\n", shell->inenv->varvalue[j]);
-		j++;
-	}
+	// while (shell->inenv->varvalue)
+	// {
+	// 	printf("%s\n", shell->inenv->varvalue[j++]);
+	// }
+	// while (shell->inenv->varvalue)
+	// {
+	// 	printf("%s\n", shell->inenv->varvalue[j]);
+	// 	j++;
+	// }
 	return (EXIT_SUCCESS);	
 }
 
@@ -112,79 +112,87 @@ int		ft_echo(t_node *lst)
 	return EXIT_SUCCESS;
 }
 
-// parait bon
+// parait bon mais manque le $
 
-int	ft_export(t_node *lst, t_minishell *shell, t_set *inenv)
+int	ft_export(t_node *lst, t_minishell *shell)
 {
 	(void)lst;
-	t_node *actual;
-	char	*var;
-	char	*value;
-	char	**varvalue;
-	int		i; // index sur varvalue
-	int		j; // index sur var
-	int		k; // index sur value
+	t_node	*actual;
+	// char	*var;
+	// char	*value;
+	// char	*varvalue;
+	// int		i; // index sur varvalue
+	// int		j; // index sur var
+	// int		k; // index sur value
 
-	i = 0;
-	actual = actual->next;
-	if (actual && !actual->next)
+	actual = NULL;
+	// i = 0;
+	// actual = lst;
+	if (lst->next)
+		actual = lst->next;
+	else
 		ft_env(shell);
-	varvalue = actual; // pb
+
+	actual->varvalue = ft_strtok(actual->var, "=", 7);
+	printf("%s\n", actual->varvalue);
+	printf("%s\n", actual->var);
+
+
 	// verif  var exist
-	if (actual && actual->is_var == TRUE)
-	{
-		while (*varvalue[i] != '=')
-		{
-			var[j++] = *varvalue[i++];
-		}
-		i++;
-		while (*varvalue[i])
-		{
-			value[k++] = *varvalue[i++];
-		}
-		// stocker dans env !!!
-	}
-	// change var
-	i = 0;
-	if ()
-	{
-		if (ft_strcmp(actual, *var) == 0)
-		{
-			varvalue = actual;
-		}
-		else
-		{
-			break ; // pas qe ce soit autorisé
-		}
-	}
+// 	if (actual && actual->is_var == TRUE)
+// 	{
+// 		while (*varvalue[i] != '=')
+// 		{
+// 			var[j++] = *varvalue[i++];
+// 		}
+// 		i++;
+// 		while (*varvalue[i])
+// 		{
+// 			value[k++] = *varvalue[i++];
+// 		}
+// 		// stocker dans env !!!
+// 	}
+// 	// change var
+// 	i = 0;
+// 	if ()
+// 	{
+// 		if (ft_strcmp(actual, *var) == 0)
+// 		{
+// 			varvalue = actual;
+// 		}
+// 		else
+// 		{
+// 			break ; // pas qe ce soit autorisé
+// 		}
+// 	}
 
 
-	// add new var dans env
-	if (actual && actual->is_var == FALSE)
-	{
-		while (*varvalue[i] != '=')
-		{
-			var[j++] = *varvalue[i++];
-		}
-		i++;
-		while (*varvalue[i])
-		{
-			value[k++] = *varvalue[i++];
-		}
-		// stocker dans env !!
-	}
-// 	printf("var:%s value:%s\n", var, value);
-// 	return 1;
+// 	// add new var dans env
+// 	if (actual && actual->is_var == FALSE)
+// 	{
+// 		while (*varvalue[i] != '=')
+// 		{
+// 			var[j++] = *varvalue[i++];
+// 		}
+// 		i++;
+// 		while (*varvalue[i])
+// 		{
+// 			value[k++] = *varvalue[i++];
+// 		}
+// 		// stocker dans env !!
+// 	}
+// // 	printf("var:%s value:%s\n", var, value);
+	return 1;
 }
 
-// pas encore, doit enregistrer une nouvelle var
+// // pas encore, doit enregistrer une nouvelle var
 
-// int	ft_unset(char *buf)
-//  {
+// // int	ft_unset(char *buf)
+// //  {
 	
-//  }
+// //  }
 
-// que dalle
+// // que dalle
 
 int	ft_cd(t_minishell *shell, t_node *lst)
 {

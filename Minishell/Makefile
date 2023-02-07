@@ -6,7 +6,7 @@
 #    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/05 18:11:58 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/07 14:02:15 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	:=	builtins.c				\
 			signal.c				\
 			utils.c					\
 			linked_list.c			\
+			other_cmd.c				\
 
 
 SRCS := 	$(SRCS:%=$(SRC_DIR)/%)

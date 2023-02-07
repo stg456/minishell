@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/06 16:34:28 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:25:27 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ int	check_input(char *str)
 void	do_cmd(t_minishell *shell, char *buf)
 {
 	t_node	*actual_cmd;
-	t_set	*inenv;
+	t_node	*lst;
+	// t_set	*inenv;
 
+	lst = NULL;
 	actual_cmd = shell->cmd->head;
 	while (actual_cmd != NULL)
 	{
@@ -86,8 +88,8 @@ void	do_cmd(t_minishell *shell, char *buf)
 				ft_pwd(actual_cmd);
 			else if (ft_strcmp(actual_cmd->token, "echo") == 0)
 				ft_echo(actual_cmd);
-			// else if (ft_strcmp(actual_cmd->token, "export") == 0)
-			// 	ft_export(lst, shell, inenv);
+			else if (ft_strcmp(actual_cmd->token, "export") == 0)
+				ft_export(lst, shell);
 			else if (ft_strcmp(actual_cmd->token, "cd") == 0)
 				ft_cd(shell, actual_cmd);
 			// else if (ft_strcmp(actual_cmd->token, "exit"))
@@ -111,8 +113,6 @@ void	ft_prompt(void)
 	shell = ft_init();
 	while (1)
 	{
-		// signal(SIGINT, sigint_handler);
-		// signal(SIGQUIT, sigint_handler);
 		if (buf)
 			free(buf);
 		buf = readline("Minishell$> ");
@@ -128,32 +128,11 @@ void	ft_prompt(void)
 
 int	main(int ac, char **av)
 {
-	// int			i;
 	(void)ac;
 	(void)av;
 	// t_minishell		*shell;
 
-	// i = -1;
-	// ft_init(&shell, envp);
-	// shell->path = ft_split(getenv("PATH"), ':');
-	// while (path[++i])
-	// 	path[i] = ft_strjoin(path[i], "/");
 	ft_prompt();
 	
 	// ft_free_shell(shell);
 }
-
-/*
-
-char *getcwd(char *buf, size_t size);  copie le chemin d'accès absolu du répertoire de travail courant dans la chaîne pointée par buf, qui est de longueur size
-int unlink(const char *pathname); unlink() détruit un nom dans le système de fichiers. Si ce nom était le dernier lien sur un fichier, et si aucun processus n'a ouvert ce fichier, ce dernier est effacé
-pid_t fork(void);
-int execve(const char *fichier, char *const argv[],
-int dup(int oldfd);
-int dup2(int oldfd, int newfd)
-
-char * getcwd( char *buffer, size_t size ); // pour le pwd
-
-ft_split(PATH, ':');
-
-*/
