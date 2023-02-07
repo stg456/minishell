@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/07 14:28:50 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:21:11 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,75 +114,32 @@ int		ft_echo(t_node *lst)
 
 // parait bon mais manque le $
 
-int	ft_export(t_node *lst, t_minishell *shell)
+int	ft_export(t_node *actual_cmd, t_minishell *shell)
 {
-	(void)lst;
-	t_node	*actual;
-	// char	*var;
-	// char	*value;
-	// char	*varvalue;
-	// int		i; // index sur varvalue
-	// int		j; // index sur var
-	// int		k; // index sur value
-
-	actual = NULL;
-	// i = 0;
-	// actual = lst;
-	if (lst->next)
-		actual = lst->next;
-	else
+	(void) shell;
+	
+	if (actual_cmd && !actual_cmd->next)
 		ft_env(shell);
+	else (actual_cmd->token && actual_cmd->next)
+		actual_cmd = actual_cmd->next;
 
-	actual->varvalue = ft_strtok(actual->var, "=", 7);
-	printf("%s\n", actual->varvalue);
-	printf("%s\n", actual->var);
+	if (actual_cmd->token)
+	{
+		printf("%s\n", actual_cmd->token);
+		actual_cmd->value = strchr(actual_cmd->token, '=');
 
+		printf("%s\n", actual_cmd->value);
+	// 	if (lst->value == NULL)
+	// 	{
 
-	// verif  var exist
-// 	if (actual && actual->is_var == TRUE)
-// 	{
-// 		while (*varvalue[i] != '=')
-// 		{
-// 			var[j++] = *varvalue[i++];
-// 		}
-// 		i++;
-// 		while (*varvalue[i])
-// 		{
-// 			value[k++] = *varvalue[i++];
-// 		}
-// 		// stocker dans env !!!
-// 	}
-// 	// change var
-// 	i = 0;
-// 	if ()
-// 	{
-// 		if (ft_strcmp(actual, *var) == 0)
-// 		{
-// 			varvalue = actual;
-// 		}
-// 		else
-// 		{
-// 			break ; // pas qe ce soit autorisé
-// 		}
-// 	}
+	// 		printf("%s\n", lst->value);
+	// 		free(lst->value);
+	// 		return 0;
+	// 	}
 
-
-// 	// add new var dans env
-// 	if (actual && actual->is_var == FALSE)
-// 	{
-// 		while (*varvalue[i] != '=')
-// 		{
-// 			var[j++] = *varvalue[i++];
-// 		}
-// 		i++;
-// 		while (*varvalue[i])
-// 		{
-// 			value[k++] = *varvalue[i++];
-// 		}
-// 		// stocker dans env !!
-// 	}
-// // 	printf("var:%s value:%s\n", var, value);
-	return 1;
+		// free(actual_cmd->token);
+	}
+	return 0;
 }
 
 // // pas encore, doit enregistrer une nouvelle var
