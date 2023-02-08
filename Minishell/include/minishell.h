@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 20:12:43 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:50:58 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// typedef struct	s_set
-// {
-// 	char	*var;
-// 	char	*value;
-// 	char	**varvalue;
-// 	t_set	*next;
-// 	t_bool	set;
-// }				t_set;
-
 typedef struct s_node
 {
 	char			*token;
-	char			**varvalue;
-	// char			*var;
-	// char			**value;
+	char			**cmd;
 	char			*path;
 	t_bool			is_cmd;
-	// t_bool			is_var;
-	// t_bool			in_env;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -63,7 +50,6 @@ typedef struct s_minishell
 	char	*dir;
 	int		fd_in;
 	int		fd_out;
-	// t_set	*inenv;
 }				t_minishell;
 
 // minishell.c
@@ -84,6 +70,7 @@ void		cmd_parsing(char *buf, t_minishell *shell);
 t_list		*create_list(void);
 void		delete_all_list(t_list *ptr);
 void		add_tail(t_list *ptr, char *cmd);
+t_list		*delete_position(t_list *ptr, size_t position);
 
 // other_cmd.c
 
