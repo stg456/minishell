@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/07 16:55:27 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:10:08 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@
 typedef struct s_node
 {
 	char			*token;
-	char			*varvalue;
-	char			*var;
-	char			*value;
+	char			**varvalue;
+	// char			*var;
+	// char			**value;
 	char			*path;
 	t_bool			is_cmd;
 	// t_bool			is_var;
@@ -96,8 +96,11 @@ void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);
-int			ft_export(t_node *actual_cmd, t_minishell *shell);
 int			ft_cd(t_minishell *shell, t_node *lst);
+
+// export.c
+
+int			ft_export(t_node *actual_cmd, t_minishell *shell);
 
 // quote.c
 

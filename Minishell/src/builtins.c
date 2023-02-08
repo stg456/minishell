@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/07 18:20:27 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:10:08 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,40 +114,6 @@ int		ft_echo(t_node *lst)
 
 // parait bon mais manque le $
 
-int	ft_export(t_node *actual_cmd, t_minishell *shell)
-{
-	// (void) shell;
-	int		i;
-	
-	i = 0;
-	if (actual_cmd && !actual_cmd->next)
-		ft_env(shell);
-	else if (actual_cmd->token && actual_cmd->next)
-		actual_cmd = actual_cmd->next;
-
-	if (actual_cmd->token)
-	{
-		printf("%s\n", actual_cmd->token);
-
-		actual_cmd->var = ft_split(actual_cmd->token, '=');
-
-		printf("%s\n", actual_cmd->var);
-
-		// printf("%s\n", actual_cmd->value);
-	// 	if (lst->value == NULL)
-	// 	{
-
-	// 		printf("%s\n", lst->value);
-	// 		free(lst->value);
-	// 		return 0;
-	// 	}
-
-		// free(actual_cmd->token);
-	}
-	return 0;
-}
-
-// pas encore, doit enregistrer une nouvelle var
 
 // int	ft_unset(char *buf)
 //  {

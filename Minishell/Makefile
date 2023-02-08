@@ -6,7 +6,7 @@
 #    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/07 14:02:15 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/08 16:11:00 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME	:= 	minishell
 SRC_DIR	:= 	src
 
 SRCS	:=	builtins.c				\
+			export.c				\
 			minishell.c				\
 			parse.c					\
 			quote.c					\
