@@ -16,6 +16,7 @@ NAME	:= 	minishell
 SRC_DIR	:= 	src
 
 SRCS	:=	builtins.c				\
+			export.c				\
 			minishell.c				\
 			parse.c					\
 			quote.c					\

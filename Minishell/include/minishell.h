@@ -25,22 +25,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// typedef struct	s_set
-// {
-// 	char	*var;
-// 	char	*value;
-// 	char	**varvalue;
-// 	t_set	*next;
-// 	t_bool	set;
-// }				t_set;
-
 typedef struct s_node
 {
 	char			*token;
 	char			**cmd;
-	char			*varvalue;
-	char			*var;
-	char			*value;
 	char			*path;
 	t_bool			is_cmd;
 	struct s_node	*next;
@@ -62,7 +50,6 @@ typedef struct s_minishell
 	char	*dir;
 	int		fd_in;
 	int		fd_out;
-	// t_set	*inenv;
 }				t_minishell;
 
 // minishell.c
@@ -96,8 +83,12 @@ void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
 int			ft_echo(t_node *lst);
-int			ft_export(t_node *actual_cmd, t_minishell *shell);
 int			ft_cd(t_minishell *shell, t_node *lst);
+
+// export.c
+
+int			ft_export(t_node *actual_cmd, t_minishell *shell);
+void		addvar(char *actual_cmd, t_minishell *shell);
 
 // quote.c
 
