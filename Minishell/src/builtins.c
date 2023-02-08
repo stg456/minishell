@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 16:10:08 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:45:40 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,42 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 		chdir(shell->dir);
 	}
 	return 0;
+}
+
+
+extern char **environ;
+
+int my_setenv(const char *name, const char *value, int overwrite) {
+    int i, len_name = strlen(name), len_value = strlen(value);
+    char *env_var;
+
+    for (i = 0; environ[i]; i++) {
+        if (strncmp(environ[i], name, len_name) == 0 && environ[i][len_name] == '=') {
+            if (!overwrite) return 0;
+            env_var = (char *) malloc(len_name + len_value + 2);
+            strcpy(env_var, name);
+            strcat(env_var, "=");
+            strcat(env_var, value);
+            environ[i] = env_var;
+            return 0;
+        }
+    }
+
+    env_var = (char *) malloc(len_name + len_value + 2);
+    strcpy(env_var, name);
+    strcat(env_var, "=");
+    strcat(env_var, value);
+
+    int len_environ = i;
+    char **new_environ = (char **) malloc((len_environ + 2) * sizeof(char *));
+    for (i = 0; i < len_environ; i++) {
+        new_environ[i] = environ[i];
+    }
+    new_environ[len_environ] = env_var;
+    new_environ[len_environ + 1] = NULL;
+    environ = new_environ;
+
+    return 0;
 }
 
 // manque le ~ 
