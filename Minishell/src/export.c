@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 17:08:02 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:30:36 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ int	ft_export(t_node *actual_cmd, t_minishell *shell)
 
 		actual_cmd->varvalue = ft_split(actual_cmd->token, '=');
 		i = 0;
-		
-		// while (actual_cmd->value[i++])
-		// 	printf("value: %s\n", actual_cmd->value[i]);
 
-		// actual_cmd->var = actual_cmd->value[0];
 		printf("varvalue[0]: %s\n", actual_cmd->varvalue[0]);
 		printf("varvalue[1]: %s\n", actual_cmd->varvalue[1]);
 
@@ -51,11 +47,19 @@ int	ft_export(t_node *actual_cmd, t_minishell *shell)
 		// if (varvalue[0]) change varvalue[1] ????
 
 		// mettre dams env
-		shell->dir = getenv("TERM=");
-		shell->dir++;
-		printf("%s\n", shell->dir);
-		actual_cmd->next->token = actual_cmd->token;
-		printf("%s\n", actual_cmd->token);
+
+		while (shell->env[i]) // seg fault
+			i++;
+		printf("a");
+		i = 0;
+		while (actual_cmd->varvalue[0])
+		{
+			shell->env[i] = actual_cmd->varvalue[0];
+			i++;
+		}
+		printf("a");
+		// actual_cmd->next->token = actual_cmd->token;
+		// printf("%s\n", actual_cmd->token);
 		// ne marche pas et seg fault !!!
 
 	}
