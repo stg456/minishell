@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 16:12:49 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:26:35 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 void sigint_handler(int signum)
 {
-	if (signum == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		printf("  \b\b");
-	}
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -28,5 +22,4 @@ void sigint_handler(int signum)
 		rl_redisplay();
 	}
 }
-// ^C pas mal !!!
-// ^D ne fait rien !!!
+

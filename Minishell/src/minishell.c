@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 16:13:32 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:27:17 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,18 @@ void	do_cmd(t_minishell *shell, char *buf)
 			add_history(buf);
 		if (!actual_cmd->prev || actual_cmd->prev->is_cmd == FALSE)
 		{
-			if (ft_strcmp(actual_cmd->token, "env") == 0)
+			if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
 				ft_env(shell);
-			else if (ft_strcmp(actual_cmd->token, "pwd") == 0)
+			else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
 				ft_pwd(actual_cmd);
-			else if (ft_strcmp(actual_cmd->token, "echo") == 0)
+			else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
 				ft_echo(actual_cmd);
-			// else if (ft_strcmp(actual_cmd->token, "export") == 0)
-			// 	ft_export(actual_cmd, shell);
-			else if (ft_strcmp(actual_cmd->token, "cd") == 0)
+			else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
+				ft_export(actual_cmd, shell);
+			else if (ft_strcmp(actual_cmd->cmd[0], "cd") == 0)
 				ft_cd(shell, actual_cmd);
-			// else if (ft_strcmp(actual_cmd->token, "exit"))
-			// 	exit (0);
+			else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
+				ft_exit(actual_cmd);
 			else
 				printf("stop\n");
 		}
@@ -105,7 +105,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 	}
 }
 
-void ft_init_sigal(void)
+void ft_init_signal(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigint_handler);
@@ -118,14 +118,14 @@ void	ft_prompt(void)
 
 	buf = NULL;
 	shell = ft_init();
-	ft_init_sigal();
+	ft_init_signal();
 	while (1)
 	{
 		if (buf)
 			free(buf);
 		buf = readline("Minishell$> ");
 		if (!buf)
-			exit(0);
+			exit(EXIT_SUCCESS);
 		cmd_parsing(buf, shell);
 		do_cmd(shell, buf);
 		delete_all_list(shell->cmd);

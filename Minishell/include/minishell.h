@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 16:11:01 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:28:49 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_minishell
 
 // minishell.c
 
-int			main(int ac, char **av);
 void		ft_prompt(void);
 t_minishell	*ft_init(void);
 void		ft_free_shell(t_minishell *shell);
