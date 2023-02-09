@@ -6,7 +6,7 @@
 #    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/09 15:55:45 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/09 16:58:59 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,10 @@ CC := 		@gcc
 CFLAGS := 	-Wall -Werror -Wextra
 LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
-READLINE = -L/goinfre/stgerard/.brew/opt/readline/lib -lreadline
-READLINE2 = -I/goinfre/stgerard/.brew/opt/readline/include
+#READLINE = -L/goinfre/stgerard/.brew/opt/readline/lib -lreadline
+#READLINE2 = -I/goinfre/stgerard/.brew/opt/readline/include
+READLINE = -L./readline/lib -lreadline
+READLINE2 = -I./readline/include
 
 #	STATIC LIB CREATION:
 AR :=		@ar
