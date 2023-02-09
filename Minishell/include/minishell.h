@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 18:28:49 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:37:14 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <sys/stat.h>
 # include <signal.h>
 # include "../libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "readline/history.h"
+# include "readline/readline.h"
 
 typedef struct s_node
 {

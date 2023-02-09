@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
+#    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/09 18:26:35 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/09 18:39:09 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ CC := 		@gcc
 CFLAGS := 	-Wall -Werror -Wextra
 LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
-READLINE = -L./readline/lib -lreadline
-READLINE2 = -I./readline/include
+READLINE = -L./include/readline/lib -lreadline
+READLINE2 = -I./include/readline/include
 
 #	STATIC LIB CREATION:
 AR :=		@ar
@@ -67,7 +67,7 @@ $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
 	@echo "\033[1A\033[0J\033[32;1m\rMinishell compilation >>\033[0m\033[30;1m $@\033[0m"
 
 $(NAME) : $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBS) $(READLINE) -lreadline
+	$(CC) -o $(NAME) $(OBJS) $(LIBS) $(READLINE)
 clean :/
 	@make clean -sC libft
 	$(RM) $(OBJS_DIR)
