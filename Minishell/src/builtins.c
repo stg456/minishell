@@ -6,26 +6,23 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 16:13:33 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/09 18:14:51 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void	ft_exit(t_node *lst)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	if (lst->cmd[0] && !lst->cmd[1])
-// 	{
-// 		// free quelque chose
-// 		// free le export ou le env et les variables
-// 		return EXIT_SUCCESS;
-// 	}
-// 	else
-// 		printf("exit: too many arguments\n");
-// }
+void	ft_exit(t_node *lst)
+{
+	if (lst->cmd[0] && !lst->cmd[1])
+	{
+		// free quelque chose
+		// free le export ou le env et les variables
+		exit(EXIT_SUCCESS);
+	}
+	else
+		printf("exit: too many arguments\n");
+}
 
 // parait bon, mais y'a clairement des trucs à revoir !!
 
@@ -56,7 +53,7 @@ int	ft_pwd(t_node *lst)
 {
 	char	buffer[256];
 
-	if (lst->token && ((lst->next && !lst->next->is_cmd) || !lst->next))
+	if (lst->cmd && lst->cmd[0] && !lst->cmd[1])
 	{
 		if (getcwd(buffer, 256) == NULL)
 		{
@@ -67,7 +64,7 @@ int	ft_pwd(t_node *lst)
     	}
 		printf("%s\n", buffer);
 	}
-	else if (lst->token && lst->next->is_cmd == TRUE)
+	else if (lst->cmd && lst->cmd[1])
 		printf("pwd: too many arguments\n");
 	return EXIT_SUCCESS;
 }
@@ -76,36 +73,30 @@ int	ft_pwd(t_node *lst)
 
 int		ft_echo(t_node *lst)
 {
-	t_node *actual;
+	size_t i;
 
-	if (lst->next)
-		actual = lst->next;
-	if (lst->token && ((lst->next && !lst->next->is_cmd) || !lst->next))
+	i = 0;
+	if (lst->cmd && lst->cmd[i] && !lst->cmd[i + 1])
+		return (write(1, "\n", 1));
+	if (lst->cmd && lst->cmd[++i] && ft_strcmp(lst->cmd[i], "-n") != 0)
 	{
-		printf("\n");
-		return EXIT_SUCCESS;
-	}
-	if (lst->next->token && ft_strcmp(lst->next->token, "-n") != 0)
-	{
-		while (actual && actual->is_cmd)
+		while (lst->cmd[i])
 		{
-			actual->token = ft_strtok(actual->token, "\"", 7);
-			printf("%s", actual->token);
-			actual = actual->next;
-			if (actual && actual->is_cmd)
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
+			printf("%s", lst->cmd[i]);
+			if (lst->cmd[i + 1] && lst->cmd[i])
 				printf(" ");
+			i++;
 		}
 		printf("\n");
 	}
-	else if (lst->next->token && ft_strcmp(lst->next->token, "-n") == 0)
+	else if (lst->cmd && lst->cmd[i] && ft_strcmp(lst->cmd[i], "-n") == 0)
 	{
-		actual = actual->next;
-		while (actual && actual->is_cmd)
+		while (lst->cmd[++i])
 		{
-			actual->token = ft_strtok(actual->token, "\"", 7);
-			printf("%s", actual->token);
-			actual = actual->next;
-			if (actual && actual->is_cmd)
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
+			printf("%s", lst->cmd[i]);
+			if (lst->cmd[i + 1] && lst->cmd[i])
 				printf(" ");
 		}
 	}
@@ -123,23 +114,20 @@ int		ft_echo(t_node *lst)
 
 int	ft_cd(t_minishell *shell, t_node *lst)
 {
-	int		i;
+	size_t		i;
+	size_t		j;
 
+	j = 0;
 	shell->dir = getenv("PWD=");
-	if (lst->token && ((lst->next && !lst->next->is_cmd) || !lst->next))
+	if (lst->cmd && lst->cmd[j] && !lst->cmd[j + 1])
 	{
 		shell->dir = getenv("HOME=");
 		chdir(shell->dir);
 	}
-	else if (lst->token && (lst->next && lst->next->is_cmd))
+	else if (lst->cmd && lst->cmd[j] && lst->cmd[++j] && !lst->cmd[j + 1])
 	{
-		i = chdir(lst->next->token);
-		if (i == 0)
-		{
-			shell->dir = ft_strjoin(lst->token, " ");
-			shell->dir = ft_strjoin(shell->dir, lst->next->token);
-		}
-		chdir(shell->dir);
+		i = chdir(lst->cmd[j]);
+		chdir(lst->token);
 	}
 	return 0;
 }

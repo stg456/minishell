@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 17:50:58 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/09 17:21:27 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_minishell
 
 // minishell.c
 
-int			main(int ac, char **av);
 void		ft_prompt(void);
 t_minishell	*ft_init(void);
 void		ft_free_shell(t_minishell *shell);

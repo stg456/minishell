@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 15:55:45 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:15:03 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ void		addvar(char *actual_cmd, t_minishell *shell)
 
 int	ft_export(t_node *actual_cmd, t_minishell *shell)
 {
-	if (actual_cmd && !actual_cmd->next)
+	if (actual_cmd->cmd && !actual_cmd->cmd[1])
 		ft_env(shell);
-	else if (actual_cmd->token && actual_cmd->next)
-		actual_cmd = actual_cmd->next;
-
-	addvar(actual_cmd->token, shell);
-
+	else
+		addvar(actual_cmd->cmd[1], shell);
 	return 0;
 }
 

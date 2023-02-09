@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 15:55:45 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:53:37 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,9 @@ void	cmd_parsing(char *buf, t_minishell *shell)
 	char	**tab;
 	size_t	i;
 
-	(void)shell;
 	str = ft_strtok(buf, " \t\n\r\v\f", 7);
-	tab = ft_split(str, 7); // si str vide peut etre le seg fault
+	tab = ft_split(str, 7);
 	i = -1;
-	if (!tab)
-		return ;	
 	while (tab[++i])
 	{
 		add_tail(shell->cmd, tab[i]);
