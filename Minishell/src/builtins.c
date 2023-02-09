@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 18:23:01 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/09 20:30:04 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,6 @@ int		ft_echo(t_node *lst)
 }
 
 // parait bon mais manque le $
-
-// int	ft_unset(char *buf)
-//  {
-	
-//  }
-
-// que dalle
 
 int	ft_cd(t_minishell *shell, t_node *lst)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 18:15:03 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/09 20:30:04 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int	ft_export(t_node *actual_cmd, t_minishell *shell)
 	else
 		addvar(actual_cmd->cmd[1], shell);
 	return 0;
-}
+} // pas encore, un tout petit debut de fct
 
-// pas encore, un tout petit debut de fct
+int	ft_unset(char *actual_cmd, t_minishell *shell)
+ {
+	
+ }
