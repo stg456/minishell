@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 20:16:44 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:55:45 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void		addvar(char *actual_cmd, t_minishell *shell)
 	newenv = malloc(sizeof(char *) * i + 2);
 	while (j < i)
 	{
-		newenv[j] = shell->env[j];
+		newenv[j] = ft_strdup(shell->env[j]);
 		j++;
 	}
 	newenv[j] = ft_strdup(actual_cmd);
 	newenv[j + 1] = NULL;
 	shell->env = newenv;
-}
+} // free
 
 int	ft_export(t_node *actual_cmd, t_minishell *shell)
 {

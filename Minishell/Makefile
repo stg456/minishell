@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
+#    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/08 19:29:35 by misimon          ###   ########.fr        #
+#    Updated: 2023/02/09 15:55:45 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ CC := 		@gcc
 CFLAGS := 	-Wall -Werror -Wextra
 LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
+READLINE = -L/goinfre/stgerard/.brew/opt/readline/lib -lreadline
+READLINE2 = -I/goinfre/stgerard/.brew/opt/readline/include
 
 #	STATIC LIB CREATION:
 AR :=		@ar
@@ -61,11 +63,11 @@ all : $(NAME)
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
 	@make -sC libft
 	$(DUP_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $< $(READLINE2)
 	@echo "\033[1A\033[0J\033[32;1m\rMinishell compilation >>\033[0m\033[30;1m $@\033[0m"
 
 $(NAME) : $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBS) -lreadline -L ${HOME}/.brew/opt/readline/lib -I ${HOME}/.brew/opt/readline/include
+	$(CC) -o $(NAME) $(OBJS) $(LIBS) $(READLINE) -lreadline
 clean :/
 	@make clean -sC libft
 	$(RM) $(OBJS_DIR)

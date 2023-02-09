@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 19:58:31 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:46:53 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	ft_free_shell(t_minishell *shell)
 {
 	close(shell->fd_in);
 	close(shell->fd_out);
-	// /!\ free un tableau
+
+	// free les cellules du tableau
+	// /!\ free le tableau
 
 	free(shell->path);
 	free(shell->env);
 	free(shell);
+	// free les cellules des tableaux
+	// /!\ free les doubles tableaux
 }
 
 t_minishell	*ft_init(void)
@@ -101,21 +105,25 @@ void	do_cmd(t_minishell *shell, char *buf)
 	}
 }
 
+void ft_init_sigal(void)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
+}
+
 void	ft_prompt(void)
 {
 	char			*buf;
 	t_minishell		*shell;
 
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigint_handler);
-
 	buf = NULL;
 	shell = ft_init();
+	ft_init_sigal();
 	while (1)
 	{
 		if (buf)
 			free(buf);
-		buf = readline("Minishell$> ");
+		buf = readline("Minishell$> ");	
 		cmd_parsing(buf, shell);
 		do_cmd(shell, buf);
 		delete_all_list(shell->cmd);
@@ -131,7 +139,6 @@ int	main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	// t_minishell		*shell;
-
 	ft_prompt();
 	
 	// ft_free_shell(shell);
