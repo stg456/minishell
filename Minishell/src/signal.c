@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 15:58:09 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:12:49 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ void sigint_handler(int signum)
 		rl_redisplay();
 	}
 }
-// ^C pas mal!!!
-// ^D seg fault ... again !!!
+// ^C pas mal !!!
+// ^D ne fait rien !!!

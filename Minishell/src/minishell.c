@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 15:46:53 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:13:32 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,9 @@ void	ft_prompt(void)
 	{
 		if (buf)
 			free(buf);
-		buf = readline("Minishell$> ");	
+		buf = readline("Minishell$> ");
+		if (!buf)
+			exit(0);
 		cmd_parsing(buf, shell);
 		do_cmd(shell, buf);
 		delete_all_list(shell->cmd);

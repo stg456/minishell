@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/08 17:50:58 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:11:01 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <curses.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 # include <stdint.h>
+# include <sys/types.h>
 # include <sys/stat.h>
 # include <signal.h>
 # include "../libft/libft.h"
