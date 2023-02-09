@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/09 18:44:59 by misimon          ###   ########.fr        #
+#    Updated: 2023/02/09 19:35:39 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ CC := 		@gcc
 CFLAGS := 	-Wall -Werror -Wextra
 LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
-READLINE = -L./include/readline/lib -lreadline
-READLINE2 = -I./include/readline/include
+READLINE = -L/goinfre/$(USER)/.brew/opt/readline/lib -lreadline
+READLINE2 = -I/goinfre/$(USER)/.brew/opt/readline/include
 
 #	STATIC LIB CREATION:
 AR :=		@ar
