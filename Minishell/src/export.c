@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 15:05:12 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:29:22 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void		addvar(char *actual_cmd, t_minishell *shell)
 	j = 0;
 	while (shell->env[i] != NULL)
 			i++;	
-	newenv = malloc(sizeof(char *) * i + 2);
-	while (j < i)
+	newenv = malloc(sizeof(char *) * (i + 2));
+	while (shell->env[j] != NULL)
 	{
 		newenv[j] = ft_strdup(shell->env[j]);
 		j++;
@@ -87,18 +87,43 @@ int	ft_export(t_node *actual_cmd, t_minishell *shell)
 		{
 			if (actual_cmd && detect(actual_cmd->cmd[i], shell) >= 0)
 			{
-				printf("detected !\n");
-				
-				// unset puis addvar
+				ft_export_unset(actual_cmd->cmd[i], shell);
+				addvar(actual_cmd->cmd[i], shell);
 			}
 			else
-				addvar(actual_cmd->cmd[1], shell);
+				addvar(actual_cmd->cmd[i], shell);
 		}
 	}
 	return 0;
-} // pas encore, un tout petit debut de fct
+}
 
-// int	ft_unset(char *actual_cmd, t_minishell *shell)
-//  {
-	
-//  }
+int		ft_export_unset(char *cmd, t_minishell *shell)
+ {
+	int		i;
+	int		j;
+	char	**nextenv;
+	int		ex;
+
+	i = 0;
+	j = 0;
+	while (shell->env[i] != NULL)
+			i++;
+	nextenv = malloc(sizeof(char *) * i);
+	ex = detect(cmd, shell);
+	i = 0;
+	while (shell->env[j] != NULL)
+	{
+		if (j != ex)
+		{
+			nextenv[i] = ft_strdup(shell->env[j]);
+			j++;
+			i++;
+		}
+		else
+			j++;
+	}
+	nextenv[++i] = 0;
+	shell->env = nextenv;
+	return 0;
+ }
+

@@ -6,7 +6,7 @@
 #    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/12 13:54:12 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/12 17:29:22 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS	:=	builtins.c				\
 			utils.c					\
 			linked_list.c			\
 			other_cmd.c				\
+			unset.c					\
 
 
 SRCS := 	$(SRCS:%=$(SRC_DIR)/%)
@@ -33,10 +34,10 @@ CC := 		@gcc
 CFLAGS := 	-Wall -Werror -Wextra
 LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
-#READLINE = -L/goinfre/$(USER)/.brew/opt/readline/lib -lreadline
-#READLINE2 = -I/goinfre/$(USER)/.brew/opt/readline/include
-READLINE = -L readline/lib -lreadline
-READLINE2 = -I readline/include
+READLINE = -L/goinfre/$(USER)/.brew/opt/readline/lib -lreadline
+READLINE2 = -I/goinfre/$(USER)/.brew/opt/readline/include
+# READLINE = -L readline/lib -lreadline
+# READLINE2 = -I readline/include
 #	STATIC LIB CREATION:
 AR :=		@ar
 ARFLAG :=	-rcs

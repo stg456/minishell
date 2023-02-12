@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 13:48:58 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:45:41 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,23 @@ void	ft_exit(t_node *lst)
 {
 	if (lst->cmd[0] && !lst->cmd[1])
 	{
-		// free quelque chose
-		// free le export ou le env et les variables
 		exit(EXIT_SUCCESS);
 	}
 	else
 		printf("exit: too many arguments\n");
 }
 
-// parait bon, mais y'a clairement des trucs à revoir !!
-
 int	ft_env(t_minishell *shell)
 {
 	size_t	i;
-	int		j; // index sur les variables avec valeurs
+	int		j;
 
 	j = 0;
 	i = -1;
 	while (shell->env[++i])
 		printf("%s\n", shell->env[i]);
-	// while (shell->inenv->varvalue)
-	// {
-	// 	printf("%s\n", shell->inenv->varvalue[j++]);
-	// }
-	// while (shell->inenv->varvalue)
-	// {
-	// 	printf("%s\n", shell->inenv->varvalue[j]);
-	// 	j++;
-	// }
 	return (EXIT_SUCCESS);	
 }
-
-// parait bon mais manque variables
 
 int	ft_pwd(t_node *lst)
 {
@@ -68,8 +53,6 @@ int	ft_pwd(t_node *lst)
 		printf("pwd: too many arguments\n");
 	return EXIT_SUCCESS;
 }
-
-// parait bon
 
 int		ft_echo(t_node *lst)
 {
@@ -103,8 +86,6 @@ int		ft_echo(t_node *lst)
 	return EXIT_SUCCESS;
 }
 
-// parait bon mais manque le $
-
 int	ft_cd(t_minishell *shell, t_node *lst)
 {
 	size_t		i;
@@ -125,5 +106,8 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	return 0;
 }
 
-// manque le ~ 
-// parait bon !!!
+// manque le ~ pour cd
+// manque le $ pour echo
+// manque le ='' pour export
+// manque le heredoc
+// manque le cas des quotes non fermes
