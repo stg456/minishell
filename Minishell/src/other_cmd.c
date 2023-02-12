@@ -6,37 +6,50 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/06 18:04:01 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/12 18:46:40 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-size_t count_pipe(t_list *list)
+void count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
 {
-	size_t 	nbr_pipe;
 	t_node	*actual;
 
-	nbr_pipe = 0;
 	if (!list || !list->head || !list->tail)
-		return (0);
+		return ;
 	actual = list->head;
 	while (actual)
 	{
 		if (ft_strcmp(actual->token, "|") == 0)
-			nbr_pipe++;
+			*nbr_pipe += 1;
+		if (actual->is_cmd == TRUE)
+			*nbr_cmd += 1;
 		actual = actual->next;
 	}
-	return (nbr_pipe);
 }
 
 void other_cmd(t_minishell *shell)
 {
 	size_t nbr_pipe;
-	size_t i;
+	size_t nbr_cmd;
+	pid_t	id;
+	char **all_path;
+	char *path;
+	// int fd[2];
 
-	nbr_pipe = count_pipe(shell->cmd);
-	i = -1;
-	while (++i < nbr_pipe)
-		printf("create pipe %zu\n", i);
+	nbr_pipe = 0;
+	nbr_cmd = 0;
+	count_all(shell->cmd, &nbr_pipe, &nbr_cmd);
+	path = getenv("PATH");
+	all_path = ft_split(path, ':');
+	id = fork();
+	if (nbr_cmd == 1 && id == 0)
+	{
+		execve(shell->cmd->head->path ,shell->cmd->head->cmd, all_path);
+	}
+	wait(NULL);
+	// free(path);
+	// free_tab(all_path);
+	return ;
 }

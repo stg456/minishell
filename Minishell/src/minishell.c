@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 20:30:04 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:33:54 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 	{
 		if (check_input(buf) == 1)
 			add_history(buf);
-		if (!actual_cmd->prev || actual_cmd->prev->is_cmd == FALSE)
+		if (actual_cmd && actual_cmd->is_cmd == TRUE)
 		{
 			if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
 				ft_env(shell);
@@ -101,7 +101,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 			else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
 				ft_exit(actual_cmd);
 			else
-				printf("stop\n");
+				other_cmd(shell);
 		}
 		actual_cmd = actual_cmd->next;
 	}
