@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 20:30:04 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:48:25 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			ft_cd(t_minishell *shell, t_node *lst);
 int			ft_export(t_node *actual_cmd, t_minishell *shell);
 void		addvar(char *actual_cmd, t_minishell *shell);
 int			ft_unset(char *actual_cmd, t_minishell *shell);
+int			detect(char *actual_cmd, t_minishell *shell);
 
 // quote.c
 
