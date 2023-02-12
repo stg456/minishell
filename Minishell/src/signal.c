@@ -6,13 +6,13 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/09 18:26:35 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:56:54 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void sigint_handler(int signum)
+void	sigint_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -22,4 +22,3 @@ void sigint_handler(int signum)
 		rl_redisplay();
 	}
 }
-
