@@ -6,17 +6,17 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 17:25:37 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 17:29:22 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:56:09 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void		del(int j, t_minishell *shell)
+void	del(int j, t_minishell *shell)
 {
-	char **newenv;
-	int i;
-	int h;
+	char	**newenv;
+	int		i;
+	int		h;
 
 	h = 0;
 	i = 0;
@@ -39,8 +39,8 @@ void		del(int j, t_minishell *shell)
 	shell->env = newenv;
 }
 
- void		ft_unset(t_node *actual_cmd, t_minishell *shell)
- {
+void	ft_unset(t_node *actual_cmd, t_minishell *shell)
+{
 	int	i;
 	int	j;
 
@@ -55,12 +55,11 @@ void		del(int j, t_minishell *shell)
 			if (strcmp(actual_cmd->cmd[j], recupvar(shell->env[i])) == 0)
 			{
 				del(i, shell);
-				break;
+				break ;
 			}
 			else
 				i++;
 		}
 		j++;
 	}
-	return ;
- }
+}

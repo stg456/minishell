@@ -6,13 +6,13 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 17:29:22 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:05:26 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char			*recupvar(char *actual_cmd)
+char	*recupvar(char *actual_cmd)
 {
 	size_t	i;
 	size_t	j;
@@ -32,7 +32,7 @@ char			*recupvar(char *actual_cmd)
 	return (newvar);
 }
 
-int			detect(char *actual_cmd, t_minishell *shell)
+int	detect(char *actual_cmd, t_minishell *shell)
 {
 	int		i;
 	int		j;
@@ -53,7 +53,7 @@ int			detect(char *actual_cmd, t_minishell *shell)
 	return (-1);
 }
 
-void		addvar(char *actual_cmd, t_minishell *shell)
+void	addvar(char *actual_cmd, t_minishell *shell)
 {
 	size_t		i;
 	size_t		j;
@@ -62,7 +62,7 @@ void		addvar(char *actual_cmd, t_minishell *shell)
 	i = 0;
 	j = 0;
 	while (shell->env[i] != NULL)
-			i++;	
+		i++;
 	newenv = malloc(sizeof(char *) * (i + 2));
 	while (shell->env[j] != NULL)
 	{
@@ -72,7 +72,7 @@ void		addvar(char *actual_cmd, t_minishell *shell)
 	newenv[j] = ft_strdup(actual_cmd);
 	newenv[j + 1] = NULL;
 	shell->env = newenv;
-} // free
+}
 
 int	ft_export(t_node *actual_cmd, t_minishell *shell)
 {
@@ -94,11 +94,11 @@ int	ft_export(t_node *actual_cmd, t_minishell *shell)
 				addvar(actual_cmd->cmd[i], shell);
 		}
 	}
-	return 0;
+	return (0);
 }
 
-int		ft_export_unset(char *cmd, t_minishell *shell)
- {
+int	ft_export_unset(char *cmd, t_minishell *shell)
+{
 	int		i;
 	int		j;
 	char	**nextenv;
@@ -124,6 +124,5 @@ int		ft_export_unset(char *cmd, t_minishell *shell)
 	}
 	nextenv[++i] = 0;
 	shell->env = nextenv;
-	return 0;
- }
-
+	return (0);
+}

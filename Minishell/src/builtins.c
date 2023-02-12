@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 17:49:50 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:08:48 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_env(t_minishell *shell)
 	i = -1;
 	while (shell->env[++i])
 		printf("%s\n", shell->env[i]);
-	return (EXIT_SUCCESS);	
+	return (EXIT_SUCCESS);
 }
 
 int	ft_pwd(t_node *lst)
@@ -46,17 +46,17 @@ int	ft_pwd(t_node *lst)
 			if (errno == ERANGE)
 				perror("Buffer size is too small.\n");
 			exit(EXIT_FAILURE);
-    	}
+		}
 		printf("%s\n", buffer);
 	}
 	else if (lst->cmd && lst->cmd[1])
 		printf("pwd: too many arguments\n");
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
 
-int		ft_echo(t_node *lst)
+int	ft_echo(t_node *lst)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (lst->cmd && lst->cmd[i] && !lst->cmd[i + 1])
@@ -83,7 +83,7 @@ int		ft_echo(t_node *lst)
 				printf(" ");
 		}
 	}
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
 
 int	ft_cd(t_minishell *shell, t_node *lst)
@@ -103,7 +103,7 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 		i = chdir(lst->cmd[j]);
 		chdir(lst->token);
 	}
-	return 0;
+	return (0);
 }
 
 // manque le ~ pour cd
