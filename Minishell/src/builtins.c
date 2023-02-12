@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 18:08:48 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/12 19:30:29 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	size_t		i;
 	size_t		j;
 
+	i = 0;
 	j = 0;
-	shell->dir = getenv("PWD=");
 	if (lst->cmd && lst->cmd[j] && !lst->cmd[j + 1])
 	{
 		shell->dir = getenv("HOME=");
