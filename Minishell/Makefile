@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
+#    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/13 13:15:23 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/13 21:02:19 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ all : $(NAME)
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
 	@make -sC libft
 	$(DUP_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $< $(READLINE2)
+	$(CC) $(CFLAGS) -c -o $@ $< $(READLINE2) -g
 	@echo "\033[1A\033[0J\033[32;1m\rMinishell compilation >>\033[0m\033[30;1m $@\033[0m"
 
 $(NAME) : $(OBJS)

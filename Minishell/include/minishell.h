@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 16:30:02 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:46:39 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@
 # include "readline/history.h"
 # include "readline/readline.h"
 
+enum node_type
+{
+	UNDEFINED = -1,
+	PIPE = 0,
+	CMD,
+	OUTPUT_DIR,
+	INPUT_DIR,
+};
+
 typedef struct s_node
 {
 	char			*token;
 	char			**cmd;
 	char			*path;
-	t_bool			is_cmd;
+	t_bool			type;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;

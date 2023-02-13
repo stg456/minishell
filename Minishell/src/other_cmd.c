@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/12 18:46:40 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/13 20:55:54 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
 	actual = list->head;
 	while (actual)
 	{
-		if (ft_strcmp(actual->token, "|") == 0)
+		if (actual->type == PIPE)
 			*nbr_pipe += 1;
-		if (actual->is_cmd == TRUE)
+		if (actual->type == CMD)
 			*nbr_cmd += 1;
 		actual = actual->next;
 	}
@@ -44,12 +44,11 @@ void other_cmd(t_minishell *shell)
 	path = getenv("PATH");
 	all_path = ft_split(path, ':');
 	id = fork();
-	if (nbr_cmd == 1 && id == 0)
+	if (nbr_cmd == 1 && id == 0 && shell->cmd->head->type == CMD)
 	{
 		execve(shell->cmd->head->path ,shell->cmd->head->cmd, all_path);
 	}
 	wait(NULL);
-	// free(path);
-	// free_tab(all_path);
+	free_tab(all_path);
 	return ;
 }

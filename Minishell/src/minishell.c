@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 16:44:15 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:09:43 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,9 @@ t_minishell	*ft_init(void)
 	while (environ[i])
 		i++;
 	shell->env = (char **)malloc(sizeof(char *) * i + 1);
-	shell->env[i] = 0;
-	i = 0;
-	while (environ[i])
-	{
+	i = -1;
+	while (environ[++i])
 		shell->env[i] = ft_strdup(environ[i]);
-		i++;
-	}
 	shell->path = ft_split(getenv("PATH"), ':');
 	shell->fd_in = 0;
 	shell->fd_out = 0;
@@ -84,7 +80,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 	{
 		if (check_input(buf) == 1)
 			add_history(buf);
-		if (actual_cmd && actual_cmd->is_cmd == TRUE)
+		if (actual_cmd && actual_cmd->type == CMD)
 		{
 			if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
 				ft_env(shell);

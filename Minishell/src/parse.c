@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 18:39:53 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/13 21:19:43 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,50 +46,58 @@ char	*cmd_path(t_minishell *shell)
 		if (check == 0)
 			return (str);
 	}
+	free_tab(all_path);
 	return (NULL);
 }
 
-t_bool is_delimitor(char *str)
+t_bool which_type(char *str, t_node *cmd)
 {
-	if (ft_strcmp(str, "|") == 0 || ft_strcmp(str, "<") == 0
-			|| ft_strcmp(str, ">") == 0 || ft_strcmp(str, ">>") == 0
-			|| ft_strcmp(str, "<<") == 0)
-			return (TRUE);
-	return (FALSE);
+	if (!ft_strcmp(str, "|"))
+		return (PIPE);
+	else if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
+		return (OUTPUT_DIR);
+	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
+		return (INPUT_DIR);
+	else if (cmd->path || !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+			|| !ft_strcmp(str, "exit"))
+		return (CMD);
+	return (UNDEFINED);
 }
 
-void next_parsing(t_minishell *shell)
+void next_parsing(t_minishell *ms)
 {
-	t_node	*actual_cmd;
+	t_node	*cmd;
 	size_t	i;
 
 	i = 1;
-	actual_cmd = shell->cmd->head;
-	while (actual_cmd && i < shell->cmd->size)
+	cmd = ms->cmd->head;
+	while (cmd && i < ms->cmd->size)
 	{
-		if(actual_cmd->next && !is_delimitor(actual_cmd->token) && !is_delimitor(actual_cmd->next->token))
+		if(cmd->next && cmd->type == CMD && cmd->next->type == UNDEFINED)
 		{
-			actual_cmd->token = ft_strfjoin(ft_strjoin(actual_cmd->token, " "), actual_cmd->next->token);
-			delete_position(shell->cmd, i + 1);
+			cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
+			delete_position(ms->cmd, i + 1);
 			i = 1;
-			actual_cmd = shell->cmd->head;
+			cmd = ms->cmd->head;
 		}
 		else
 		{
-			actual_cmd = actual_cmd->next;
+			cmd = cmd->next;
 			i++;
 		}
 	}
-	actual_cmd = shell->cmd->head;
-	while (actual_cmd)
+	cmd = ms->cmd->head;
+	while (cmd)
 	{
-		if (actual_cmd->is_cmd == TRUE && actual_cmd->token != NULL)
-			actual_cmd->cmd = ft_split(actual_cmd->token, ' ');
-		actual_cmd = actual_cmd->next;
+		if (cmd->type == CMD && cmd->token)
+			cmd->cmd = ft_split(cmd->token, ' ');
+		else
+			cmd->cmd = NULL;
+		cmd = cmd->next;
 	}
 }
 
-void	cmd_parsing(char *buf, t_minishell *shell)
+void	cmd_parsing(char *buf, t_minishell *ms)
 {
 	char	*str;
 	char	**tab;
@@ -100,14 +108,17 @@ void	cmd_parsing(char *buf, t_minishell *shell)
 	i = -1;
 	while (tab[++i])
 	{
-		add_tail(shell->cmd, tab[i]);
-		if (is_delimitor(tab[i]) == TRUE)
-			shell->cmd->tail->is_cmd = FALSE;
-		else
-			shell->cmd->tail->is_cmd = TRUE;
-		shell->cmd->tail->path = cmd_path(shell);
+		add_tail(ms->cmd, tab[i]);
+		ms->cmd->tail->path = cmd_path(ms);
+		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
 	}
-	next_parsing(shell);
+	t_node *actual = ms->cmd->head;
+	while (actual != NULL)
+	{
+		printf("===============\nCMD=%s\nTYPE=%d\nPATH=%s\n===============\n\n", actual->token, actual->type, actual->path);
+		actual = actual->next;
+	}
+	next_parsing(ms);
 	free_tab(tab);
 }
 
