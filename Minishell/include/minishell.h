@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 11:40:32 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:30:02 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ void		ft_unset(t_node *actual_cmd, t_minishell *shell);
 
 // echo.c
 
-int			ft_echo(t_node *lst, t_node *actual_cmd, t_minishell *shell);
+int			ft_echo(t_node *lst, t_minishell *shell);
 
 // quote.c
 
-int			ft_in_quote(char *c, int i);
+int			ft_in_quote(char *c);
 
 // signal.c
 

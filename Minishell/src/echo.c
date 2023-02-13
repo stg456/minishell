@@ -6,52 +6,99 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 12:12:32 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:05:23 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_echo(t_node *lst, t_node *actual_cmd, t_minishell *shell)
+void	prtval(char	*value)
 {
-	(void) actual_cmd;
-	(void) shell;
-	size_t	i;
-	// char	*var;
-	// char	*val;
+	int	i;
 
 	i = 0;
-	if (lst->cmd && lst->cmd[i] && !lst->cmd[i + 1])
-		return (write(1, "\n", 1));
-	if (lst->cmd && lst->cmd[++i] && ft_strcmp(lst->cmd[i], "-n") != 0)
+	while (value[i] != '=')
+		i++;
+	i++;
+	while (value[i] != '\0')
 	{
-		while (lst->cmd[i])
-		{
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			printf("%s", lst->cmd[i]);
-			if (lst->cmd[i + 1] && lst->cmd[i])
-				printf(" ");
-			i++;
-		}
-		printf("\n");
+		write(1, &value[i], 1);
+		write(1, " ", 1);
+		i++;
 	}
-	else if (lst->cmd && lst->cmd[i] && ft_strcmp(lst->cmd[i], "-n") == 0)
-	{
-		while (lst->cmd[++i])
-		{
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			printf("%s", lst->cmd[i]);
-			if (lst->cmd[i + 1] && lst->cmd[i])
-				printf(" ");
-		}
-	}
-	printf("%s\n", lst->cmd[1]);
-	printf("%c\n", lst->cmd[1][0]);
-	if (lst->cmd[1][0] == '$' && lst->cmd) // seg fault si $
-	{
-		printf("%c\n", lst->cmd[1][0]);
-	}
-	return (EXIT_SUCCESS);
+	return ;
 }
 
-// pas bon , $ et $?
+void	prtvar(char *param, t_minishell *shell)
+{
+	int		i;
+	int		j;
+	char	*nvar;
+
+	i = 0;
+	j = 0;
+	while (shell->env[j])
+	{
+		nvar = recupvar(shell->env[j]);
+		if (strcmp(nvar, param) == 0)
+			prtval(shell->env[j]);
+		j++;
+	}
+}
+
+char	*vardol(char *param)
+{
+	char	*var;
+	size_t	j;
+	size_t	i;
+
+	i = 0;
+	j = 1;
+	var = malloc(sizeof(char *) * ft_strlen(param));
+	while (param[j])
+	{
+		var[i] = param[j];
+		i++;
+		j++;
+	}
+	var[i] = '\0';
+	return (var);
+}
+
+void	affecho(t_node *lst, size_t	i, t_minishell *shell)
+{
+	char	*var;
+
+	while (lst->cmd[++i])
+	{
+		if (lst->cmd[i][0] == '$')
+		{
+			var = vardol(lst->cmd[i]);
+			prtvar(var, shell);
+		}
+		else
+		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
+			printf("%s", lst->cmd[i]);
+			if (lst->cmd[i + 1] && lst->cmd[i])
+				printf(" ");
+		}
+	}
+}
+
+int	ft_echo(t_node *lst, t_minishell *shell)
+{
+	size_t	i;
+
+	i = 0;
+	if (lst->cmd && lst->cmd[0] && !lst->cmd[1])
+		return (write(1, "\n", 1));
+	if (lst->cmd && lst->cmd[1] && ft_strcmp(lst->cmd[1], "-n") != 0)
+	{
+		affecho(lst, i, shell);
+		printf("\n");
+	}
+	else if (lst->cmd && lst->cmd[i] && ft_strcmp(lst->cmd[1], "-n") == 0)
+		affecho(lst, ++i, shell);
+	return (EXIT_SUCCESS);
+}

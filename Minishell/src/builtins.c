@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 10:57:42 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:08:15 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 }
 
 // manque le ~ pour cd
-// manque le $ pour echo
+
 // manque le ='' pour export
 // manque le heredoc
 // manque le cas des quotes non fermes pour echo

@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/08 19:56:58 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/12 17:29:36 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	delete_all_list(t_list *ptr)
 	{
 		tmp_node = node;
 		free(tmp_node->token);
-		free(tmp_node->path);
+		if (tmp_node->path != NULL)
+			free(tmp_node->path);
 		if(tmp_node->cmd)
 			free_tab(tmp_node->cmd);
 		node = node->next;

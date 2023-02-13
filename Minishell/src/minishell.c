@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 11:40:32 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:44:15 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ void	do_cmd(t_minishell *shell, char *buf)
 	{
 		if (check_input(buf) == 1)
 			add_history(buf);
-		if (!actual_cmd->prev || actual_cmd->prev->is_cmd == FALSE)
+		if (actual_cmd && actual_cmd->is_cmd == TRUE)
 		{
 			if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
 				ft_env(shell);
 			else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
 				ft_pwd(actual_cmd);
 			else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
-				ft_echo(lst, actual_cmd, shell);
+				ft_echo(actual_cmd, shell);
 			else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
 				ft_export(actual_cmd, shell);
 			else if (ft_strcmp(actual_cmd->cmd[0], "unset") == 0)
@@ -101,16 +101,10 @@ void	do_cmd(t_minishell *shell, char *buf)
 			else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
 				ft_exit(actual_cmd);
 			else
-				printf("stop\n");
+				other_cmd(shell);
 		}
 		actual_cmd = actual_cmd->next;
 	}
-}
-
-void ft_init_signal(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigint_handler);
 }
 
 void	ft_prompt(void)
@@ -120,7 +114,6 @@ void	ft_prompt(void)
 
 	buf = NULL;
 	shell = ft_init();
-	ft_init_signal();
 	while (1)
 	{
 		if (buf)
@@ -128,9 +121,14 @@ void	ft_prompt(void)
 		buf = readline("Minishell$> ");
 		if (!buf)
 			exit(EXIT_SUCCESS);
-		cmd_parsing(buf, shell);
-		do_cmd(shell, buf);
-		delete_all_list(shell->cmd);
+		if (ft_in_quote(buf) == 1)
+		{
+			cmd_parsing(buf, shell);
+			do_cmd(shell, buf);
+			delete_all_list(shell->cmd);
+		}
+		else
+			printf("Bad number of quote\n");
 		// free(buf);
 		// builtins(buf);
 
@@ -143,6 +141,10 @@ int	main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	// t_minishell		*shell;
+
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
+
 	ft_prompt();
 	
 	// ft_free_shell(shell);
