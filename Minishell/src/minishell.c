@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/12 17:03:10 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:40:32 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 			else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
 				ft_pwd(actual_cmd);
 			else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
-				ft_echo(actual_cmd);
+				ft_echo(lst, actual_cmd, shell);
 			else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
 				ft_export(actual_cmd, shell);
 			else if (ft_strcmp(actual_cmd->cmd[0], "unset") == 0)
