@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 21:19:43 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/14 19:20:01 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ t_bool which_type(char *str, t_node *cmd)
 		return (OUTPUT_DIR);
 	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
 		return (INPUT_DIR);
-	else if (cmd->path || !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
-			|| !ft_strcmp(str, "exit"))
+	else if ((cmd->path && ft_strcmp(str, "..") > 0)
+		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+		|| !ft_strcmp(str, "exit"))
 		return (CMD);
 	return (UNDEFINED);
 }
