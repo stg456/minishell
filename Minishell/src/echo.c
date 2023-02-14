@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 17:52:36 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:34:53 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	prtval(char	*value)
 	while (value[i] != '\0')
 	{
 		write(1, &value[i], 1);
-		write(1, " ", 1);
 		i++;
 	}
+	write(1, " ", 1);
 	return ;
 }
 

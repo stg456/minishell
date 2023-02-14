@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 18:06:55 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:36:33 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,6 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 			i = chdir(lst->cmd[j]);
 			chdir(lst->token);
 			printf("new cd: %s\n", lst->cmd[++j]);
-			while (lst->cmd[j] && a != '\0')
-			{
-				lst->cmd[k][a] = lst->cmd[j][a + 2];
-				a++;
-			}
 
 		}
 		else
@@ -107,7 +102,7 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 // le cd .. ne marche plus , il fait 2 fois cd .. !!!
 
 // pour cd me doit pas pouvoir prendre d'argument supplementaire
-// pour echo si a=123 le $a = 1 2 3 !!!
+
 // pour echo manque le $?
 // pour export manque le =''
 // manque le heredoc
