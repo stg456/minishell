@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 20:46:39 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/14 19:29:15 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_node
 typedef struct s_list
 {
 	size_t	size;
+	size_t	nbr_cmd;
+	size_t	nbr_pipe;
+	char	**all_path;
 	t_node	*head;
 	t_node	*tail;
 }				t_list;
