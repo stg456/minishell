@@ -6,7 +6,7 @@
 #    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/14 15:56:24 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/14 17:37:48 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
 # READLINE = -L/Users/${USER}/.brew/opt/readline/lib -lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib -lreadline
 # READLINE2 = -I/${USER}/.brew/opt/readline/include -I/goinfre/$(USER)/.brew/opt/readline/include
-READLINE = -L ./goinfre/$(USER)/.brew/opt/readline/lib -lreadline
-READLINE2 = -I ./goinfre/$(USER)/.brew/opt/readline/include
+READLINE = -lreadline -L ${HOME}/.brew/opt/readline/lib
+READLINE2 = -I ${HOME}/.brew/opt/readline/include
 
 #	STATIC LIB CREATION:
 AR :=		@ar

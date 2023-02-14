@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 15:33:08 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:27:37 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,19 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 		}
 		else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
 		{
-			while (lst->cmd[j])
+			// lst->cmd[j] = lst->cmd[j + 1];
+			chdir(lst->cmd[j]);
+			printf("new cd: %s\n", lst->cmd[j + 1]);
+			while (lst->cmd[j] && a != '\0')
 			{
-				lst->cmd[k][a] = lst->cmd[j][a + 1];
+				lst->cmd[k][a] = lst->cmd[j][a + 2];
+				a++;
 			}
-			lst->cmd[j] = lst->cmd[k];
-			printf("cd: %s\n", lst->cmd[j]);
+			// lst->cmd[k][a] = 0;
+			// lst->cmd[j] = lst->cmd[k];
+			// printf("cd: %s\n", lst->cmd[k]);
+			// chdir(shell->dir);
+			// chdir(lst->cmd[k]);
 		}
 		else
 		{
@@ -99,7 +106,7 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 }
 
 // ^C  ^D  exit ne marche plus sur une ligne non vide !!!
-// cd ~/minishell fait planter !!!
+// cd ~/minishell ne narche pas !!!
 // il faut faire 2 fois exit !!!
 // le cd .. ne marche plus , il fait 2 fois cd .. !!!
 
