@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 18:36:33 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:14:30 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,37 +72,18 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	}
 	else if (lst->cmd && lst->cmd[j] && lst->cmd[++j] && !lst->cmd[j + 1])
 	{
-		printf("cd: %s\n", lst->cmd[j]);
-		if (lst->cmd[j][0] == '~' && !lst->cmd[j][1])
-		{
-			shell->dir = getenv("HOME=");
-			chdir(shell->dir);
-		}
-		else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
-		{
-			i = chdir(lst->cmd[j]);
-			chdir(lst->token);
-			printf("new cd: %s\n", lst->cmd[++j]);
+		i = chdir(lst->cmd[j]);
+		chdir(lst->token);
 
-		}
-		else
-		{
-			i = chdir(lst->cmd[j]);
-			if (i != 0)
-				printf("cd: %s: No such file or directory\n", lst->cmd[j]);
-			chdir(lst->token);
-		}
 	}
 	return (0);
 }
 
-// ^C  ^D  exit ne marche plus sur une ligne non vide !!!
 // cd ~/minishell ne narche pas !!!
-// il faut faire 2 fois exit !!!
+// ^C ou ^D doit parfois etre repeter et fais quitter le terminal !
 // le cd .. ne marche plus , il fait 2 fois cd .. !!!
 
-// pour cd me doit pas pouvoir prendre d'argument supplementaire
-
+// pour cd me doit pas pouvoir prendre d'argument supplementaire !
 // pour echo manque le $?
 // pour export manque le =''
 // manque le heredoc
