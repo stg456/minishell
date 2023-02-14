@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 19:14:30 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:59:46 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,7 @@ int	ft_pwd(t_node *lst)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_cd(t_minishell *shell, t_node *lst)
-{
-	size_t		i;
-	size_t		j;
-	size_t		k;
-	size_t		a;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	a = 0;
-	if (lst->cmd && lst->cmd[j] && !lst->cmd[j + 1])
-	{
-		shell->dir = getenv("HOME=");
-		chdir(shell->dir);
-	}
-	else if (lst->cmd && lst->cmd[j] && lst->cmd[++j] && !lst->cmd[j + 1])
-	{
-		i = chdir(lst->cmd[j]);
-		chdir(lst->token);
-
-	}
-	return (0);
-}
-
 // cd ~/minishell ne narche pas !!!
-// ^C ou ^D doit parfois etre repeter et fais quitter le terminal !
-// le cd .. ne marche plus , il fait 2 fois cd .. !!!
 
 // pour cd me doit pas pouvoir prendre d'argument supplementaire !
 // pour echo manque le $?

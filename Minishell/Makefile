@@ -6,7 +6,7 @@
 #    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/14 17:37:48 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/14 20:59:46 by stgerard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	:=	builtins.c				\
 			other_cmd.c				\
 			unset.c					\
 			echo.c					\
+			cd.c					\
 
 
 SRCS := 	$(SRCS:%=$(SRC_DIR)/%)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 20:46:39 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/14 20:59:46 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void		other_cmd(t_minishell *shell);
 void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst);
-int			ft_cd(t_minishell *shell, t_node *lst);
 
 // export.c
 
@@ -111,7 +110,15 @@ void		ft_unset(t_node *actual_cmd, t_minishell *shell);
 
 // echo.c
 
+void		prtval(char	*value);
+void		prtvar(char *param, t_minishell *shell);
+char		*vardol(char *param);
+void		affecho(t_node *lst, size_t	i, t_minishell *shell);
 int			ft_echo(t_node *lst, t_minishell *shell);
+
+// cd.c
+
+int			ft_cd(t_minishell *shell, t_node *lst);
 
 // quote.c
 
