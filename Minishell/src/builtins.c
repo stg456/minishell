@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 13:35:17 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:33:08 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,13 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 {
 	size_t		i;
 	size_t		j;
+	size_t		k;
+	size_t		a;
 
 	i = 0;
 	j = 0;
+	k = 0;
+	a = 0;
 	if (lst->cmd && lst->cmd[j] && !lst->cmd[j + 1])
 	{
 		shell->dir = getenv("HOME=");
@@ -68,13 +72,37 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	}
 	else if (lst->cmd && lst->cmd[j] && lst->cmd[++j] && !lst->cmd[j + 1])
 	{
-		i = chdir(lst->cmd[j]);
-		chdir(lst->token);
+		printf("cd: %s\n", lst->cmd[j]);
+		if (lst->cmd[j][0] == '~' && !lst->cmd[j][1])
+		{
+			shell->dir = getenv("HOME=");
+			chdir(shell->dir);
+		}
+		else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
+		{
+			while (lst->cmd[j])
+			{
+				lst->cmd[k][a] = lst->cmd[j][a + 1];
+			}
+			lst->cmd[j] = lst->cmd[k];
+			printf("cd: %s\n", lst->cmd[j]);
+		}
+		else
+		{
+			i = chdir(lst->cmd[j]);
+			if (i != 0)
+				printf("cd: %s: No such file or directory\n", lst->cmd[j]);
+			chdir(lst->token);
+		}
 	}
 	return (0);
 }
 
-// pour cd manque le ~ 
+// ^C  ^D  exit ne marche plus sur une ligne non vide !!!
+// cd ~/minishell fait planter !!!
+// il faut faire 2 fois exit !!!
+// le cd .. ne marche plus , il fait 2 fois cd .. !!!
+
 // pour cd me doit pas pouvoir prendre d'argument supplementaire
 // pour echo manque le $?
 // pour export manque le =''
