@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 18:26:27 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:35:17 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,9 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	return (0);
 }
 
-// manque le ~ pour cd
-// manque le $? pour echo
-// manque le ='' pour export
+// pour cd manque le ~ 
+// pour cd me doit pas pouvoir prendre d'argument supplementaire
+// pour echo manque le $?
+// pour export manque le =''
 // manque le heredoc
 // manque le cas des quotes non fermes pour echo
