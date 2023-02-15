@@ -6,13 +6,13 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 15:50:46 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:01:28 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*recupcmd(t_minishell *shell, char *lst)
+char	*recupcmd(t_minishell *shell, t_node *lst)
 {
 	(void) shell;
 	char		*newcmd;
@@ -23,25 +23,24 @@ char	*recupcmd(t_minishell *shell, char *lst)
 	j = 0;
 	newcmd = NULL;
 	printf("lst: %s\n", lst);
-	// while (lst)
-	// 	i++;
-	printf("i: %zu", i);
 
-	// newcmd = malloc(sizeof(char) * i - 1);
+	newcmd = malloc(sizeof(char) * (ft_strlen(lst->cmd)));
 	printf("newcmd: %s\n", newcmd);
 	i = 2;
-	// while (lst)
-	// {
-	// 	newcmd[j] = lst[i];
-	// 	j++;
-	// 	i++;
-	// }
+	while (lst)
+	{
+		newcmd[j] = lst[i];
+		i++;
+		j++;
+	}
+	newcmd[j] = '\0';
+
 	printf("a lst: %s\n", lst);
 	printf("a newcmd: %s\n", newcmd);
 	// chdir(lst);
 
-	return ;
-}
+	return (newcmd);
+} // quel bordel
 
 void	home(t_minishell *shell, t_node *lst)
 {
@@ -49,7 +48,6 @@ void	home(t_minishell *shell, t_node *lst)
 
 	shell->dir = getenv("HOME=");
 	chdir(shell->dir);
-	printf("b\n");
 	return ;
 }
 
@@ -71,19 +69,15 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 			home(shell, lst);
 		else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
 		{
-			printf("a\n");
 			home(shell, lst);
-			printf("c\n");
-			newcmd = recupcmd(shell, lst->cmd[j]); //
 
-			printf("e\n");
+			newcmd = recupcmd(lst->cmd[j]);
+			printf("newcmd: %s\n", newcmd);
+
 		}
-		printf("%s\n", lst->cmd[j]);
 		i = chdir(lst->cmd[j]);
-		printf("e cmd: %s\n", lst->cmd[j]);
 		if (i != 0 && lst->cmd[j][0] != '~')
 			printf("cd: %s: No such file or directory\n", lst->cmd[j]);
-		printf("s cmd: %s\n", lst->token);
 		chdir(lst->token);
 	}
 	printf("%s\n", lst->token);
