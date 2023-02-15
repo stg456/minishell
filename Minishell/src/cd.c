@@ -12,36 +12,36 @@
 
 #include "../include/minishell.h"
 
-char	*recupcmd(t_minishell *shell, char *lst)
-{
-	(void) shell;
-	char		*newcmd;
-	size_t		i;
-	size_t		j;
+// char	*recupcmd(t_minishell *shell, char *lst)
+// {
+// 	(void) shell;
+// 	char		*newcmd;
+// 	size_t		i;
+// 	size_t		j;
 
-	i = 0;
-	j = 0;
-	newcmd = NULL;
-	printf("lst: %s\n", lst);
-	// while (lst)
-	// 	i++;
-	printf("i: %zu", i);
+// 	i = 0;
+// 	j = 0;
+// 	newcmd = NULL;
+// 	printf("lst: %s\n", lst);
+// 	// while (lst)
+// 	// 	i++;
+// 	printf("i: %zu", i);
 
-	// newcmd = malloc(sizeof(char) * i - 1);
-	printf("newcmd: %s\n", newcmd);
-	i = 2;
-	// while (lst)
-	// {
-	// 	newcmd[j] = lst[i];
-	// 	j++;
-	// 	i++;
-	// }
-	printf("a lst: %s\n", lst);
-	printf("a newcmd: %s\n", newcmd);
-	// chdir(lst);
+// 	// newcmd = malloc(sizeof(char) * i - 1);
+// 	printf("newcmd: %s\n", newcmd);
+// 	i = 2;
+// 	// while (lst)
+// 	// {
+// 	// 	newcmd[j] = lst[i];
+// 	// 	j++;
+// 	// 	i++;
+// 	// }
+// 	printf("a lst: %s\n", lst);
+// 	printf("a newcmd: %s\n", newcmd);
+// 	// chdir(lst);
 
-	return (NULL);
-}
+// 	return (NULL);
+// }
 
 void	home(t_minishell *shell, t_node *lst)
 {
@@ -69,15 +69,15 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	{
 		if (lst->cmd[j][0] == '~' && !lst->cmd[j][1])
 			home(shell, lst);
-		else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
-		{
-			printf("a\n");
-			home(shell, lst);
-			printf("c\n");
-			newcmd = recupcmd(shell, lst->cmd[j]); //
+// 		else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
+// 		{
+// 			printf("a\n");
+// 			home(shell, lst);
+// 			printf("c\n");
+// 			newcmd = recupcmd(shell, lst->cmd[j]); //
 
-			printf("e\n");
-		}
+// 			printf("e\n");
+// 		}
 		printf("%s\n", lst->cmd[j]);
 		i = chdir(lst->cmd[j]);
 		printf("e cmd: %s\n", lst->cmd[j]);
