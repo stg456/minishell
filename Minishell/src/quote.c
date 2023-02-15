@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 16:43:03 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:26:30 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	ft_in_quote(char *buf)
 	{
 		return (1);
 	}
+	// heredoc
 	return (0);
 }

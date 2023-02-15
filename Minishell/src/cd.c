@@ -6,13 +6,13 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 15:35:45 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:50:46 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	recupcmd(t_minishell *shell, char *lst)
+char	*recupcmd(t_minishell *shell, char *lst)
 {
 	(void) shell;
 	char		*newcmd;
@@ -58,7 +58,7 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	size_t		i;
 	size_t		j;
 	size_t		k;
-	// char		*newcmd;
+	char		*newcmd;
 
 	i = 0;
 	j = 0;
@@ -74,7 +74,7 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 			printf("a\n");
 			home(shell, lst);
 			printf("c\n");
-			recupcmd(shell, lst->cmd[j]);
+			newcmd = recupcmd(shell, lst->cmd[j]); //
 
 			printf("e\n");
 		}
