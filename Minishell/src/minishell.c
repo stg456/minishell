@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 11:42:08 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:20:21 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,35 +70,9 @@ int	check_input(char *str)
 
 void	do_cmd(t_minishell *shell, char *buf)
 {
-	t_node	*actual_cmd;
-	t_node	*lst;
-	// t_set	*inenv;
-
-	lst = NULL;
-	actual_cmd = shell->cmd->head;
-	while (actual_cmd != NULL)
-	{
-		if (check_input(buf) == 1)
-			add_history(buf);
-		if (actual_cmd && actual_cmd->type == CMD)
-		{
-			if (ft_strcmp(actual_cmd->cmd[0], "env") == 0)
-				ft_env(shell);
-			else if (ft_strcmp(actual_cmd->cmd[0], "pwd") == 0)
-				ft_pwd(actual_cmd);
-			else if (ft_strcmp(actual_cmd->cmd[0], "echo") == 0)
-				ft_echo(actual_cmd, shell);
-			else if (ft_strcmp(actual_cmd->cmd[0], "export") == 0)
-				ft_export(actual_cmd, shell);
-			else if (ft_strcmp(actual_cmd->cmd[0], "unset") == 0)
-				ft_unset(actual_cmd, shell);
-			else if (ft_strcmp(actual_cmd->cmd[0], "cd") == 0)
-				ft_cd(shell, actual_cmd);
-			else if (ft_strcmp(actual_cmd->cmd[0], "exit") == 0)
-				ft_exit(actual_cmd);
-		}
-		actual_cmd = actual_cmd->next;
-	}
+	if (check_input(buf) == 1)
+		add_history(buf);
+	other_cmd(shell);
 }
 
 void	ft_prompt(void)
@@ -119,7 +93,6 @@ void	ft_prompt(void)
 		{
 			cmd_parsing(buf, shell);
 			do_cmd(shell, buf);
-			// other_cmd(shell);
 			delete_all_list(shell->cmd);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 19:20:01 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/15 18:16:22 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*cmd_path(t_minishell *shell)
 
 t_bool which_type(char *str, t_node *cmd)
 {
+	if (cmd->prev && cmd->prev->type == CMD)
+		return (UNDEFINED);
 	if (!ft_strcmp(str, "|"))
 		return (PIPE);
 	else if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
@@ -113,12 +115,6 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 		ms->cmd->tail->path = cmd_path(ms);
 		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
 	}
-	t_node *actual = ms->cmd->head;
-	while (actual != NULL)
-	{
-		printf("===============\nCMD=%s\nTYPE=%d\nPATH=%s\n===============\n\n", actual->token, actual->type, actual->path);
-		actual = actual->next;
-	}
 	next_parsing(ms);
 	free_tab(tab);
 }
@@ -134,5 +130,12 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 	// while (actual != NULL)
 	// {
 	// 	printf("%s | %d >> %s\n", actual->token, actual->is_cmd, actual->path);
+	// 	actual = actual->next;
+	// }
+
+	// 	t_node *actual = ms->cmd->head;
+	// while (actual != NULL)
+	// {
+	// 	printf("===============\nCMD=%s\nTYPE=%d\nPATH=%s\n===============\n\n", actual->token, actual->type, actual->path);
 	// 	actual = actual->next;
 	// }

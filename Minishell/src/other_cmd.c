@@ -6,11 +6,36 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/14 21:50:37 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/15 18:10:08 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	which_cmd(t_node *cmd, t_minishell *ms)
+{
+	close(cmd->fd[0]);
+	if (cmd && cmd->type == CMD)
+	{
+		if (ft_strcmp(cmd->cmd[0], "env") == 0)
+			ft_env(ms);
+		else if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+			ft_pwd(cmd);
+		else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
+			ft_echo(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "export") == 0)
+			ft_export(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+			ft_unset(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+			ft_cd(ms, cmd);
+		else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
+			ft_exit(cmd);
+		else
+			execve(cmd->path, cmd->cmd, ms->cmd->all_path);
+	}
+	exit(1);
+}
 
 void count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
 {
@@ -29,52 +54,43 @@ void count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
 	}
 }
 
-void	other_cmd(t_minishell *ms)
+void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
 {
 	pid_t	id;
+
+	pipe(cmd->fd);
+	id = fork();
+	if (id == 0)
+	{
+		dup2(input, STDIN_FILENO);
+		if (cmd->next)
+			dup2(cmd->fd[1], STDOUT_FILENO);
+		which_cmd(cmd, ms);
+	}
+	else
+	{
+		dup2(cmd->fd[0], input);
+		close(cmd->fd[1]);
+		wait(NULL);
+	}
+}	
+
+void	other_cmd(t_minishell *ms)
+{
 	char	*path;
-	size_t	i;
-	int		*fd;
+	t_node	*cmd;
+	int		tmp_input;
 
 	count_all(ms->cmd, &ms->cmd->nbr_pipe, &ms->cmd->nbr_cmd);
 	path = getenv("PATH");
 	ms->cmd->all_path = ft_split(path, ':');
-	i = -1;
-	fd = malloc(sizeof(int) * (ms->cmd->nbr_pipe * 2));
-	if (!fd)
-		exit(0);
-	while (++i < ms->cmd->nbr_pipe)
-		if (pipe(fd + i * 2) < 0)
-		{
-			perror("can't pipe");
-			exit(0);
-		}
-	t_node *ac = ms->cmd->head;
-	size_t	input = 0;
-	while (ac)
+	tmp_input = dup(STDIN_FILENO);
+	cmd = ms->cmd->head;
+	while (cmd)
 	{
-		if (ac->type == CMD && ac->path)
-		{
-			id = fork();
-			if (id == 0)
-			{
-				if (ac->next)
-					dup2(fd[input + 1], STDOUT_FILENO);
-				if (input != 0)
-					dup2(fd[input - 2], STDIN_FILENO);
-				for(size_t j = 0; j < ms->cmd->nbr_pipe * 2; j++)
-					close(fd[j]);
-				execve(ac->path, ac->cmd, ms->cmd->all_path);
-			}
-			else if (id < 0)
-				exit(0);
-			input++;
-		}
-		ac = ac->next;
+		if (cmd->type == CMD)
+			do_multiple_pipe(ms, cmd, tmp_input);
+		cmd = cmd->next;
 	}
-	for (size_t j = 0; j < ms->cmd->nbr_pipe * 2; j++)
-		close(fd[j]);
-	for (size_t j = 0; j < ms->cmd->nbr_pipe; j++)
-		wait(NULL);
 	return ;
 }

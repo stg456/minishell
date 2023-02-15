@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 15:50:46 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:04:39 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*recupcmd(t_minishell *shell, char *lst)
 	printf("a newcmd: %s\n", newcmd);
 	// chdir(lst);
 
-	return ;
+	return (NULL);
 }
 
 void	home(t_minishell *shell, t_node *lst)
