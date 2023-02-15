@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 20:59:46 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:42:05 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	ft_pwd(t_node *lst)
 
 // cd ~/minishell ne narche pas !!!
 
-// pour cd me doit pas pouvoir prendre d'argument supplementaire !
 // pour echo manque le $?
 // pour export manque le =''
 // manque le heredoc

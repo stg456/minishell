@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 20:59:46 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:42:08 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_node
 typedef struct s_list
 {
 	size_t	size;
+	size_t	nbr_cmd;
+	size_t	nbr_pipe;
+	char	**all_path;
 	t_node	*head;
 	t_node	*tail;
 }				t_list;
