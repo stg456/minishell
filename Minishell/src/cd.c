@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 18:14:38 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:56:46 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 	i = 0;
 	j = 0;
 	k = i + 2;
-	if (lst->cmd && lst->cmd[j] && !lst->cmd[j + 1])
+	if (lst->cmd && lst->cmd[j] && !(lst->cmd[j + 1]))
 		home(shell, lst);
-	else if (lst->cmd && lst->cmd[j] && lst->cmd[++j] && !lst->cmd[j + 1])
+	else if (lst->cmd && lst->cmd[j] && lst->cmd[++j] && !(lst->cmd[j + 1]))
 	{
-		if (lst->cmd[j][0] == '~' && !lst->cmd[j][1])
+		if (lst->cmd[j][0] == '~' && !(lst->cmd[j][1]))
 			home(shell, lst);
 		// else if (lst->cmd[j][0] == '~' && lst->cmd[j][1] == '/')
 		// {
@@ -74,13 +74,12 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 		// 	newcmd = recupcmd(lst->cmd[j]);
 		// 	printf("newcmd: %s\n", newcmd);
 
-		// }
+		
 		i = chdir(lst->cmd[j]);
 		if (i != 0 && lst->cmd[j][0] != '~')
 			printf("cd: %s: No such file or directory\n", lst->cmd[j]);
 		chdir(lst->token);
 	}
-	printf("%s\n", lst->token);
 	return (0);
 }
 
