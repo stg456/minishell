@@ -6,38 +6,48 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/15 18:56:46 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:30:11 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	which_cmd(t_node *cmd, t_minishell *ms)
+void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 {
 	close(cmd->fd[0]);
 	if (cmd && cmd->type == CMD)
 	{
-		if (ft_strcmp(cmd->cmd[0], "env") == 0)
-			ft_env(ms);
-		else if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+		if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
 			ft_pwd(cmd);
 		else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
 			ft_echo(cmd, ms);
-		else if (ft_strcmp(cmd->cmd[0], "export") == 0)
-			ft_export(cmd, ms);
-		else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
-			ft_unset(cmd, ms);
-		else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
-			ft_cd(ms, cmd);
-		else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
-			ft_exit(cmd);
 		else
 			execve(cmd->path, cmd->cmd, ms->cmd->all_path);
 	}
 	exit(1);
 }
 
-void count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
+t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
+{
+	if (cmd && cmd->type == CMD)
+	{
+		if (ft_strcmp(cmd->cmd[0], "env") == 0)
+			ft_env(ms);
+		else if (ft_strcmp(cmd->cmd[0], "export") == 0)
+			ft_export(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+			ft_unset(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
+			ft_exit(cmd);
+		else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+			ft_cd(ms, cmd);
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+void	count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
 {
 	t_node	*actual;
 
@@ -65,7 +75,7 @@ void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
 		dup2(input, STDIN_FILENO);
 		if (cmd->next)
 			dup2(cmd->fd[1], STDOUT_FILENO);
-		which_cmd(cmd, ms);
+		which_cmd_fork(cmd, ms);
 	}
 	else
 	{
@@ -89,7 +99,8 @@ void	other_cmd(t_minishell *ms)
 	while (cmd)
 	{
 		if (cmd->type == CMD)
-			do_multiple_pipe(ms, cmd, tmp_input);
+			if (which_cmd_no_fork(cmd, ms) == FALSE)
+				do_multiple_pipe(ms, cmd, tmp_input);
 		cmd = cmd->next;
 	}
 	return ;
