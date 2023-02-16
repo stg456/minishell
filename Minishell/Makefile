@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+         #
+#    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/14 20:59:46 by stgerard         ###   ########.fr        #
+#    Updated: 2023/02/16 19:05:02 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,3 +82,5 @@ fclean : clean
 	$(RM) $(NAME)
 
 re : fclean all
+
+#https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_07_04

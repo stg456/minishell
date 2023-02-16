@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 18:16:22 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:16:20 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,28 @@ t_bool which_type(char *str, t_node *cmd)
 	return (UNDEFINED);
 }
 
+void debug_parsing(t_minishell *ms)
+{
+	t_node *cmd;
+
+	cmd = ms->cmd->head;
+	while (cmd)
+	{
+		printf("\ndebug of %s\n", cmd->token);
+		if (cmd->cmd && cmd->type == CMD)
+		{
+			for (int i = 0; cmd->cmd[i]; i++)
+				printf("%s\n", cmd->cmd[i]);
+		}
+		else if (cmd->cmd && (cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR))
+			printf("Output or Input\n");
+		else
+			printf("Pipe\n");
+		write(1, "\n", 1);
+		cmd = cmd->next;
+	}	
+}
+
 void next_parsing(t_minishell *ms)
 {
 	t_node	*cmd;
@@ -83,6 +105,13 @@ void next_parsing(t_minishell *ms)
 			i = 1;
 			cmd = ms->cmd->head;
 		}
+		else if (cmd->next && (cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR) && cmd->next->type == UNDEFINED)
+		{
+			cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
+			delete_position(ms->cmd, i + 1);
+			i = 1;
+			cmd = ms->cmd->head;
+		}
 		else
 		{
 			cmd = cmd->next;
@@ -92,12 +121,13 @@ void next_parsing(t_minishell *ms)
 	cmd = ms->cmd->head;
 	while (cmd)
 	{
-		if (cmd->type == CMD && cmd->token)
+		if ((cmd->type == CMD || cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR) && cmd->token)
 			cmd->cmd = ft_split(cmd->token, ' ');
 		else
 			cmd->cmd = NULL;
 		cmd = cmd->next;
 	}
+	debug_parsing(ms);
 }
 
 void	cmd_parsing(char *buf, t_minishell *ms)
