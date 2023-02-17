@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 17:20:21 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/17 19:01:31 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_prompt(void)
 		buf = readline("Minishell$> ");
 		if (!buf)
 			exit(EXIT_SUCCESS);
-		if (ft_in_quote(buf) == 1)
+		if (ft_in_quote(&buf) == TRUE)
 		{
 			cmd_parsing(buf, shell);
 			do_cmd(shell, buf);

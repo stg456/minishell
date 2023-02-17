@@ -3,31 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 16:26:30 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:00:30 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_in_quote(char *buf)
+t_bool	check_quote(char *buf)
 {
-	int	i;
-	int	cpt;
+	size_t	i;
+	size_t	dquote;
+	size_t	quote;
 
-	i = 0;
-	cpt = 0;
-	while (buf[i++])
+	i = -1;
+	dquote = 0;
+	quote = 0;
+	while (buf[++i])
 	{
-		if ((buf[i] == 39) || (buf[i] == 34))
-			cpt += 1;
+		if (buf[i] == '\"')
+			dquote++;
+		else if (buf[i] == '\'')
+			quote++;
 	}
-	if (cpt % 2 == 0)
-	{
-		return (1);
-	}
-	// heredoc
-	return (0);
+	if (dquote % 2 != 0 || quote % 2 != 0)
+		return (TRUE);
+	return (FALSE);
 }
+
+t_bool	ft_in_quote(char **buf)
+{
+	char	*str;
+
+	while (check_quote(*buf))
+	{
+		str = readline("> ");
+		if (str)
+			*buf = ft_strjoin(*buf, str);
+	}
+	return (TRUE);
+}
+
+	// while ((dquote % 2 || !dquote) || (quote % 2 || !quote))
+	// {
+	// 	str = readline("> ");
+	// 	buf = ft_strfjoin(buf, str);
+	// 	i = 0;
+	// 	while (buf[i++])
+	// 	{
+	// 		if (buf[i] == '\"')
+	// 			dquote++;
+	// 		if (buf[i] == '\'')
+	// 			quote++;
+	// 	}
+	// 	if (!dquote % 2 || !quote % 2)
+	// 		return (TRUE);
+	// }
