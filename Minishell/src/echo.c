@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/14 18:34:53 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:23:07 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,3 +102,6 @@ int	ft_echo(t_node *lst, t_minishell *shell)
 		affecho(lst, ++i, shell);
 	return (EXIT_SUCCESS);
 }
+
+// besoin de woit ou wait pid pour recuperer le numero du dernier processus
+// puis de echo $? retourne sa valeur de retour
