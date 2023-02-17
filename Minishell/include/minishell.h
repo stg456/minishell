@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/15 18:53:22 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:52:40 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_minishell
 	char	**env;
 	char	**path;
 	char	*dir;
+	int		status;
 	int		fd_in;
 	int		fd_out;
 }				t_minishell;
@@ -97,7 +98,7 @@ void		other_cmd(t_minishell *shell);
 
 void		ft_exit(t_node *lst);
 int			ft_env(t_minishell *shell);
-int			ft_pwd(t_node *lst);
+int			ft_pwd(t_node *lst, t_minishell *shell);
 
 // export.c
 
@@ -114,9 +115,9 @@ void		ft_unset(t_node *actual_cmd, t_minishell *shell);
 
 // echo.c
 
-void		prtval(char	*value);
+void		prtval(char	*value, t_minishell *shell);
 void		prtvar(char *param, t_minishell *shell);
-char		*vardol(char *param);
+char		*vardol(char *param, t_minishell *shell);
 void		affecho(t_node *lst, size_t	i, t_minishell *shell);
 int			ft_echo(t_node *lst, t_minishell *shell);
 

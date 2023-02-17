@@ -6,13 +6,13 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/16 18:23:07 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:16:24 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	prtval(char	*value)
+void	prtval(char	*value, t_minishell *shell)
 {
 	int	i;
 
@@ -25,6 +25,7 @@ void	prtval(char	*value)
 		write(1, &value[i], 1);
 		i++;
 	}
+	shell->status = 0;
 	write(1, " ", 1);
 	return ;
 }
@@ -41,12 +42,12 @@ void	prtvar(char *param, t_minishell *shell)
 	{
 		nvar = recupvar(shell->env[j]);
 		if (strcmp(nvar, param) == 0)
-			prtval(shell->env[j]);
+			prtval(shell->env[j], shell);
 		j++;
 	}
 }
 
-char	*vardol(char *param)
+char	*vardol(char *param, t_minishell *shell)
 {
 	char	*var;
 	size_t	j;
@@ -62,6 +63,7 @@ char	*vardol(char *param)
 		j++;
 	}
 	var[i] = '\0';
+	shell->status = 0;
 	return (var);
 }
 
@@ -71,15 +73,23 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 
 	while (lst->cmd[++i])
 	{
-		if (lst->cmd[i][0] == '$')
+		if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
 		{
-			var = vardol(lst->cmd[i]);
+			wait(&shell->status);
+			printf("%d\n", shell->status);
+			shell->status = 0;
+		}
+		else if (lst->cmd[i][0] == '$')
+		{
+			var = vardol(lst->cmd[i], shell);
 			prtvar(var, shell);
+			shell->status = 0;
 		}
 		else
 		{
 			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
 			printf("%s", lst->cmd[i]);
+			
 			// if (lst->cmd[i + 1] && lst->cmd[i])
 				// printf(" ");
 		}
@@ -100,8 +110,8 @@ int	ft_echo(t_node *lst, t_minishell *shell)
 	}
 	else if (lst->cmd && lst->cmd[i] && ft_strcmp(lst->cmd[1], "-n") == 0)
 		affecho(lst, ++i, shell);
+	shell->status = 0;
 	return (EXIT_SUCCESS);
 }
 
-// besoin de woit ou wait pid pour recuperer le numero du dernier processus
-// puis de echo $? retourne sa valeur de retour
+// echo $? besoin de remettre status a 0 ?!

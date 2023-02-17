@@ -6,11 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/16 16:30:11 by stgerard         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/16 19:18:26 by misimon          ###   ########.fr       */
->>>>>>> c64214d87832ba11570a73080a4eb53c4c9a5a6e
+/*   Updated: 2023/02/17 15:54:28 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +18,7 @@ void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 	if (cmd && cmd->type == CMD)
 	{
 		if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
-			ft_pwd(cmd);
+			ft_pwd(cmd, ms);
 		else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
 			ft_echo(cmd, ms);
 		else
