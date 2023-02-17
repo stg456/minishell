@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/17 16:16:24 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:41:45 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 		{
 			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
 			printf("%s", lst->cmd[i]);
-			
 			// if (lst->cmd[i + 1] && lst->cmd[i])
 				// printf(" ");
 		}
