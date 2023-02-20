@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/17 18:29:28 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:19:23 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int			ft_cd(t_minishell *shell, t_node *lst);
 // quote.c
 
 t_bool		ft_in_quote(char **buf);
+t_bool		check_quote(char *buf);
 
 // signal.c
 

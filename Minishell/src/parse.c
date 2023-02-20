@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/17 17:24:16 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/20 18:32:20 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,61 @@ void debug_parsing(t_minishell *ms)
 	}	
 }
 
-void next_parsing(t_minishell *ms)
+t_node	*do_quote_parsing(t_node *cmd)
+{
+	size_t	i;
+	size_t	quote;
+
+	i = -1;
+	quote = 0;
+	while (cmd->token[++i])
+	{
+		if (cmd->token[i] == '\"')
+			quote++;
+		else if (ft_strchr(" \t\n\r\v\f", cmd->token[i]) && quote == 1)
+			cmd->token[i] = '\t';
+		if (quote == 2)
+			quote = 0;
+	}
+	i = -1;
+	while (cmd->token[++i])
+	{
+		if (cmd->token[i] == '\"')
+			cmd->token[i] = ' ';
+	}
+	return (cmd);
+}
+
+int	do_parse(t_node *cmd, t_minishell *ms, size_t i)
+{
+	cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
+	delete_position(ms->cmd, i + 1);
+	i = 1;
+	cmd = ms->cmd->head;
+	return (i);
+}
+
+int	which_parse(t_minishell *ms, t_node *c, size_t i)
+{
+	if (check_quote(c->token))
+	{
+		i = do_parse(c, ms, i);
+		// c->token = ft_strtok(c->token, "\"", ' ');
+	}
+	else if (c->next && c->type == CMD && c->next->type == UNDEFINED)
+		i = do_parse(c, ms, i);
+	else if (c->next && (c->type == 3 || c->type == 2) && c->next->type == -1)
+		i = do_parse(c, ms, i);
+	else
+	{
+			c = c->next;
+			i++;
+	}
+	// c = do_quote_parsing(c);
+	return (i);
+}
+
+void	next_parsing(t_minishell *ms)
 {
 	t_node	*cmd;
 	size_t	i;
@@ -97,27 +151,13 @@ void next_parsing(t_minishell *ms)
 	i = 1;
 	cmd = ms->cmd->head;
 	while (cmd && i < ms->cmd->size)
-	{
-		if(cmd->next && cmd->type == CMD && cmd->next->type == UNDEFINED)
-		{
-			cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
-			delete_position(ms->cmd, i + 1);
-			i = 1;
-			cmd = ms->cmd->head;
-		}
-		else if (cmd->next && (cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR) && cmd->next->type == UNDEFINED)
-		{
-			cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
-			delete_position(ms->cmd, i + 1);
-			i = 1;
-			cmd = ms->cmd->head;
-		}
-		else
-		{
-			cmd = cmd->next;
-			i++;
-		}
-	}
+		i = which_parse(ms, cmd, i);
+	// cmd = ms->cmd->head;
+	// while (cmd)
+	// {
+	// 	cmd = do_quote_parsing(cmd);
+	// 	cmd = cmd->next;
+	// }
 	cmd = ms->cmd->head;
 	while (cmd)
 	{
