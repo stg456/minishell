@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/17 18:41:45 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:28:27 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	prtval(char	*value, t_minishell *shell)
 	}
 	shell->status = 0;
 	write(1, " ", 1);
-	return ;
 }
 
 void	prtvar(char *param, t_minishell *shell)
@@ -89,8 +88,6 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 		{
 			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
 			printf("%s", lst->cmd[i]);
-			// if (lst->cmd[i + 1] && lst->cmd[i])
-				// printf(" ");
 		}
 	}
 }
@@ -112,5 +109,3 @@ int	ft_echo(t_node *lst, t_minishell *shell)
 	shell->status = 0;
 	return (EXIT_SUCCESS);
 }
-
-// echo $? besoin de remettre status a 0 ?!

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/17 18:29:28 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/20 18:15:29 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ int			ft_echo(t_node *lst, t_minishell *shell);
 
 // cd.c
 
-// char		*recupcmd(t_minishell *shell, t_node *lst);
+void		abst(t_minishell *shell, t_node *lst);
+void		direct(t_minishell *shell, t_node *lst);
 void		home(t_minishell *shell, t_node *lst);
 int			ft_cd(t_minishell *shell, t_node *lst);
 
