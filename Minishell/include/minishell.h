@@ -6,11 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/20 15:19:23 by misimon          ###   ########.fr       */
-=======
-/*   Updated: 2023/02/20 18:15:29 by stgerard         ###   ########.fr       */
->>>>>>> f16358f7173c8d9cbf9d40d3f0c945fcc61e45ea
+/*   Updated: 2023/02/21 15:34:42 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +29,7 @@
 # include "readline/history.h"
 # include "readline/readline.h"
 
-enum node_type
+enum e_node_type
 {
 	UNDEFINED = -1,
 	PIPE = 0,
@@ -100,7 +96,7 @@ void		other_cmd(t_minishell *shell);
 
 // builtins.c
 
-void		ft_exit(t_node *lst);
+void		ft_exit(t_node *lst, t_minishell *shell);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst, t_minishell *shell);
 
