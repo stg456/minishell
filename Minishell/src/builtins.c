@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/21 17:07:01 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:52:06 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_exit(t_node *lst, t_minishell *shell)
 	{
 		while (lst->cmd[1][i])
 		{
-			if (ft_isalpha(lst->cmd[1][i]) == FALSE)
+			if (ft_isalpha(lst->cmd[1][i]) == TRUE)
 			{
 				printf("exit\nbash: exit: %s: numeric argument required\n", lst->cmd[1]);
 				shell->status = 255;
@@ -35,6 +35,7 @@ void	ft_exit(t_node *lst, t_minishell *shell)
 			else
 			{
 				shell->status = ft_atoi(lst->cmd[1]);
+				printf("%d\n", shell->status);
 			}
 			i++;
 		}
@@ -79,7 +80,7 @@ int	ft_pwd(t_node *lst, t_minishell *shell)
 	return (EXIT_SUCCESS);
 }
 
-// exit toujours pas conforme du tout !!!
+// exit parait bon
 // pour echo le $? pas parfait, ne s'actualise pas !
 // affichage d'une variable dans env ou export pas conforme !!!
 // manque le heredoc
