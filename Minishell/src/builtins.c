@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 15:07:25 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:24:46 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_pwd(t_node *lst, t_minishell *shell)
 // exit parait bon
 // pour echo le $? pas parfait, ne s'actualise pas !
 // affichage d'une variable dans env ou export pas conforme !!!
-// manque le heredoc
+// le heredoc
 // manque le cas des quotes non fermes pour echo
 // odre alpha pour env
+
+// bash: dfijeroigeior: command not found, seg fault

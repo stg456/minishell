@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/16 18:14:37 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:21:30 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,7 @@ int	ft_export_unset(char *cmd, t_minishell *shell)
 	while (shell->env[j] != NULL)
 	{
 		if (j != ex)
-		{
-			nextenv[i] = ft_strdup(shell->env[j]);
-			j++;
-			i++;
-		}
+			nextenv[i++] = ft_strdup(shell->env[j++]);
 		else
 			j++;
 	}

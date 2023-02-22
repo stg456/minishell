@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/21 15:32:35 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:35:02 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	abst(t_minishell *shell, t_node *lst)
 		printf("cd: %s: No such file or directory\n", lst->cmd[1]);
 	}
 	chdir(lst->token);
-	shell->status = 0;
 }
 
 void	direct(t_minishell *shell, t_node *lst)
