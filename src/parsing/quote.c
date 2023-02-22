@@ -6,11 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/21 15:39:33 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:51:28 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_bool	check_quote(char *buf)
 {

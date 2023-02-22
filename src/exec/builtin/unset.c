@@ -6,11 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 17:25:37 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 21:14:00 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:49:48 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	del(int j, t_minishell *shell)
 {

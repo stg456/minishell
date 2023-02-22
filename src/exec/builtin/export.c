@@ -6,11 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/16 18:14:37 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:41:44 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
 char	*recupvar(char *actual_cmd)
 {

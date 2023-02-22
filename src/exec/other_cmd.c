@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   other_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/21 15:54:35 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:50:28 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 {
