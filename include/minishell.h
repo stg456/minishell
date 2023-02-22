@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 16:14:19 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:23:25 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ t_bool		check_quote(char *buf);
 void		sigint_handler(int signum);
 
 // utils
-
+char		*prompt_visual(void);
 char		*trimer(char *s1, char *buf);
 
 #endif

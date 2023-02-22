@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/20 14:46:55 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 19:25:04 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	do_cmd(t_minishell *shell, char *buf)
 void	ft_prompt(void)
 {
 	char			*buf;
+	char			*str;
 	t_minishell		*shell;
 
 	buf = NULL;
@@ -86,7 +87,8 @@ void	ft_prompt(void)
 	{
 		if (buf)
 			free(buf);
-		buf = readline("Minishell$> ");
+		str = prompt_visual();
+		buf = readline(str);
 		if (!buf)
 			exit(EXIT_SUCCESS);
 		if (ft_in_quote(&buf) == TRUE)
@@ -97,7 +99,7 @@ void	ft_prompt(void)
 		}
 		else
 			printf("Bad number of quote\n");
-		// free(buf);
+		free(str);
 		// builtins(buf);
 
 	}
