@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 17:25:37 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/13 21:14:00 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:43:10 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ void	del(int j, t_minishell *shell)
 	while (shell->env[i] != NULL)
 	{
 		if (i != j)
-		{
-			newenv[h] = shell->env[i];
-			h++;
-			i++;
-		}
+			newenv[h++] = shell->env[i++];
 		else
 			i++;
 	}
