@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/16 19:05:02 by misimon          ###   ########.fr        #
+#    Updated: 2023/02/22 17:56:22 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,20 @@ NAME	:= 	minishell
 #	FILE :
 SRC_DIR	:= 	src
 
-SRCS	:=	builtins.c				\
-			export.c				\
-			minishell.c				\
-			parse.c					\
-			quote.c					\
+SRCS	:=	exec/builtin/cd.c		\
+			exec/builtin/export.c	\
+			exec/builtin/env.c		\
+			exec/builtin/echo.c		\
+			exec/builtin/unset.c	\
+			exec/builtin/exit.c		\
+			exec/builtin/pwd.c		\
+			exec/other_cmd.c		\
+			parsing/parse.c			\
+			parsing/quote.c			\
+			main.c					\
 			signal.c				\
 			utils.c					\
 			linked_list.c			\
-			other_cmd.c				\
-			unset.c					\
-			echo.c					\
-			cd.c					\
 
 
 SRCS := 	$(SRCS:%=$(SRC_DIR)/%)

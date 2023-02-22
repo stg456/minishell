@@ -6,11 +6,15 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
+<<<<<<< HEAD:Minishell/src/export.c
 /*   Updated: 2023/02/22 17:21:30 by stgerard         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/22 17:41:44 by misimon          ###   ########.fr       */
+>>>>>>> 51f06c8845968dd80ad1bad82695914c70799f73:src/exec/builtin/export.c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
 char	*recupvar(char *actual_cmd)
 {

@@ -6,11 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/21 15:32:47 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:51:23 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*ft_strtok(char *str, char *delimiter, char replace)
 {
@@ -89,32 +89,23 @@ void debug_parsing(t_minishell *ms)
 	}	
 }
 
-// t_node	*do_quote_parsing(t_node *cmd)
-// {
-// 	size_t	i;
-// 	size_t	quote;
+void	do_quote_parse(t_node *cmd)
+{
+	size_t	i;
+	size_t	quote;
 
-// 	i = -1;
-// 	quote = 0;
-// 	while (cmd->token[++i])
-// 	{
-// 		if (cmd->token[i] == '\"')
-// 			quote++;
-// 		else if (ft_strchr(" \t\n\r\v\f", cmd->token[i]) && quote == 1)
-// 			cmd->token[i] = '\t';
-// 		if (quote == 2)
-// 			quote = 0;
-// 	}
-// 	i = -1;
-// 	while (cmd->token[++i])
-// 	{
-// 		if (cmd->token[i] == '\"' && (cmd->token[i - 1] && cmd->token[i - 1] != '\\'))
-// 			cmd->token[i] = ' ';
-// 		if (cmd->token[i] == '\"' && (cmd->token[i - 1] && cmd->token[i - 1] == '\\'))
-// 			cmd->token[i] = ' ';
-// 	}
-// 	return (cmd);
-// }
+	i = -1;
+	quote = 0;
+	while (cmd->token[++i])
+	{
+		if (cmd->token[i] == '\"' && (cmd->token[i - 1] && cmd->token[i - 1] != '\\'))
+			quote++;
+		if (quote == 1 && ft_isspace(cmd->token[i]) == TRUE)
+			cmd->token[i] = 7;
+		if (cmd->token[i] == '\"' && (cmd->token[i - 1] && cmd->token[i - 1] != '\\'))
+			cmd->token[i] = ' ';
+	}
+}
 
 int	do_parse(t_node *cmd, t_minishell *ms, size_t i)
 {
@@ -145,24 +136,23 @@ void	next_parsing(t_minishell *ms)
 {
 	t_node	*cmd;
 	size_t	i;
+	size_t	j;
 
 	i = 1;
 	cmd = ms->cmd->head;
 	while (cmd && i < ms->cmd->size)
 		i = which_parse(ms, cmd, i);
-	// cmd = ms->cmd->head;
-	// while (cmd)
-	// {
-	// 	cmd = do_quote_parsing(cmd);
-	// 	cmd = cmd->next;
-	// }
 	cmd = ms->cmd->head;
 	while (cmd)
 	{
+		do_quote_parse(cmd);
+		j = -1;
 		if ((cmd->type == CMD || cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR) && cmd->token)
 			cmd->cmd = ft_split(cmd->token, ' ');
 		else
 			cmd->cmd = NULL;
+		while (cmd->cmd[++j])
+			cmd->cmd[j] = ft_strtok(cmd->cmd[j], "\7", ' ');
 		cmd = cmd->next;
 	}
 	debug_parsing(ms);
@@ -207,3 +197,12 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 	// 	printf("===============\nCMD=%s\nTYPE=%d\nPATH=%s\n===============\n\n", actual->token, actual->type, actual->path);
 	// 	actual = actual->next;
 	// }
+
+	/*
+	actuellement le parsing met les dquote et quote dans la même node sauf qu'il ne sont pas sur la même ligne
+	- Trouver un moyens de le mettre sur la même ligne 
+			->	solution 1 : remplacer les espaces à l'intérieur des quotes pour éviter que le parsing ne les sépare
+				puis se baladez dans node->cmd pour remettre les espaces à leur position initiale
+				strtok peut être un solutions pour remédiez a cela.
+			->	solution 2 : Dans la méthode pour split je modifie pour éviter que le txt entre les quotes ne soit séparer.s
+	*/

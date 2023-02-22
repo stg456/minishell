@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD:Minishell/src/builtins.c
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
 /*   Updated: 2023/02/22 17:24:46 by stgerard         ###   ########.fr       */
+=======
+/*   Created: 2023/02/22 17:41:49 by misimon           #+#    #+#             */
+/*   Updated: 2023/02/22 17:44:45 by misimon          ###   ########.fr       */
+>>>>>>> 51f06c8845968dd80ad1bad82695914c70799f73:src/exec/builtin/exit.c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	exitnb(t_node *lst, t_minishell *shell)
 {
@@ -52,6 +57,7 @@ void	ft_exit(t_node *lst, t_minishell *shell)
 	}
 	exit(shell->status);
 }
+<<<<<<< HEAD:Minishell/src/builtins.c
 
 int	ft_env(t_minishell *shell)
 {
@@ -93,3 +99,5 @@ int	ft_pwd(t_node *lst, t_minishell *shell)
 // odre alpha pour env
 
 // bash: dfijeroigeior: command not found, seg fault
+=======
+>>>>>>> 51f06c8845968dd80ad1bad82695914c70799f73:src/exec/builtin/exit.c

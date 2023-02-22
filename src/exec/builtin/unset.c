@@ -6,11 +6,15 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 17:25:37 by stgerard          #+#    #+#             */
+<<<<<<< HEAD:Minishell/src/unset.c
 /*   Updated: 2023/02/22 17:43:10 by stgerard         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/22 17:49:48 by misimon          ###   ########.fr       */
+>>>>>>> 51f06c8845968dd80ad1bad82695914c70799f73:src/exec/builtin/unset.c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	del(int j, t_minishell *shell)
 {

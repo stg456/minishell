@@ -6,11 +6,11 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 15:35:02 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:00:49 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	abst(t_minishell *shell, t_node *lst)
 {
