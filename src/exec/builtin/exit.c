@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:Minishell/src/builtins.c
-/*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 17:24:46 by stgerard         ###   ########.fr       */
-=======
 /*   Created: 2023/02/22 17:41:49 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/22 17:44:45 by misimon          ###   ########.fr       */
->>>>>>> 51f06c8845968dd80ad1bad82695914c70799f73:src/exec/builtin/exit.c
+/*   Updated: 2023/02/22 18:03:51 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,47 +52,3 @@ void	ft_exit(t_node *lst, t_minishell *shell)
 	}
 	exit(shell->status);
 }
-<<<<<<< HEAD:Minishell/src/builtins.c
-
-int	ft_env(t_minishell *shell)
-{
-	size_t	i;
-	int		j;
-
-	j = 0;
-	i = -1;
-	while (shell->env[++i])
-		printf("%s\n", shell->env[i]);
-	shell->status = 0;
-	return (EXIT_SUCCESS);
-}
-
-int	ft_pwd(t_node *lst, t_minishell *shell)
-{
-	char	buffer[256];
-
-	if (lst->cmd && lst->cmd[0])
-	{
-		if (getcwd(buffer, 256) == NULL)
-		{
-			perror("Cannot get current working directory path\n");
-			if (errno == ERANGE)
-				perror("Buffer size is too small.\n");
-			exit(EXIT_FAILURE);
-		}
-		printf("%s\n", buffer);
-	}
-	shell->status = 0;
-	return (EXIT_SUCCESS);
-}
-
-// exit parait bon
-// pour echo le $? pas parfait, ne s'actualise pas !
-// affichage d'une variable dans env ou export pas conforme !!!
-// le heredoc
-// manque le cas des quotes non fermes pour echo
-// odre alpha pour env
-
-// bash: dfijeroigeior: command not found, seg fault
-=======
->>>>>>> 51f06c8845968dd80ad1bad82695914c70799f73:src/exec/builtin/exit.c
