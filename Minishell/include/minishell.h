@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/21 14:52:46 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:40:11 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "readline/history.h"
 # include "readline/readline.h"
 
-enum node_type
+enum e_node_type
 {
 	UNDEFINED = -1,
 	PIPE = 0,
@@ -96,7 +96,7 @@ void		other_cmd(t_minishell *shell);
 
 // builtins.c
 
-void		ft_exit(t_node *lst);
+void		ft_exit(t_node *lst, t_minishell *shell);
 int			ft_env(t_minishell *shell);
 int			ft_pwd(t_node *lst, t_minishell *shell);
 

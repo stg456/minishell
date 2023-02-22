@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/17 15:54:28 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:11:49 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
 		else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
 			ft_unset(cmd, ms);
 		else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
-			ft_exit(cmd);
+			ft_exit(cmd, ms);
 		else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
 			ft_cd(ms, cmd);
 		else
