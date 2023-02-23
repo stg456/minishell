@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 19:23:25 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/23 13:42:05 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		other_cmd(t_minishell *shell);
 // builtins.c
 
 void		ft_exit(t_node *lst, t_minishell *shell);
-int			ft_env(t_minishell *shell);
+int			ft_env(t_node *lst, t_minishell *shell);
 int			ft_pwd(t_node *lst, t_minishell *shell);
 
 // export.c

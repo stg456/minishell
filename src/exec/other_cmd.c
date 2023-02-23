@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/22 17:50:28 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/23 13:42:05 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
 	if (cmd && cmd->type == CMD)
 	{
 		if (ft_strcmp(cmd->cmd[0], "env") == 0)
-			ft_env(ms);
+			ft_env(cmd, ms);
 		else if (ft_strcmp(cmd->cmd[0], "export") == 0)
 			ft_export(cmd, ms);
 		else if (ft_strcmp(cmd->cmd[0], "unset") == 0)

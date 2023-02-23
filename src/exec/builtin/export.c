@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:07:27 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 18:03:51 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:45:19 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	addvar(char *actual_cmd, t_minishell *shell)
 
 int	ft_export(t_node *actual_cmd, t_minishell *shell)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (actual_cmd->cmd && !actual_cmd->cmd[1])
-		ft_env(shell);
+		ft_env(actual_cmd, shell);
 	else
 	{
 		while (actual_cmd->cmd[++i] != NULL)
