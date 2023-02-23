@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_visual.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 18:14:33 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/22 19:22:31 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:10:37 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*prompt_visual(void)
 {
 	char	*user;
-	char	*prompt; 
+	char	*prompt;
 
 	user = getenv("USER");
 	if (user == NULL)
@@ -34,5 +34,4 @@ char	*prompt_visual(void)
 		prompt = ft_strfjoin(prompt, "]$ ");
 		return (prompt);
 	}
-
 }
