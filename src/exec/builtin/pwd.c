@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 17:50:00 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:09:39 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_pwd(t_node *lst, t_minishell *shell)
 		printf("%s\n", buffer);
 	}
 	shell->status = 0;
-	return (EXIT_SUCCESS);
+	return (shell->status);
 }
 
 // exit parait bon

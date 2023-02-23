@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 17:37:52 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:09:39 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	prtval(char	*value, t_minishell *shell)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (value[i] != '=')
@@ -31,8 +31,8 @@ void	prtval(char	*value, t_minishell *shell)
 
 void	prtvar(char *param, t_minishell *shell)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	*nvar;
 
 	i = 0;
@@ -107,5 +107,5 @@ int	ft_echo(t_node *lst, t_minishell *shell)
 	else if (lst->cmd && lst->cmd[i] && ft_strcmp(lst->cmd[1], "-n") == 0)
 		affecho(lst, ++i, shell);
 	shell->status = 0;
-	return (EXIT_SUCCESS);
+	return (shell->status);
 }
