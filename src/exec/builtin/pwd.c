@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/23 15:09:39 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:45:47 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	ft_pwd(t_node *lst, t_minishell *shell)
 			perror("Cannot get current working directory path\n");
 			if (errno == ERANGE)
 				perror("Buffer size is too small.\n");
-			exit(EXIT_FAILURE);
+			shell->status = 0;
+			exit(shell->status);
 		}
 		printf("%s\n", buffer);
 	}
