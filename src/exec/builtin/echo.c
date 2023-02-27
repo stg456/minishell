@@ -6,7 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/27 15:32:51 by misimon          ###   ########.fr       */
+=======
+/*   Updated: 2023/02/27 15:54:16 by stgerard         ###   ########.fr       */
+>>>>>>> ac04a2581d03b8478d1b461fb7ed567c667e7d0f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +90,16 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 		}
 		else
 		{
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			printf("%s", lst->cmd[i]);
+			while (lst->cmd[i++])
+			{
+				lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
+				lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
+				printf("%s", lst->cmd[i]);
+				if (lst->cmd[i++])
+				{
+					printf(" ");
+				}
+			}
 		}
 	}
 }
