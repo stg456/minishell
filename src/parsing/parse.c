@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/27 14:10:44 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:51:40 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,20 @@ void	do_quote_parse(t_node *cmd)
 {
 	size_t	i;
 	size_t	quote;
+	size_t	dquote;
 
 	i = -1;
 	quote = 0;
+	dquote = 0;
 	while (cmd->token[++i])
 	{
-		if (cmd->token[i] == '\"' && (cmd->token[i - 1] && cmd->token[i - 1] != '\\'))
+		if (cmd->token[i] == '\"' && !quote % 2)
+			dquote++;
+		else if (cmd->token[i] == '\'' && !dquote % 2)
 			quote++;
 		if (quote == 1 && ft_isspace(cmd->token[i]) == TRUE)
+			cmd->token[i] = 7;
+		else if (dquote == 1 && ft_isspace(cmd->token[i]) == TRUE)
 			cmd->token[i] = 7;
 	}
 }
