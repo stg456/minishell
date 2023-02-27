@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:46:01 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/24 11:45:47 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:00:29 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,8 @@ int	ft_pwd(t_node *lst, t_minishell *shell)
 // manque le heredoc
 // manque le cas des quotes non fermes pour echo
 // odre alpha pour env
+
+// echo it works donne itworks !
+// echo '$a' devrait afficher $a !!
+// setenv ne marche pas !
+// cat puis ctrl-C donne Minishell> Minishell> !!
