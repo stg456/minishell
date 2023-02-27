@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/27 13:09:32 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:10:44 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void	do_quote_parse(t_node *cmd)
 			quote++;
 		if (quote == 1 && ft_isspace(cmd->token[i]) == TRUE)
 			cmd->token[i] = 7;
-		if (cmd->token[i] == '\"' && (cmd->token[i - 1] && cmd->token[i - 1] != '\\'))
-			cmd->token[i] = ' ';
 	}
 }
 
@@ -116,20 +114,17 @@ int	do_parse(t_node *cmd, t_minishell *ms, size_t i)
 	return (i);
 }
 
-int	which_parse(t_minishell *ms, t_node *c, size_t i)
+t_bool	which_parse(t_minishell *ms, t_node *c, size_t *i)
 {
 	if (check_quote(c->token))
-		i = do_parse(c, ms, i);
+		*i = do_parse(c, ms, *i);
 	else if (c->next && c->type == CMD && c->next->type == UNDEFINED)
-		i = do_parse(c, ms, i);
+		*i = do_parse(c, ms, *i);
 	else if (c->next && (c->type == 3 || c->type == 2) && c->next->type == -1)
-		i = do_parse(c, ms, i);
+		*i = do_parse(c, ms, *i);
 	else
-	{
-			c = c->next;
-			i++;
-	}
-	return (i);
+		return (FALSE);
+	return (TRUE);
 }
 
 void	next_parsing(t_minishell *ms)
@@ -141,7 +136,13 @@ void	next_parsing(t_minishell *ms)
 	i = 1;
 	cmd = ms->cmd->head;
 	while (cmd && i < ms->cmd->size)
-		i = which_parse(ms, cmd, i);
+	{
+		if (which_parse(ms, cmd, &i) == FALSE)
+		{
+			cmd = cmd->next;
+			i++;
+		}
+	}
 	cmd = ms->cmd->head;
 	while (cmd)
 	{

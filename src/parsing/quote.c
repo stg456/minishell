@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 17:51:28 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:39:11 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ t_bool	check_quote(char *buf)
 	quote = 0;
 	while (buf[++i])
 	{
-		if (buf[i] == '\"' && (buf[i - 1] && buf[i - 1] != '\\'))
+		if (buf[i] == '\"' && !quote % 2)
 			dquote++;
-		else if (buf[i] == '\'' && (buf[i - 1] && buf[i - 1] != '\\'))
+		else if (buf[i] == '\'' && !dquote % 2)
 			quote++;
 	}
 	if (dquote % 2 != 0 || quote % 2 != 0)

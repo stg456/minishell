@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/23 13:42:05 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/27 14:56:02 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,16 @@ void	other_cmd(t_minishell *ms)
 	while (cmd)
 	{
 		if (cmd->type == CMD)
+		{
 			if (which_cmd_no_fork(cmd, ms) == FALSE)
 				do_multiple_pipe(ms, cmd, tmp_input);
+		}
+		else if (cmd->type == UNDEFINED)
+		{
+			printf("Minishell: %s command not found !\n", cmd->token);
+			ms->status = 1;
+			return ;
+		}
 		cmd = cmd->next;
 	}
 	return ;
