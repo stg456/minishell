@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/22 17:51:23 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/27 13:09:32 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	next_parsing(t_minishell *ms)
 			cmd->cmd = ft_split(cmd->token, ' ');
 		else
 			cmd->cmd = NULL;
-		while (cmd->cmd[++j])
+		while (cmd->cmd && cmd->cmd[++j])
 			cmd->cmd[j] = ft_strtok(cmd->cmd[j], "\7", ' ');
 		cmd = cmd->next;
 	}

@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/02/22 18:29:45 by misimon          ###   ########.fr        #
+#    Updated: 2023/02/27 13:01:55 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS	:=	exec/builtin/cd.c		\
 			exec/other_cmd.c		\
 			parsing/parse.c			\
 			parsing/quote.c			\
-			prompt/prompt_visual.c	\
 			main.c					\
 			signal.c				\
 			utils.c					\
