@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/27 15:51:40 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/27 17:23:19 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,18 @@ char	*cmd_path(t_minishell *shell)
 	return (NULL);
 }
 
-t_bool which_type(char *str, t_node *cmd)
+// t_bool	check_if_var(char *str)
+// {
+// 	size_t	i;
+
+// 	i = -1;
+// 	while (str[++i])
+// 		if (str[i] == '$')
+// 			return (TRUE);
+// 	return (FALSE);
+// }
+
+t_bool	which_type(char *str, t_node *cmd)
 {
 	if (cmd->prev && cmd->prev->type == CMD)
 		return (UNDEFINED);
@@ -69,7 +80,7 @@ t_bool which_type(char *str, t_node *cmd)
 
 void debug_parsing(t_minishell *ms)
 {
-	t_node *cmd;
+	t_node	*cmd;
 
 	cmd = ms->cmd->head;
 	while (cmd)
@@ -115,7 +126,7 @@ int	do_parse(t_node *cmd, t_minishell *ms, size_t i)
 {
 	cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
 	delete_position(ms->cmd, i + 1);
-	i = 1;
+	i = 0;
 	cmd = ms->cmd->head;
 	return (i);
 }
@@ -139,15 +150,12 @@ void	next_parsing(t_minishell *ms)
 	size_t	i;
 	size_t	j;
 
-	i = 1;
+	i = 0;
 	cmd = ms->cmd->head;
-	while (cmd && i < ms->cmd->size)
+	while (cmd && ++i < ms->cmd->size)
 	{
 		if (which_parse(ms, cmd, &i) == FALSE)
-		{
 			cmd = cmd->next;
-			i++;
-		}
 	}
 	cmd = ms->cmd->head;
 	while (cmd)
@@ -162,7 +170,7 @@ void	next_parsing(t_minishell *ms)
 			cmd->cmd[j] = ft_strtok(cmd->cmd[j], "\7", ' ');
 		cmd = cmd->next;
 	}
-	debug_parsing(ms);
+	// debug_parsing(ms);
 }
 
 void	cmd_parsing(char *buf, t_minishell *ms)
