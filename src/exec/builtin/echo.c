@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/27 17:30:55 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:10:45 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,23 @@ char	*vardol(char *param, t_minishell *shell)
 
 	i = 0;
 	j = 1;
+	printf("param = [%s]\n", param);
+	if (param[1] == '$')
+		j = 2;
 	var = malloc(sizeof(char *) * ft_strlen(param));
+	printf("param[0] = [%c]\n", param[0]);
+	printf("param[1] = [%c]\n", param[1]);
 	while (param[j])
 	{
-		var[i] = param[j];
-		i++;
-		j++;
+		if (param[j] != 7)
+		{
+			var[i] = param[j];
+			printf("var[%zu] = [%c]\n", i, var[i]);
+			i++;
+			j++;
+		}
+		else
+			j++;
 	}
 	var[i] = '\0';
 	shell->status = 0;
@@ -69,10 +80,29 @@ char	*vardol(char *param, t_minishell *shell)
 void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 {
 	char	*var;
+	size_t	j;
 
+	j = 0;
 	while (lst->cmd[++i])
 	{
-		if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
+		if (lst->cmd[i][0] == '\'')
+		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
+			printf("%s", lst->cmd[i]);
+			if (lst->cmd[i + 1])
+				printf(" ");
+		}
+		else if (lst->cmd[i][0] == '\"')
+		{
+			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
+			printf("cmd = [%s]\n", lst->cmd[i]);
+			//lst->cmd[i] = ft_strtok(lst->cmd[i], "$", 7);
+			var = vardol(lst->cmd[i], shell);
+			printf("[%s]\n", var);
+			prtvar(var, shell);
+			shell->status = 0;
+		}
+		else if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
 		{
 			wait(&shell->status);
 			printf("%d\n", shell->status);
@@ -80,14 +110,16 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 		}
 		else if (lst->cmd[i][0] == '$')
 		{
+			printf("cmd = [%s]\n", lst->cmd[i]);
 			var = vardol(lst->cmd[i], shell);
+			printf("[%s]\n", var);
 			prtvar(var, shell);
 			shell->status = 0;
 		}
 		else
 		{
 			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
+			// lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
 			printf("%s", lst->cmd[i]);
 			if (lst->cmd[i + 1])
 				printf(" ");
