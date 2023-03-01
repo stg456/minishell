@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/27 17:07:27 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:03:33 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
 	{
 		dup2(cmd->fd[0], input);
 		close(cmd->fd[1]);
-		wait(NULL);
+		waitpid(id, &ms->status, 0);
 	}
 }	
 

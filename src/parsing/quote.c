@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/28 14:00:39 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:41:04 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_bool	check_quote_replace(char *buf)
 			dquote++;
 		else if (buf[i] == '\'' && !dquote % 2)
 			quote++;
-		if (ft_isspace(buf[i]) == TRUE && (dquote == 1 || quote == 1))
-			buf[i] == 7;
+		// if (ft_isspace(buf[i]) == TRUE && (dquote == 1 || quote == 1))
+		// 	buf[i] == 7;
 	}
 	if (dquote % 2 != 0 || quote % 2 != 0)
 		return (TRUE);

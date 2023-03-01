@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/28 12:10:45 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:30:44 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ char	*vardol(char *param, t_minishell *shell)
 	if (param[1] == '$')
 		j = 2;
 	var = malloc(sizeof(char *) * ft_strlen(param));
-	printf("param[0] = [%c]\n", param[0]);
-	printf("param[1] = [%c]\n", param[1]);
+	// printf("param[0] = [%c]\n", param[0]);
+	// printf("param[1] = [%c]\n", param[1]);
 	while (param[j])
 	{
 		if (param[j] != 7)
 		{
 			var[i] = param[j];
-			printf("var[%zu] = [%c]\n", i, var[i]);
+			// printf("var[%zu] = [%c]\n", i, var[i]);
 			i++;
 			j++;
 		}
@@ -88,17 +88,17 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 		if (lst->cmd[i][0] == '\'')
 		{
 			lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
-			printf("%s", lst->cmd[i]);
+			// printf("%s", lst->cmd[i]);
 			if (lst->cmd[i + 1])
 				printf(" ");
 		}
 		else if (lst->cmd[i][0] == '\"')
 		{
 			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			printf("cmd = [%s]\n", lst->cmd[i]);
+			// printf("cmd = [%s]\n", lst->cmd[i]);
 			//lst->cmd[i] = ft_strtok(lst->cmd[i], "$", 7);
 			var = vardol(lst->cmd[i], shell);
-			printf("[%s]\n", var);
+			// printf("[%s]\n", var);
 			prtvar(var, shell);
 			shell->status = 0;
 		}
@@ -110,9 +110,9 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 		}
 		else if (lst->cmd[i][0] == '$')
 		{
-			printf("cmd = [%s]\n", lst->cmd[i]);
+			// printf("cmd = [%s]\n", lst->cmd[i]);
 			var = vardol(lst->cmd[i], shell);
-			printf("[%s]\n", var);
+			// printf("[%s]\n", var);
 			prtvar(var, shell);
 			shell->status = 0;
 		}

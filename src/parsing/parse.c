@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/28 14:05:25 by misimon          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:07:34 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,12 +173,12 @@ void	next_parsing(t_minishell *ms)
 	debug_parsing(ms);
 }
 
-size_t ft_sep_len();
+// size_t ft_sep_len();
 
-void replace_var(char **tab, t_minishell *ms)
-{
+// void replace_var(char **tab, t_minishell *ms)
+// {
 	
-}
+// }
 
 void	cmd_parsing(char *buf, t_minishell *ms)
 {
