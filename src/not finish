@@ -1,363 +1,115 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   other_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/28 19:48:02 by misimon          ###   ########.fr       */
+/*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
+/*   Updated: 2023/03/01 17:10:47 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_strtok(char *str, char *delimiter, char replace)
+void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 {
-	char	*result;
-	size_t	i;
-
-	if (!str)
-		return (NULL);
-	result = ft_strdup(str);
-	i = -1;
-	while (result[++i])
-		if (ft_strchr(delimiter, result[i]))
-			result[i] = replace;
-	return (result);
-}
-
-char	*cmd_path(t_minishell *shell)
-{
-	char	*path;
-	char	*str;
-	char	**all_path;
-	t_bool	check;
-	size_t	i;
-
-	check = FALSE;
-	path = getenv("PATH");
-	all_path = ft_split(path, ':');
-	i = -1;
-	while (all_path[++i])
+	close(cmd->fd[0]);
+	if (cmd && cmd->type == CMD)
 	{
-		str = ft_strfjoin(ft_strjoin(all_path[i], "/"), shell->cmd->tail->token);
-		check = access(str, F_OK);
-		if (check == 0)
-			return (str);
-	}
-	free_tab(all_path);
-	return (NULL);
-}
-
-// t_bool	check_if_var(char *str)
-// {
-// 	size_t	i;
-
-// 	i = -1;
-// 	while (str[++i])
-// 		if (str[i] == '$')
-// 			return (TRUE);
-// 	return (FALSE);
-// }
-
-t_bool	which_type(char *str, t_node *cmd)
-{
-	if (cmd->prev && cmd->prev->type == CMD)
-		return (UNDEFINED);
-	if (!ft_strcmp(str, "|"))
-		return (PIPE);
-	else if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
-		return (OUTPUT_DIR);
-	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
-		return (INPUT_DIR);
-	else if ((cmd->path)
-		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
-		|| !ft_strcmp(str, "exit"))
-		return (CMD);
-	else if (cmd->token[0] == 6)
-		return (QUOTE);
-	else if (cmd->token[0] == 5)
-		return (DQUOTE);
-	return (UNDEFINED);
-}
-
-void debug_parsing(t_minishell *ms)
-{
-	t_node	*cmd;
-
-	cmd = ms->cmd->head;
-	while (cmd)
-	{
-		printf("\ndebug of %s\n", cmd->token);
-		if (cmd->cmd && cmd->type == CMD)
-		{
-			for (int i = 0; cmd->cmd[i]; i++)
-				printf("%s\n", cmd->cmd[i]);
-		}
-		else if (cmd->cmd && (cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR))
-			printf("Output or Input\n");
+		if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+			ft_pwd(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
+			ft_echo(cmd, ms);
 		else
-			printf("Pipe\n");
-		write(1, "\n", 1);
-		cmd = cmd->next;
-	}	
-}
-
-void	do_quote_parse(t_node *cmd)
-{
-	size_t	i;
-	size_t	quote;
-	size_t	dquote;
-
-	i = -1;
-	quote = 0;
-	dquote = 0;
-	while (cmd->token[++i])
-	{
-		if (cmd->token[i] == '\"' && !quote % 2)
-			dquote++;
-		else if (cmd->token[i] == '\'' && !dquote % 2)
-			quote++;
-		if (quote == 1 && ft_isspace(cmd->token[i]) == TRUE)
-			cmd->token[i] = 7;
-		else if (dquote == 1 && ft_isspace(cmd->token[i]) == TRUE)
-			cmd->token[i] = 7;
+			execve(cmd->path, cmd->cmd, ms->cmd->all_path);
 	}
+	exit(1);
 }
 
-int	do_parse(t_node *cmd, t_minishell *ms, size_t i)
+t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
 {
-	cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
-	delete_position(ms->cmd, i + 1);
-	i = 0;
-	cmd = ms->cmd->head;
-	return (i);
-}
-
-t_bool	which_parse(t_minishell *ms, t_node *c, size_t *i)
-{
-	if (check_quote(c->token))
-		*i = do_parse(c, ms, *i);
-	else if (c->next && c->type == CMD && c->next->type == UNDEFINED)
-		*i = do_parse(c, ms, *i);
-	else if (c->next && (c->type == 3 || c->type == 2) && c->next->type == -1)
-		*i = do_parse(c, ms, *i);
-	else
-		return (FALSE);
+	if (cmd && cmd->type == CMD)
+	{
+		if (ft_strcmp(cmd->cmd[0], "env") == 0)
+			ft_env(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "export") == 0)
+			ft_export(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+			ft_unset(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
+			ft_exit(cmd, ms);
+		else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+			ft_cd(ms, cmd);
+		else
+			return (FALSE);
+	}
 	return (TRUE);
 }
 
-void	next_parsing(t_minishell *ms)
+void	count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
 {
-	t_node	*cmd;
-	size_t	i;
-	size_t	j;
+	t_node	*actual;
 
-	i = 0;
-	cmd = ms->cmd->head;
-	while (cmd && ++i < ms->cmd->size)
+	if (!list || !list->head || !list->tail)
+		return ;
+	actual = list->head;
+	while (actual)
 	{
-		if (which_parse(ms, cmd, &i) == FALSE)
-			cmd = cmd->next;
+		if (actual->type == PIPE)
+			*nbr_pipe += 1;
+		if (actual->type == CMD)
+			*nbr_cmd += 1;
+		actual = actual->next;
 	}
+}
+
+void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
+{
+	pid_t	id;
+
+	pipe(cmd->fd);
+	id = fork();
+	if (id == 0)
+	{
+		dup2(input, STDIN_FILENO);
+		if (cmd->next)
+			dup2(cmd->fd[1], STDOUT_FILENO);
+		which_cmd_fork(cmd, ms);
+	}
+	else
+	{
+		dup2(cmd->fd[0], input);
+		close(cmd->fd[1]);
+		waitpid(id, &ms->status, 0);
+	}
+}
+
+void	other_cmd(t_minishell *ms)
+{
+	char	*path;
+	t_node	*cmd;
+	int		tmp_input;
+
+	count_all(ms->cmd, &ms->cmd->nbr_pipe, &ms->cmd->nbr_cmd);
+	path = getenv("PATH");
+	ms->cmd->all_path = ft_split(path, ':');
+	tmp_input = dup(STDIN_FILENO);
 	cmd = ms->cmd->head;
 	while (cmd)
 	{
-		do_quote_parse(cmd);
-		j = -1;
-		if ((cmd->type == CMD || cmd->type == INPUT_DIR || cmd->type == OUTPUT_DIR) && cmd->token)
-			cmd->cmd = ft_split(cmd->token, ' ');
-		else
-			cmd->cmd = NULL;
-		while (cmd->cmd && cmd->cmd[++j])
-			cmd->cmd[j] = ft_strtok(cmd->cmd[j], "\7", ' ');
+		if (cmd->type == CMD)
+		{
+			if (which_cmd_no_fork(cmd, ms) == FALSE)
+				do_multiple_pipe(ms, cmd, tmp_input);
+		}
+		else if (cmd->type == UNDEFINED)
+		{
+			printf("Minishell: %s command not found !\n", cmd->token);
+			ms->status = 1;
+			return ;
+		}
 		cmd = cmd->next;
 	}
-	debug_parsing(ms);
+	return ;
 }
-
-char	*replace_quote_space(char *buf)
-{
-	size_t	quote;
-	size_t	dquote;
-	size_t	i;
-	char	*new_buf;
-
-	new_buf = ft_strdup(buf);
-	if (!new_buf)
-		return (0);
-	free(buf);
-	i = -1;
-	quote = 0;
-	dquote = 0;
-	while (new_buf[++i])
-	{
-		if (ft_isspace(new_buf[i]) && (dquote % 2 || quote % 2))
-			new_buf[i] = 4;
-		if (new_buf[i] == '\'' && !(dquote % 2))
-		{
-			new_buf[i] = 6;
-			quote++;
-		}
-		else if (new_buf[i] == '\"' && !(quote % 2))
-		{
-			new_buf[i] = 5;
-			dquote++;
-		}
-	}
-	return (new_buf);
-}
-
-size_t	var_len_start(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '$' && str[i])
-		i++;
-	return (i);
-}
-
-size_t	name_len(char *str)
-{
-	size_t	i;
-
-	i = var_len_start(str);
-	while (str[i] != 4 && str[i])
-		i++;
-	return (i - var_len_start(str));
-}
-
-char	*ft_strndup(char *s1, size_t n, size_t start)
-{
-	char	*chr;
-	size_t	i;
-	size_t	j;
-
-	i = start;
-	j = 0;
-	if (!n)
-		return (NULL);
-	chr = malloc(sizeof(chr) * (n + 1));
-	if (!chr)
-		return (NULL);
-	while (s1[i] && j < n)
-	{
-		chr[j] = s1[i];
-		i++;
-		j++;
-	}
-	chr[j] = '\0';
-	return (chr);
-}
-
-
-void	do_var_replacement(char *str)
-{
-	// size_t	i;
-	char	*str_end;
-	char	*var_name;
-	char	*str_start;
-
-	str_start = ft_strndup(str, var_len_start(str), 0);
-	printf("str_start = %s!\n", str_start);
-	var_name = ft_strndup(str, name_len(str), var_len_start(str) + 1);
-	printf("var name = %s!\n", var_name);
-	str_end = ft_strndup(str, ft_strlen(str) - (name_len(str) + var_len_start(str)), name_len(str) + var_len_start(str));
-	printf("str_end = %s!\n", str_end);
-	// while (str[i] && ft_isspace(str[i]) == FALSE)
-	// {
-		
-	// }
-}
-
-void	check_token_var(t_node *node)
-{
-	size_t	i;
-
-	if (!node || (node->type != UNDEFINED && node->type != DQUOTE))
-		return ;
-	else if (node && node->token)
-	{
-		i = -1;
-		while (node->token[++i])
-			if (node->token[i] == '$')
-				do_var_replacement(node->token);
-	}
-}
-
-void	cmd_parsing(char *buf, t_minishell *ms)
-{
-	char	*temp;
-	char	**token_tab;
-	size_t	i;
-
-	(void)ms;
-	temp = replace_quote_space(ft_strdup(buf));
-	if (!temp)
-		return ;
-	temp = ft_strtok(temp, " \t\n\r\v\f", 7);
-	token_tab = ft_split(temp, 7);
-	free(temp);
-	i = -1;
-	while (token_tab[++i])
-	{
-		add_tail(ms->cmd, token_tab[i]);
-		ms->cmd->tail->path = cmd_path(ms);
-		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
-		check_token_var(ms->cmd->tail);
-		printf("%s AND TYPE = %d\n", token_tab[i], ms->cmd->tail->type);
-	}
-	exit(0);
-}
-
-// void	cmd_parsing(char *buf, t_minishell *ms)
-// {
-// 	char	*str;
-// 	char	**tab;
-// 	size_t	i;
-
-// 	str = ft_strtok(buf, " \t\n\r\v\f", 7);
-// 	tab = ft_split(str, 7);
-// 	i = -1;
-// 	while (tab[++i])
-// 	{
-// 		// replace_var(&(tab[i]), ms);
-// 		add_tail(ms->cmd, tab[i]);
-// 		ms->cmd->tail->path = cmd_path(ms);
-// 		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
-// 	}
-// 	next_parsing(ms);
-// 	free_tab(tab);
-// }
-
-	// tab = ft_split(str, 7);
-	// i = -1;
-	// while (tab[++i])
-	// {
-	// 	add_tail(shell->cmd, ft_split(tab[i], ' '));
-	// 	shell->cmd->tail->path = cmd_path(shell);
-	// }
-	// t_node *actual = shell->cmd->head;
-	// while (actual != NULL)
-	// {
-	// 	printf("%s | %d >> %s\n", actual->token, actual->is_cmd, actual->path);
-	// 	actual = actual->next;
-	// }
-
-	// 	t_node *actual = ms->cmd->head;
-	// while (actual != NULL)
-	// {
-	// 	printf("===============\nCMD=%s\nTYPE=%d\nPATH=%s\n===============\n\n", actual->token, actual->type, actual->path);
-	// 	actual = actual->next;
-	// }
-
-	/*
-	actuellement le parsing met les dquote et quote dans la même node sauf qu'il ne sont pas sur la même ligne
-	- Trouver un moyens de le mettre sur la même ligne 
-			->	solution 1 : remplacer les espaces à l'intérieur des quotes pour éviter que le parsing ne les sépare
-				puis se baladez dans node->cmd pour remettre les espaces à leur position initiale
-				strtok peut être un solutions pour remédiez a cela.
-			->	solution 2 : Dans la méthode pour split je modifie pour éviter que le txt entre les quotes ne soit séparer.s
-	*/
