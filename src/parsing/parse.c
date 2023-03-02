@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/02 18:37:45 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/02 18:53:37 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ char	*cmd_path(t_minishell *shell)
 
 t_bool	which_type(char *str, t_node *cmd)
 {
+	if (cmd->token[0] == 6)
+		return (QUOTE);
+	else if (cmd->token[0] == 5)
+		return (DQUOTE);
 	if (cmd->prev && cmd->prev->type == CMD)
 		return (UNDEFINED);
 	if (!ft_strcmp(str, "|"))
@@ -64,10 +68,6 @@ t_bool	which_type(char *str, t_node *cmd)
 		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
 		|| !ft_strcmp(str, "exit"))
 		return (CMD);
-	else if (cmd->token[0] == 6)
-		return (QUOTE);
-	else if (cmd->token[0] == 5)
-		return (DQUOTE);
 	return (UNDEFINED);
 }
 
@@ -233,11 +233,9 @@ char	*get_env_var(char *name, t_minishell *ms)
 	if (!name)
 		return (NULL);
 	len = ft_strlen(name);
-	printf("%d\n", ft_strcmp(name, "?"));
 	if (ft_strcmp(name, "?") == 0)
 	{
 		value = ft_itoa(ms->status);
-		printf("%s\n", value);
 		return (value);
 	}
 	while (*env)
@@ -296,7 +294,7 @@ void	check_token_var(t_node *node, t_minishell *ms)
 
 	if (!node || (node->type != UNDEFINED && node->type != DQUOTE))
 		return ;
-	else if (node && node->token)
+	if (node && node->token)
 	{
 		i = -1;
 		while (node->token[++i])
@@ -329,48 +327,9 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 		add_tail(ms->cmd, token_tab[i]);
 		ms->cmd->tail->path = cmd_path(ms);
 		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
+		printf("type = %d\n", ms->cmd->tail->type);
 		check_token_var(ms->cmd->tail, ms);
 	}
 	next_parsing(ms);
 	free_tab(token_tab);
 }
-
-// void	cmd_parsing(char *buf, t_minishell *ms)
-// {
-// 	char	*str;
-// 	char	**tab;
-// 	size_t	i;
-
-// 	str = ft_strtok(buf, " \t\n\r\v\f", 7);
-// 	tab = ft_split(str, 7);
-// 	i = -1;
-// 	while (tab[++i])
-// 	{
-// 		// replace_var(&(tab[i]), ms);
-// 		add_tail(ms->cmd, tab[i]);
-// 		ms->cmd->tail->path = cmd_path(ms);
-// 		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
-// 	}
-// 	next_parsing(ms);
-// 	free_tab(tab);
-// }
-
-	// tab = ft_split(str, 7);
-	// i = -1;
-	// while (tab[++i])
-	// {
-	// 	add_tail(shell->cmd, ft_split(tab[i], ' '));
-	// 	shell->cmd->tail->path = cmd_path(shell);
-	// }
-	// t_node *actual = shell->cmd->head;
-	// while (actual != NULL)
-	// {
-	// 	printf("%s | %d >> %s\n", actual->token, actual->is_cmd, actual->path);
-	// 	actual = actual->next;
-	// }
-
-	// 	t_node *actual = ms->cmd->head;
-	// while (actual != NULL)
-	// {
-	// 	actual = actual->next;
-	// }
