@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/27 17:18:55 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/02 17:56:27 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ enum e_node_type
 	CMD,
 	OUTPUT_DIR,
 	INPUT_DIR,
-	VARIABLE,
+	QUOTE,
+	DQUOTE,
 };
 
 typedef struct s_node
@@ -71,11 +72,11 @@ typedef struct s_minishell
 	int		fd_out;
 }				t_minishell;
 
-// minishell.c
+// main.c
 
-void		ft_prompt(void);
-t_minishell	*ft_init(void);
-void		ft_free_shell(t_minishell *shell);
+// prompt_init.c
+
+t_minishell	*sh_init(void);
 
 // parse.c
 

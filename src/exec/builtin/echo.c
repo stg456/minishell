@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/28 12:10:45 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:39:01 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ void	prtval(char	*value, t_minishell *shell)
 
 void	prtvar(char *param, t_minishell *shell)
 {
-	size_t	i;
 	size_t	j;
 	char	*nvar;
 
-	i = 0;
 	j = 0;
 	while (shell->env[j])
 	{

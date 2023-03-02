@@ -6,49 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/27 13:08:24 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/02 18:31:39 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	ft_free_shell(t_minishell *shell)
-{
-	close(shell->fd_in);
-	close(shell->fd_out);
-
-	// free les cellules du tableau
-	// /!\ free le tableau
-
-	free(shell->path);
-	free(shell->env);
-	free(shell);
-	// free les cellules des tableaux
-	// /!\ free les doubles tableaux
-}
-
-t_minishell	*ft_init(void)
-{
-	t_minishell	*shell;
-	int			i;
-	extern char	**environ;
-
-	i = 0;
-	shell = malloc(sizeof(t_minishell));
-	shell->cmd = create_list();
-	if (!shell || !shell->cmd)
-		return (NULL);
-	while (environ[i])
-		i++;
-	shell->env = (char **)malloc(sizeof(char *) * i + 1);
-	i = -1;
-	while (environ[++i])
-		shell->env[i] = ft_strdup(environ[i]);
-	shell->path = ft_split(getenv("PATH"), ':');
-	shell->fd_in = 0;
-	shell->fd_out = 0;
-	return (shell);
-}
 
 int	check_input(char *str)
 {
@@ -75,42 +37,44 @@ void	do_cmd(t_minishell *shell, char *buf)
 	other_cmd(shell);
 }
 
-void	ft_prompt(void)
+int	main(void)
 {
+	t_minishell		*sh;
 	char			*buf;
-	t_minishell		*shell;
 
+	signal(SIGINT, sigint_handler);
+	sh = sh_init();
 	buf = NULL;
-	shell = ft_init();
 	while (1)
 	{
 		if (buf)
 			free(buf);
 		buf = readline("Minishell$> ");
 		if (!buf)
-			exit(EXIT_SUCCESS);
+			return (EXIT_SUCCESS);
 		if (ft_in_quote(&buf) == TRUE)
 		{
-			cmd_parsing(buf, shell);
-			do_cmd(shell, buf);
-			delete_all_list(shell->cmd);
+			cmd_parsing(buf, sh);
+			do_cmd(sh, buf);
+			delete_all_list(sh->cmd);
 		}
 		else
-			printf("Bad number of quote\n");
+			sh->status = 130;
 	}
-	// ft_free_shell(shell);
+	return (0);
 }
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	// t_minishell		*shell;
+// void	ft_free_shell(t_minishell *shell)
+// {
+// 	close(shell->fd_in);
+// 	close(shell->fd_out);
 
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigint_handler);
+// 	// free les cellules du tableau
+// 	// /!\ free le tableau
 
-	ft_prompt();
-	
-	// ft_free_shell(shell);
-}
+// 	free(shell->path);
+// 	free(shell->env);
+// 	free(shell);
+// 	// free les cellules des tableaux
+// 	// /!\ free les doubles tableaux
+// }
