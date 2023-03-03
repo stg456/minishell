@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:08:28 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/03 17:19:46 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 17:46:13 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_env_var(char *name, t_minishell *ms)
 		free(name);
 		return (value);
 	}
-	while (*env++)
+	while (*env)
 	{
 		if (!ft_strncmp(*env, name, len) && (*env)[len] == '=')
 		{
@@ -38,6 +38,7 @@ char	*get_env_var(char *name, t_minishell *ms)
 				return (NULL);
 			return (value);
 		}
+		env++;
 	}
 	return (NULL);
 }

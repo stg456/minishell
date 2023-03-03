@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/13 19:57:14 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 17:34:20 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	delete_all_list(t_list *ptr)
 		free(tmp_node->token);
 		if (tmp_node->path != NULL)
 			free(tmp_node->path);
-		if(tmp_node->cmd)
+		if (tmp_node->cmd)
 			free_tab(tmp_node->cmd);
 		node = node->next;
 		free(tmp_node);
@@ -103,10 +103,10 @@ void	delete_first(t_list *ptr)
 
 t_list *delete_position(t_list *ptr, size_t position)
 {
-	size_t i;
-	t_node *actual;
+	size_t	i;
+	t_node	*actual;
 
-	if(!ptr)
+	if (!ptr)
 		return (NULL);
 	i = 1;
 	actual = ptr->head;
@@ -130,5 +130,5 @@ t_list *delete_position(t_list *ptr, size_t position)
 			actual = actual->next;
 		i++;
 	}
-	return(ptr);
+	return (ptr);
 }

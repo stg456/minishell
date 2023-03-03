@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 14:05:08 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 18:26:32 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(void)
 	char			*buf;
 
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
 	sh = sh_init();
 	buf = NULL;
 	while (1)
