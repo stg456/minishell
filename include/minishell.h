@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 16:54:14 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 17:31:27 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,7 @@ void		ft_unset(t_node *actual_cmd, t_minishell *shell);
 
 // echo.c
 
-void		prtval(char	*value, t_minishell *shell);
-void		prtvar(char *param, t_minishell *shell);
-char		*vardol(char *param, t_minishell *shell);
-void		affecho(t_node *lst, size_t	i, t_minishell *shell);
+void		affecho(t_node *lst, size_t	i);
 int			ft_echo(t_node *lst, t_minishell *shell);
 
 // cd.c
