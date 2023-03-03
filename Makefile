@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/03/03 15:44:04 by misimon          ###   ########.fr        #
+#    Updated: 2023/03/03 17:16:51 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS := 	$(SRCS:%=$(SRC_DIR)/%)
 
 #	COMPILATION:
 CC := 		@gcc
-CFLAGS := 	-Wall -Werror -Wextra
+CFLAGS := 	-Wall -Werror -Wextra -g3
 LIBS :=		-Llibft -lft
 DANGER := -fsanitize=address
 # READLINE = -L/Users/${USER}/.brew/opt/readline/lib -lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib -lreadline
