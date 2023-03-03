@@ -79,7 +79,7 @@ $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
 
 $(NAME) : $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) $(LIBS) $(READLINE)
-clean :/
+clean :
 	@make clean -sC libft
 	$(RM) $(OBJS_DIR)
 
