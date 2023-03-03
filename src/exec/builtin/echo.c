@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	affecho(t_node *lst, size_t	i, t_minishell *shell)
+void	affecho(t_node *lst, size_t	i)
 {
 
 	while (lst->cmd[++i])
