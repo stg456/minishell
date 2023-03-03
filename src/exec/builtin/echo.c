@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 16:34:02 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 17:25:58 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,11 @@ char	*vardol(char *param, t_minishell *shell)
 	if (param[1] == '$')
 		j = 2;
 	var = malloc(sizeof(char *) * ft_strlen(param));
-	// printf("param[0] = [%c]\n", param[0]);
-	// printf("param[1] = [%c]\n", param[1]);
 	while (param[j])
 	{
 		if (param[j] != 7)
 		{
 			var[i] = param[j];
-			// printf("var[%zu] = [%c]\n", i, var[i]);
 			i++;
 			j++;
 		}
@@ -77,51 +74,45 @@ char	*vardol(char *param, t_minishell *shell)
 
 void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 {
-	char	*var;
+	// char	*var;
 	size_t	j;
 
 	j = 0;
 	while (lst->cmd[++i])
 	{
-		if (lst->cmd[i][0] == '\'')
-		{
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
-			// printf("%s", lst->cmd[i]);
-			if (lst->cmd[i + 1])
-				printf(" ");
-		}
-		else if (lst->cmd[i][0] == '\"')
-		{
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			// printf("cmd = [%s]\n", lst->cmd[i]);
-			//lst->cmd[i] = ft_strtok(lst->cmd[i], "$", 7);
-			var = vardol(lst->cmd[i], shell);
-			// printf("[%s]\n", var);
-			prtvar(var, shell);
-			shell->status = 0;
-		}
-		else if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
-		{
-			wait(&shell->status);
-			printf("%d\n", shell->status);
-			shell->status = 0;
-		}
-		else if (lst->cmd[i][0] == '$')
-		{
-			// printf("cmd = [%s]\n", lst->cmd[i]);
-			var = vardol(lst->cmd[i], shell);
-			// printf("[%s]\n", var);
-			prtvar(var, shell);
-			shell->status = 0;
-		}
-		else
-		{
-			lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			// lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
+		// if (lst->cmd[i][0] == '\'')
+		// {
+		// 	// lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
+		// 	if (lst->cmd[i + 1])
+		// 		printf(" ");
+		// }
+		// else if (lst->cmd[i][0] == '\"')
+		// {
+		// 	// lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
+		// 	var = vardol(lst->cmd[i], shell);
+		// 	prtvar(var, shell);
+		// 	shell->status = 0;
+		// }
+		// else if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
+		// {
+		// 	wait(&shell->status);
+		// 	printf("%d\n", shell->status);
+		// 	shell->status = 0;
+		// }
+		// else if (lst->cmd[i][0] == '$')
+		// {
+		// 	var = vardol(lst->cmd[i], shell);
+		// 	prtvar(var, shell);
+		// 	shell->status = 0;
+		// }
+		// else
+		// {
+			// lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
 			printf("%s", lst->cmd[i]);
 			if (lst->cmd[i + 1])
 				printf(" ");
-		}
+			(void)shell;
+		// }
 	}
 }
 
