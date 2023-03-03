@@ -6,11 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/03 17:25:58 by stgerard         ###   ########.fr       */
-=======
 /*   Updated: 2023/03/03 17:28:39 by misimon          ###   ########.fr       */
->>>>>>> 790b402a19e37cf2a50958e404b49c0be4617fa5
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +14,6 @@
 
 void	affecho(t_node *lst, size_t	i)
 {
-<<<<<<< HEAD
 	size_t	i;
 
 	i = 0;
@@ -79,52 +74,12 @@ char	*vardol(char *param, t_minishell *shell)
 
 void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 {
-	// char	*var;
-	size_t	j;
 
-	j = 0;
-	while (lst->cmd[++i])
-	{
-		// if (lst->cmd[i][0] == '\'')
-		// {
-		// 	// lst->cmd[i] = ft_strtok(lst->cmd[i], "\'", 7);
-		// 	if (lst->cmd[i + 1])
-		// 		printf(" ");
-		// }
-		// else if (lst->cmd[i][0] == '\"')
-		// {
-		// 	// lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-		// 	var = vardol(lst->cmd[i], shell);
-		// 	prtvar(var, shell);
-		// 	shell->status = 0;
-		// }
-		// else if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
-		// {
-		// 	wait(&shell->status);
-		// 	printf("%d\n", shell->status);
-		// 	shell->status = 0;
-		// }
-		// else if (lst->cmd[i][0] == '$')
-		// {
-		// 	var = vardol(lst->cmd[i], shell);
-		// 	prtvar(var, shell);
-		// 	shell->status = 0;
-		// }
-		// else
-		// {
-			// lst->cmd[i] = ft_strtok(lst->cmd[i], "\"", 7);
-			printf("%s", lst->cmd[i]);
-			if (lst->cmd[i + 1])
-				printf(" ");
-			(void)shell;
-		// }
-=======
 	while (lst->cmd[++i])
 	{
 		printf("%s", lst->cmd[i]);
 		if (lst->cmd[i + 1])
 			printf(" ");
->>>>>>> 790b402a19e37cf2a50958e404b49c0be4617fa5
 	}
 }
 
