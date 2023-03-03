@@ -6,11 +6,43 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/02 18:37:50 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 15:33:51 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*replace_quote_space(char *buf)
+{
+	size_t	quote;
+	size_t	dquote;
+	size_t	i;
+	char	*new_buf;
+
+	new_buf = ft_strdup(buf);
+	if (!new_buf)
+		return (0);
+	free(buf);
+	i = -1;
+	quote = 0;
+	dquote = 0;
+	while (new_buf[++i])
+	{
+		if (ft_isspace(new_buf[i]) && (dquote % 2 || quote % 2))
+			new_buf[i] = 4;
+		if (new_buf[i] == '\'' && !(dquote % 2))
+		{
+			new_buf[i] = 6;
+			quote++;
+		}
+		else if (new_buf[i] == '\"' && !(quote % 2))
+		{
+			new_buf[i] = 5;
+			dquote++;
+		}
+	}
+	return (new_buf);
+}
 
 t_bool	check_quote(char *buf)
 {
@@ -47,19 +79,3 @@ t_bool	ft_in_quote(char **buf)
 	}
 	return (TRUE);
 }
-
-	// while ((dquote % 2 || !dquote) || (quote % 2 || !quote))
-	// {
-	// 	str = readline("> ");
-	// 	buf = ft_strfjoin(buf, str);
-	// 	i = 0;
-	// 	while (buf[i++])
-	// 	{
-	// 		if (buf[i] == '\"')
-	// 			dquote++;
-	// 		if (buf[i] == '\'')
-	// 			quote++;
-	// 	}
-	// 	if (!dquote % 2 || !quote % 2)
-	// 		return (TRUE);
-	// }

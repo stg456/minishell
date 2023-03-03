@@ -6,13 +6,13 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/02 18:43:36 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 17:05:19 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	which_cmd_fork(t_node *cmd, t_minishell *ms)
+void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 {
 	close(cmd->fd[0]);
 	if (cmd && cmd->type == CMD)
@@ -22,7 +22,7 @@ int	which_cmd_fork(t_node *cmd, t_minishell *ms)
 		else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
 			ft_echo(cmd, ms);
 		else
-			ms->status = execve(cmd->path, cmd->cmd, ms->cmd->all_path);
+			execve(cmd->path, cmd->cmd, ms->cmd->all_path);
 	}
 	exit(1);
 }
@@ -75,14 +75,13 @@ void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
 		dup2(input, STDIN_FILENO);
 		if (cmd->next)
 			dup2(cmd->fd[1], STDOUT_FILENO);
-		ms->status = which_cmd_fork(cmd, ms);
-		exit(1);
+		which_cmd_fork(cmd, ms);
 	}
 	else
 	{
 		dup2(cmd->fd[0], input);
 		close(cmd->fd[1]);
-		waitpid(id, &ms->status, 0);
+		wait(&ms->status);
 	}
 }
 
@@ -112,5 +111,5 @@ void	other_cmd(t_minishell *ms)
 		}
 		cmd = cmd->next;
 	}
-	return ;
+	printf("\033[2K\r");
 }

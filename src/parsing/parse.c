@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/02 18:53:37 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 16:36:28 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,16 @@ char	*ft_strtok(char *str, char *delimiter, char replace)
 	return (result);
 }
 
-char	*cmd_path(t_minishell *shell)
-{
-	char	*path;
-	char	*str;
-	char	**all_path;
-	t_bool	check;
-	size_t	i;
-
-	check = FALSE;
-	path = getenv("PATH");
-	all_path = ft_split(path, ':');
-	i = -1;
-	while (all_path[++i])
-	{
-		str = ft_strfjoin(ft_strjoin(all_path[i], "/"), shell->cmd->tail->token);
-		check = access(str, F_OK);
-		if (check == 0)
-			return (str);
-	}
-	free_tab(all_path);
-	return (NULL);
-}
-
 t_bool	which_type(char *str, t_node *cmd)
 {
 	if (cmd->token[0] == 6)
 		return (QUOTE);
 	else if (cmd->token[0] == 5)
 		return (DQUOTE);
-	if (cmd->prev && cmd->prev->type == CMD)
-		return (UNDEFINED);
 	if (!ft_strcmp(str, "|"))
 		return (PIPE);
+	if (cmd->prev && cmd->prev->type == CMD)
+		return (UNDEFINED);
 	else if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
 		return (OUTPUT_DIR);
 	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
@@ -143,151 +120,6 @@ void	next_parsing(t_minishell *ms)
 	debug_parsing(ms);
 }
 
-char	*replace_quote_space(char *buf)
-{
-	size_t	quote;
-	size_t	dquote;
-	size_t	i;
-	char	*new_buf;
-
-	new_buf = ft_strdup(buf);
-	if (!new_buf)
-		return (0);
-	free(buf);
-	i = -1;
-	quote = 0;
-	dquote = 0;
-	while (new_buf[++i])
-	{
-		if (ft_isspace(new_buf[i]) && (dquote % 2 || quote % 2))
-			new_buf[i] = 4;
-		if (new_buf[i] == '\'' && !(dquote % 2))
-		{
-			new_buf[i] = 6;
-			quote++;
-		}
-		else if (new_buf[i] == '\"' && !(quote % 2))
-		{
-			new_buf[i] = 5;
-			dquote++;
-		}
-	}
-	return (new_buf);
-}
-
-size_t	var_len_start(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '$' && str[i])
-		i++;
-	return (i);
-}	
-
-size_t	name_len(char *str)
-{
-	size_t	i;
-
-	i = var_len_start(str) + 1;
-	if (str[i] == '?')
-		return (1);
-	while ((ft_isalnum(str[i])) && str[i])
-		++i;
-	return (i - var_len_start(str) - 1);
-}
-
-char	*ft_strndup(char *s1, size_t n, size_t start)
-{
-	char	*chr;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	if (!n || !s1)
-		return (NULL);
-	chr = malloc(sizeof(char) * (n + 1));
-	if (!chr)
-		return (NULL);
-	while (s1[i] && j < n)
-	{
-		if (i >= start && s1[i])
-		{
-			chr[j] = s1[i];
-			j++;
-		}
-		i++;
-	}
-	chr[j] = '\0';
-	return (chr);
-}
-
-char	*get_env_var(char *name, t_minishell *ms)
-{
-	char	**env;
-	char	*value;
-	size_t	len;
-
-	env = ms->env;
-	if (!name)
-		return (NULL);
-	len = ft_strlen(name);
-	if (ft_strcmp(name, "?") == 0)
-	{
-		value = ft_itoa(ms->status);
-		return (value);
-	}
-	while (*env)
-	{
-		if (!ft_strncmp(*env, name, len) && (*env)[len] == '=')
-		{
-			value = ft_strdup(*env + len + 1);
-			free(name);
-			if (!value)
-				return (NULL);
-			return (value);
-		}
-		env++;
-	}
-	return (NULL);
-}
-
-char	*do_var_replacement(char *str, t_minishell *ms)
-{
-	size_t	l[2];
-	char	*str_end;
-	char	*var_name;
-	char	*str_start;
-
-	if (!str)
-		return (NULL);
-	l[0] = var_len_start(str);
-	l[1] = name_len(str);
-	str_start = ft_strndup(str, l[0], 0);
-	var_name = ft_strndup(str, l[1], l[0] + 1);
-	str_end = ft_strdup(str + l[1] + l[0] + 1);
-	var_name = get_env_var(var_name, ms);
-	free(str);
-	if (str_start && var_name && str_end)
-		str = ft_strfjoin(ft_strfjoin(str_start, var_name), str_end);
-	else if (str_start && var_name)
-		str = ft_strfjoin(str_start, var_name);
-	else if (var_name && str_end)
-		str = ft_strfjoin(var_name, str_end);
-	else if (str_start && str_end)
-		str = ft_strfjoin(str_start, str_end);
-	else if (str_start)
-		str = ft_strdup(str_start);
-	else if (var_name)
-		str = ft_strdup(var_name);
-	else if (str_end)
-		str = ft_strdup(str_end);
-	else
-		str = NULL;
-	return (str);
-}
-
 void	check_token_var(t_node *node, t_minishell *ms)
 {
 	size_t	i;
@@ -327,7 +159,6 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 		add_tail(ms->cmd, token_tab[i]);
 		ms->cmd->tail->path = cmd_path(ms);
 		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
-		printf("type = %d\n", ms->cmd->tail->type);
 		check_token_var(ms->cmd->tail, ms);
 	}
 	next_parsing(ms);

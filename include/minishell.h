@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/02 17:56:27 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/03 16:54:14 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ t_minishell	*sh_init(void);
 char		*ft_strtok(char *str, char *delimiter, char replace);
 char		*cmd_path(t_minishell *shell);
 void		cmd_parsing(char *buf, t_minishell *shell);
+char		*do_var_replacement(char *str, t_minishell *ms);
+size_t		var_len_start(char *str);
+size_t		name_len(char *str);
+char		*ft_strndup(char *s1, size_t n, size_t start);
 
 // linked_list.c
 
@@ -132,8 +136,9 @@ int			ft_cd(t_minishell *shell, t_node *lst);
 
 // quote.c
 
-t_bool		ft_in_quote(char **buf);
 t_bool		check_quote(char *buf);
+char		*replace_quote_space(char *buf);
+t_bool		ft_in_quote(char **buf);
 
 // signal.c
 
