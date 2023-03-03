@@ -6,14 +6,19 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/03 17:25:58 by stgerard         ###   ########.fr       */
+=======
+/*   Updated: 2023/03/03 17:28:39 by misimon          ###   ########.fr       */
+>>>>>>> 790b402a19e37cf2a50958e404b49c0be4617fa5
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	prtval(char	*value, t_minishell *shell)
+void	affecho(t_node *lst, size_t	i)
 {
+<<<<<<< HEAD
 	size_t	i;
 
 	i = 0;
@@ -113,6 +118,13 @@ void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 				printf(" ");
 			(void)shell;
 		// }
+=======
+	while (lst->cmd[++i])
+	{
+		printf("%s", lst->cmd[i]);
+		if (lst->cmd[i + 1])
+			printf(" ");
+>>>>>>> 790b402a19e37cf2a50958e404b49c0be4617fa5
 	}
 }
 
@@ -125,11 +137,11 @@ int	ft_echo(t_node *lst, t_minishell *shell)
 		return (write(1, "\n", 1));
 	if (lst->cmd && lst->cmd[1] && ft_strcmp(lst->cmd[1], "-n") != 0)
 	{
-		affecho(lst, i, shell);
+		affecho(lst, i);
 		printf("\n");
 	}
 	else if (lst->cmd && lst->cmd[i] && ft_strcmp(lst->cmd[1], "-n") == 0)
-		affecho(lst, ++i, shell);
+		affecho(lst, ++i);
 	shell->status = 0;
 	return (shell->status);
 }
