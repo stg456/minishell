@@ -12,66 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-void	affecho(t_node *lst, size_t	i)
-{
-	size_t	i;
-
-	i = 0;
-	while (value[i] != '=')
-		i++;
-	i++;
-	while (value[i] != '\0')
-	{
-		write(1, &value[i], 1);
-		i++;
-	}
-	shell->status = 0;
-	write(1, " ", 1);
-}
-
-void	prtvar(char *param, t_minishell *shell)
-{
-	size_t	j;
-	char	*nvar;
-
-	j = 0;
-	while (shell->env[j])
-	{
-		nvar = recupvar(shell->env[j]);
-		if (strcmp(nvar, param) == 0)
-			prtval(shell->env[j], shell);
-		j++;
-	}
-}
-
-char	*vardol(char *param, t_minishell *shell)
-{
-	char	*var;
-	size_t	j;
-	size_t	i;
-
-	i = 0;
-	j = 1;
-	printf("param = [%s]\n", param);
-	if (param[1] == '$')
-		j = 2;
-	var = malloc(sizeof(char *) * ft_strlen(param));
-	while (param[j])
-	{
-		if (param[j] != 7)
-		{
-			var[i] = param[j];
-			i++;
-			j++;
-		}
-		else
-			j++;
-	}
-	var[i] = '\0';
-	shell->status = 0;
-	return (var);
-}
-
 void	affecho(t_node *lst, size_t	i, t_minishell *shell)
 {
 
