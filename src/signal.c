@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/06 15:24:51 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 18:55:04 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,3 @@ void	sigint_handler(int signum)
 		rl_redisplay();
 	}
 }
-
-/*
-Empecher le CTRL+\
-et le $?
-*/

@@ -6,13 +6,11 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/06 18:32:43 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 18:53:45 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	g_signal;
 
 int	check_input(char *str)
 {
@@ -46,14 +44,13 @@ int	main(void)
 
 	signal(SIGQUIT, SIG_IGN);
 	sh = sh_init();
-	g_signal = 0;
 	while (1)
 	{
 		signal(SIGINT, sigint_handler);
 		buf = readline("\033[32;1m\rMinishell$> \033[0m");
 		if (!buf)
 			return (EXIT_SUCCESS);
-		if (ft_in_quote(&buf) == TRUE && g_signal != 130)
+		if (ft_in_quote(&buf) == TRUE)
 		{
 			cmd_parsing(buf, sh);
 			do_cmd(sh, buf);
