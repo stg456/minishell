@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 17:31:27 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 17:40:47 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_minishell	*sh_init(void);
 
 // parse.c
 
+void		delete_next(t_list *lst, t_node *node);
 char		*ft_strtok(char *str, char *delimiter, char replace);
 char		*cmd_path(t_minishell *shell);
 void		cmd_parsing(char *buf, t_minishell *shell);

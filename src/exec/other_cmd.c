@@ -6,11 +6,17 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/03 18:00:16 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 15:38:07 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	sighandler(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+}
 
 void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 {
@@ -18,13 +24,13 @@ void	which_cmd_fork(t_node *cmd, t_minishell *ms)
 	if (cmd && cmd->type == CMD)
 	{
 		if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
-			ft_pwd(cmd, ms);
+			ms->status = ft_pwd(cmd, ms);
 		else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
-			ft_echo(cmd, ms);
+			ms->status = ft_echo(cmd, ms);
 		else
 			execve(cmd->path, cmd->cmd, ms->cmd->all_path);
 	}
-	exit(1);
+	exit(ms->status);
 }
 
 t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
@@ -79,9 +85,11 @@ void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
 	}
 	else
 	{
+		signal(SIGINT, sighandler);
 		dup2(cmd->fd[0], input);
 		close(cmd->fd[1]);
-		wait(&ms->status);
+		waitpid(id, &ms->status, 0);
+		ms->status = WEXITSTATUS(ms->status);
 	}
 }
 
@@ -106,10 +114,9 @@ void	other_cmd(t_minishell *ms)
 		else if (cmd->type == UNDEFINED)
 		{
 			printf("Minishell: %s command not found !\n", cmd->token);
-			ms->status = 1;
+			ms->status = 127;
 			return ;
 		}
 		cmd = cmd->next;
 	}
-	printf("\033[2K\r");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:52:18 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 17:28:39 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 13:43:26 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	affecho(t_node *lst, size_t	i)
 {
-
 	while (lst->cmd[++i])
 	{
 		printf("%s", lst->cmd[i]);

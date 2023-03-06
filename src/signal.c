@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:07:12 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 18:32:04 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 15:24:51 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ void	sigint_handler(int signum)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (signum == SIGQUIT)
-	{
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}

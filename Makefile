@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/03/03 17:16:51 by misimon          ###   ########.fr        #
+#    Updated: 2023/03/06 17:14:06 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ all : $(NAME)
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c
 	@make -sC libft
 	$(DUP_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $< $(READLINE2) -g
+	$(CC) $(CFLAGS) -c -o $@ $< $(READLINE2)
 	@echo "\033[1A\033[0J\033[32;1m\rMinishell compilation >>\033[0m\033[30;1m $@\033[0m"
 
 $(NAME) : $(OBJS)

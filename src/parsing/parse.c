@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/03 17:59:53 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 18:48:12 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ t_bool	which_type(char *str, t_node *cmd)
 		return (DQUOTE);
 	if (!ft_strcmp(str, "|"))
 		return (PIPE);
+	else if ((cmd->path)
+		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+		|| !ft_strcmp(str, "exit"))
+		return (CMD);
 	if (cmd->prev && cmd->prev->type == CMD)
 		return (UNDEFINED);
 	else if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
 		return (OUTPUT_DIR);
 	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
 		return (INPUT_DIR);
-	else if ((cmd->path)
-		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
-		|| !ft_strcmp(str, "exit"))
-		return (CMD);
 	return (UNDEFINED);
 }
 
@@ -70,27 +70,61 @@ void debug_parsing(t_minishell *ms)
 	}	
 }
 
-int	do_parse(t_node *cmd, t_minishell *ms, size_t i)
+// int	do_parse(t_node *cmd, t_minishell *ms)
+// {
+// 	cmd->token = ft_strtok(cmd->token, "\6\5", '\7');
+// 	cmd->token = ft_strfjoin(ft_strfjoin(cmd->token, " "), cmd->next->token);
+// 	delete_next(ms->cmd, cmd);
+// 	i = 0;
+// 	cmd = ms->cmd->head;
+// 	return (i);
+// }
+
+// t_bool	which_parse(t_minishell *ms, t_node *c, size_t *i)
+// {
+// 	if (c->token[0] == '|')
+// 		return (FALSE);
+// 	if (c && c->next && c->type == CMD && (c->next->type != PIPE && c->next->type != CMD && c->next->type != INPUT_DIR && c->next->type != OUTPUT_DIR))
+// 		*i = do_parse(c, ms, *i);
+// 	else if (c && c->next && (c->type == 3 || c->type == 2) && c->next->type == -1)
+// 		*i = do_parse(c, ms, *i);
+// 	else
+// 		return (FALSE);
+// 	return (TRUE);
+// }
+
+void	do_cmd_join(t_minishell *ms)
 {
-	cmd->token = ft_strtok(cmd->token, "\6\5", '\7');
-	cmd->token = ft_strfjoin(ft_strjoin(cmd->token, " "), cmd->next->token);
-	delete_position(ms->cmd, i + 1);
-	i = 0;
+	t_node	*cmd;
+	t_node	*tmp;
+
 	cmd = ms->cmd->head;
-	return (i);
+	while (cmd)
+	{
+		tmp = cmd;
+		while (tmp && tmp->next)
+		{
+			if (tmp->type == PIPE || tmp->type == OUTPUT_DIR || tmp->type == INPUT_DIR)
+				break ;
+			if (tmp->next->type != INPUT_DIR && tmp->next->type != OUTPUT_DIR
+				&& tmp->next->type != PIPE && tmp->type != PIPE)
+				tmp->token = ft_strfjoin(ft_strfjoin(tmp->token, " "), tmp->next->token);
+			if (tmp->next->type != PIPE && tmp->next->type != OUTPUT_DIR && tmp->next->type != INPUT_DIR)
+				delete_next(ms->cmd, tmp);
+			else
+				tmp = tmp->next;
+		}
+		if (tmp && tmp->next)
+			cmd = tmp->next;
+		else
+			cmd = NULL;
+	}
 }
 
-t_bool	which_parse(t_minishell *ms, t_node *c, size_t *i)
-{
-	if (c->next && c->type == CMD && (c->next->type == UNDEFINED
-			|| c->next->type == DQUOTE || c->next->type == QUOTE))
-		*i = do_parse(c, ms, *i);
-	else if (c->next && (c->type == 3 || c->type == 2) && c->next->type == -1)
-		*i = do_parse(c, ms, *i);
-	else
-		return (FALSE);
-	return (TRUE);
-}
+// // void join_cmd(t_minishell *sh)
+// {
+	
+// }
 
 void	next_parsing(t_minishell *ms)
 {
@@ -99,12 +133,7 @@ void	next_parsing(t_minishell *ms)
 	size_t	j;
 
 	i = 0;
-	cmd = ms->cmd->head;
-	while (cmd && ++i < ms->cmd->size)
-	{
-		if (which_parse(ms, cmd, &i) == FALSE)
-			cmd = cmd->next;
-	}
+	do_cmd_join(ms);
 	cmd = ms->cmd->head;
 	while (cmd)
 	{
@@ -118,6 +147,7 @@ void	next_parsing(t_minishell *ms)
 			cmd->cmd[j] = ft_strtok(cmd->cmd[j], "\4", ' ');
 		cmd = cmd->next;
 	}
+	debug_parsing(ms);
 }
 
 void	check_token_var(t_node *node, t_minishell *ms)

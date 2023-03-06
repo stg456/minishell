@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/03 17:34:20 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/06 17:43:48 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,33 @@ void	add_tail(t_list *ptr, char *cmd)
 	ptr->size++;
 }
 
+void	free_node(t_node *node)
+{
+	if (node)
+	{
+		free(node->token);
+		free(node->path);
+		free(node);
+	}
+}
+
+void	delete_next(t_list *lst, t_node *node)
+{
+	t_node	*next;
+
+	if (node && node->next)
+	{
+		next = node->next;
+		node->next = next->next;
+		if (next->next)
+			next->next->prev = node;
+		else
+			lst->tail = node;
+		free_node(next);
+		lst->size--;
+	}
+}
+
 void	delete_all_list(t_list *ptr)
 {
 	t_node	*tmp_node;
@@ -65,70 +92,70 @@ void	delete_all_list(t_list *ptr)
 	ptr->size = 0;
 }
 
-void	delete_last(t_list *ptr)
-{
-	t_node	*node;
+// void	delete_last(t_list *ptr)
+// {
+// 	t_node	*node;
 
-	node = ptr->tail;
-	if (!node)
-		exit (EXIT_FAILURE);
-	free(node->token);
-	free(node->path);
-	ptr->tail = node->prev;
-	if (ptr->tail)
-		ptr->tail->next = NULL;
-	else
-		ptr->head = NULL;
-	free(node);
-	ptr->size--;
-}
+// 	node = ptr->tail;
+// 	if (!node)
+// 		exit (EXIT_FAILURE);
+// 	free(node->token);
+// 	free(node->path);
+// 	ptr->tail = node->prev;
+// 	if (ptr->tail)
+// 		ptr->tail->next = NULL;
+// 	else
+// 		ptr->head = NULL;
+// 	free(node);
+// 	ptr->size--;
+// }
 
-void	delete_first(t_list *ptr)
-{
-	t_node	*node;
+// void	delete_first(t_list *ptr)
+// {
+// 	t_node	*node;
 
-	node = ptr->head;
-	if (!node)
-		exit(EXIT_FAILURE);
-	free(node->token);
-	free(node->path);
-	ptr->head = node->next;
-	if (ptr->head)
-		ptr->head->prev = NULL;
-	else
-		ptr->head = NULL;
-	free(node);
-	ptr->size--;
-}
+// 	node = ptr->head;
+// 	if (!node)
+// 		exit(EXIT_FAILURE);
+// 	free(node->token);
+// 	free(node->path);
+// 	ptr->head = node->next;
+// 	if (ptr->head)
+// 		ptr->head->prev = NULL;
+// 	else
+// 		ptr->head = NULL;
+// 	free(node);
+// 	ptr->size--;
+// }
 
-t_list *delete_position(t_list *ptr, size_t position)
-{
-	size_t	i;
-	t_node	*actual;
+// t_list *delete_position(t_list *ptr, size_t position)
+// {
+// 	size_t	i;
+// 	t_node	*actual;
 
-	if (!ptr)
-		return (NULL);
-	i = 1;
-	actual = ptr->head;
-	while (actual && i <= position)
-	{
-		if (position == i)
-		{
-			if (actual->next == NULL)
-				delete_last(ptr);
-			else if (actual->prev == NULL)
-				delete_first(ptr);
-			else
-			{
-				actual->next->prev = actual->prev;
-				actual->prev->next = actual->next;
-				free(actual);
-				ptr->size--;
-			}
-		}
-		else
-			actual = actual->next;
-		i++;
-	}
-	return (ptr);
-}
+// 	if (!ptr)
+// 		return (NULL);
+// 	i = 1;
+// 	actual = ptr->head;
+// 	while (actual && i <= position)
+// 	{
+// 		if (position == i)
+// 		{
+// 			if (actual->next == NULL)
+// 				delete_last(ptr);
+// 			else if (actual->prev == NULL)
+// 				delete_first(ptr);
+// 			else
+// 			{
+// 				actual->next->prev = actual->prev;
+// 				actual->prev->next = actual->next;
+// 				free(actual);
+// 				ptr->size--;
+// 			}
+// 		}
+// 		else
+// 			actual = actual->next;
+// 		i++;
+// 	}
+// 	return (ptr);
+// }
