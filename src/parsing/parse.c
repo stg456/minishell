@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/07 15:28:27 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/07 17:15:56 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 		ms->cmd->tail->path = cmd_path(ms);
 		ms->cmd->tail->type = which_type(ms->cmd->tail->token, ms->cmd->tail);
 		check_token_var(ms->cmd->tail, ms);
-		printf("%d\n", ms->cmd->tail->type);
 	}
 	next_parsing(ms);
 	free_tab(token_tab);

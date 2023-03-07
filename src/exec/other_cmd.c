@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/06 15:38:07 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/07 18:12:23 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,6 @@ t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
 	return (TRUE);
 }
 
-void	count_all(t_list *list, size_t *nbr_pipe, size_t *nbr_cmd)
-{
-	t_node	*actual;
-
-	if (!list || !list->head || !list->tail)
-		return ;
-	actual = list->head;
-	while (actual)
-	{
-		if (actual->type == PIPE)
-			*nbr_pipe += 1;
-		if (actual->type == CMD)
-			*nbr_cmd += 1;
-		actual = actual->next;
-	}
-}
-
 void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int input)
 {
 	pid_t	id;
@@ -99,7 +82,6 @@ void	other_cmd(t_minishell *ms)
 	t_node	*cmd;
 	int		tmp_input;
 
-	count_all(ms->cmd, &ms->cmd->nbr_pipe, &ms->cmd->nbr_cmd);
 	path = getenv("PATH");
 	ms->cmd->all_path = ft_split(path, ':');
 	tmp_input = dup(STDIN_FILENO);
