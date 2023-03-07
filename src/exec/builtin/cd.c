@@ -6,7 +6,7 @@
 /*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/02/23 14:40:17 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:36:00 by stgerard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 		}
 		abst(shell, lst);
 	}
+	// ft_export(lst, shell);
 	return (shell->status);
 }
