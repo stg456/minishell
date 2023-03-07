@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:02:45 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/06 17:43:48 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:58:09 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,18 @@ void	delete_next(t_list *lst, t_node *node)
 
 	if (node && node->next)
 	{
-		next = node->next;
-		node->next = next->next;
-		if (next->next)
-			next->next->prev = node;
-		else
-			lst->tail = node;
-		free_node(next);
-		lst->size--;
+		if (node->next->type != PIPE && node->next->type != OUTPUT_DIR
+			&& node->next->type != INPUT_DIR)
+		{
+			next = node->next;
+			node->next = next->next;
+			if (next->next)
+				next->next->prev = node;
+			else
+				lst->tail = node;
+			free_node(next);
+			lst->size--;
+		}
 	}
 }
 

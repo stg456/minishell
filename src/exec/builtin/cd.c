@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:52:59 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/07 13:36:00 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:48:11 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,25 @@ void	home(t_minishell *shell, t_node *lst)
 	return ;
 }
 
+void	change_pwd(t_minishell *shell)
+{
+	char	buffer[256];
+	size_t	i;
+
+	i = 0;
+	getcwd(buffer, 256);
+	while (shell->env[i])
+	{
+		if (!ft_strncmp("PWD=", shell->env[i], 4))
+		{
+			free(shell->env[i]);
+			shell->env[i] = ft_strjoin("PWD=", buffer);
+			break ;
+		}
+		i++;
+	}
+}
+
 int	ft_cd(t_minishell *shell, t_node *lst)
 {
 	size_t		i;
@@ -83,6 +102,6 @@ int	ft_cd(t_minishell *shell, t_node *lst)
 		}
 		abst(shell, lst);
 	}
-	// ft_export(lst, shell);
+	change_pwd(shell);
 	return (shell->status);
 }
