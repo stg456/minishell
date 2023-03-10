@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/07 15:57:57 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/10 17:51:01 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct s_minishell
 	char	**path;
 	char	*dir;
 	int		status;
-	int		fd_in;
-	int		fd_out;
+	int		new_fd[2];
+	int		old_fd[2];
 }				t_minishell;
 
 // main.c

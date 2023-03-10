@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 17:35:40 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/02 18:00:03 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/10 18:37:25 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_minishell	*sh_init(void)
 	if (check_all_create(sh) == FALSE)
 		return (NULL);
 	sh->status = 0;
-	sh->fd_in = 0;
-	sh->fd_out = 0;
+	sh->new_fd[0] = 0;
+	sh->new_fd[1] = 1;
 	return (sh);
 }
