@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/07 17:15:56 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/09 17:13:29 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 	char	**token_tab;
 	size_t	i;
 
-	(void)ms;
 	temp = replace_quote_space(ft_strdup(buf));
 	if (!temp)
 		return ;
