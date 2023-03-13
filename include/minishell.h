@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/10 17:51:01 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:08:06 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char		*do_var_replacement(char *str, t_minishell *ms);
 size_t		var_len_start(char *str);
 size_t		name_len(char *str);
 char		*ft_strndup(char *s1, size_t n, size_t start);
+void		open_fd(t_minishell *ms);
 
 // linked_list.c
 

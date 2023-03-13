@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/13 16:07:29 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:42:44 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,48 +65,27 @@ t_bool	which_cmd_no_fork(t_node *cmd, t_minishell *ms)
 	return (TRUE);
 }
 
-void	open_fd(t_minishell *ms)
-{
-	t_node	*node;
-
-	node = ms->cmd->tail;
-	while (node)
-	{
-		if (node->type == INPUT_DIR && node->cmd[1])
-		{
-			ms->new_fd[0] = open(node->cmd[1], O_RDONLY);
-			dup2(ms->new_fd[0], STDIN_FILENO);
-			break ;
-		}
-		node = node->prev;
-		ms->new_fd[0] = 0;
-	}
-	node = ms->cmd->tail;
-	while (node)
-	{
-		if (node->type == OUTPUT_DIR && node->cmd[1])
-		{
-			ms->new_fd[1] = open(node->cmd[1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			dup2(ms->new_fd[1], STDOUT_FILENO);
-			printf("test\n");
-			break ;
-		}
-		node = node->prev;
-		ms->new_fd[1] = 1;
-	}
-}
-
 void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int tmp)
 {
 	pid_t	id;
+	t_node	*node;
 
 	pipe(cmd->fd);
 	id = fork();
+	(void)tmp;
 	if (id == 0)
 	{
 		dup2(tmp, STDIN_FILENO);
-		if (cmd->next && cmd->next->type == CMD)
-			dup2(cmd->fd[1], STDOUT_FILENO);
+		node = cmd->next;
+		while (node)
+		{
+			if (node->next && node->next->type == CMD)
+			{
+				dup2(cmd->fd[1], STDOUT_FILENO);
+				break ;
+			}
+			node = node->next;
+		}
 		which_cmd_fork(cmd, ms);
 	}
 	else
@@ -138,7 +117,7 @@ void	other_cmd(t_minishell *ms)
 			if (which_cmd_no_fork(cmd, ms) == FALSE)
 				do_multiple_pipe(ms, cmd, ms->new_fd[0]);
 		}
-		else if (cmd->type == UNDEFINED)
+		else if (cmd->type == UNDEFINED || cmd->type == DQUOTE || cmd->type == QUOTE)
 		{
 			printf("Minishell: %s command not found !\n", cmd->token);
 			ms->status = 127;

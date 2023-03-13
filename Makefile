@@ -6,7 +6,7 @@
 #    By: misimon <misimon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 19:06:31 by stgerard          #+#    #+#              #
-#    Updated: 2023/03/07 14:08:13 by misimon          ###   ########.fr        #
+#    Updated: 2023/03/13 17:06:17 by misimon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	:=	exec/builtin/cd.c		\
 			exec/builtin/exit.c		\
 			exec/builtin/pwd.c		\
 			exec/other_cmd.c		\
+			exec/redirection.c		\
 			parsing/parse.c			\
 			parsing/quote.c			\
 			parsing/get_cmd_path.c	\

@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/09 17:13:29 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:21:12 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_bool	which_type(char *str, t_node *cmd)
 		return (PIPE);
 	if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
 		return (OUTPUT_DIR);
-	else if (!ft_strcmp(str, "<"))
+	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
 		return (INPUT_DIR);
 	else if ((cmd->path)
 		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
@@ -106,6 +106,7 @@ void	next_parsing(t_minishell *ms)
 	while (cmd)
 	{
 		j = -1;
+		cmd->token = ft_strtok(cmd->token, "\5\6", ' ');
 		if ((cmd->type == CMD || cmd->type == INPUT_DIR
 				|| cmd->type == OUTPUT_DIR) && cmd->token)
 			cmd->cmd = ft_split(cmd->token, ' ');
@@ -160,51 +161,3 @@ void	cmd_parsing(char *buf, t_minishell *ms)
 	next_parsing(ms);
 	free_tab(token_tab);
 }
-
-// int	do_parse(t_node *cmd, t_minishell *ms)
-// {
-// 	cmd->token = ft_strtok(cmd->token, "\6\5", '\7');
-// 	cmd->token = ft_strfjoin(ft_strfjoin(cmd->token, " "), cmd->next->token);
-// 	delete_next(ms->cmd, cmd);
-// 	i = 0;
-// 	cmd = ms->cmd->head;
-// 	return (i);
-// }
-
-// t_bool	which_parse(t_minishell *ms, t_node *c, size_t *i)
-// {
-// 	if (c->token[0] == '|')
-// 		return (FALSE);
-// 	if (c && c->next && c->type == CMD && (c->next->type != PIPE && c->next
-//->type != CMD && c->next->type != INPUT_DIR && c->next->type != OUTPUT_DIR))
-// 		*i = do_parse(c, ms, *i);
-// 	else if (c && c->next && (c->type == 3 || c->type == 2) 
-//			&& c->next->type == -1)
-// 		*i = do_parse(c, ms, *i);
-// 	else
-// 		return (FALSE);
-// 	return (TRUE);
-// }
-
-// void debug_parsing(t_minishell *ms)
-// {
-// 	t_node	*cmd;
-
-// 	cmd = ms->cmd->head;
-// 	while (cmd)
-// 	{
-// 		printf("\ndebug of %s\n", cmd->token);
-// 		if (cmd->cmd && cmd->type == CMD)
-// 		{
-// 			for (int i = 0; cmd->cmd[i]; i++)
-// 				printf("%s\n", cmd->cmd[i]);
-// 		}
-// 		else if (cmd->cmd && (cmd->type == INPUT_DIR 
-//				|| cmd->type == OUTPUT_DIR))
-// 			printf("Output or Input\n");
-// 		else
-// 			printf("Pipe\n");
-// 		write(1, "\n", 1);
-// 		cmd = cmd->next;
-// 	}	
-// }
