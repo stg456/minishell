@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stgerard <stgerard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 17:41:49 by misimon           #+#    #+#             */
-/*   Updated: 2023/02/22 18:03:51 by stgerard         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:13:25 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exitnb(t_node *lst, t_minishell *shell)
 	{
 		if (ft_isalpha(lst->cmd[1][i]) == TRUE)
 		{
-			printf("exit\nbash: exit: %s: numeric argument required\n",
+			printf("exit\nMinishell: exit: %s: numeric argument required\n",
 				lst->cmd[1]);
 			shell->status = 255;
 			break ;
@@ -40,7 +40,7 @@ void	ft_exit(t_node *lst, t_minishell *shell)
 {
 	if (lst->cmd[0] && lst->cmd[1] && lst->cmd[2])
 	{
-		printf("exit\nbash: exit: too many arguments\n");
+		printf("exit\nMinishell: exit: too many arguments\n");
 		shell->status = 1;
 	}
 	else if (lst->cmd[0] && lst->cmd[1] && !lst->cmd[2])

@@ -6,11 +6,17 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:23:03 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/06 15:55:39 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 20:06:35 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	do_replace_quote(char *c, char set, size_t *i)
+{
+	*c = set;
+	*i += 1;
+}
 
 char	*replace_quote_space(char *buf)
 {
@@ -31,15 +37,9 @@ char	*replace_quote_space(char *buf)
 		if (ft_isspace(new_buf[i]) && (dquote % 2 || quote % 2))
 			new_buf[i] = 4;
 		if (new_buf[i] == '\'' && !(dquote % 2))
-		{
-			new_buf[i] = 6;
-			quote++;
-		}
+			do_replace_quote(&new_buf[i], 6, &quote);
 		else if (new_buf[i] == '\"' && !(quote % 2))
-		{
-			new_buf[i] = 5;
-			dquote++;
-		}
+			do_replace_quote(&new_buf[i], 5, &dquote);
 	}
 	return (new_buf);
 }

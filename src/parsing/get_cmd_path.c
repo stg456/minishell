@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:31:01 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/03 17:46:53 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 20:02:17 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,25 @@ char	*cmd_path(t_minishell *sh)
 	}
 	free_tab(all_path);
 	return (NULL);
+}
+
+t_bool	which_type(char *str, t_node *cmd)
+{
+	if (cmd->token[0] == 6)
+		return (QUOTE);
+	else if (cmd->token[0] == 5)
+		return (DQUOTE);
+	if (!ft_strcmp(str, "|"))
+		return (PIPE);
+	if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
+		return (OUTPUT_DIR);
+	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
+		return (INPUT_DIR);
+	else if ((cmd->path)
+		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
+		|| !ft_strcmp(str, "exit"))
+		return (CMD);
+	if (cmd->prev && cmd->prev->type == CMD)
+		return (UNDEFINED);
+	return (UNDEFINED);
 }

@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:15:34 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/13 17:21:12 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 20:01:58 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,6 @@ char	*ft_strtok(char *str, char *delimiter, char replace)
 		if (ft_strchr(delimiter, result[i]))
 			result[i] = replace;
 	return (result);
-}
-
-t_bool	which_type(char *str, t_node *cmd)
-{
-	if (cmd->token[0] == 6)
-		return (QUOTE);
-	else if (cmd->token[0] == 5)
-		return (DQUOTE);
-	if (!ft_strcmp(str, "|"))
-		return (PIPE);
-	if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
-		return (OUTPUT_DIR);
-	else if (!ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
-		return (INPUT_DIR);
-	else if ((cmd->path)
-		|| !ft_strcmp(str, "export") || !ft_strcmp(str, "unset")
-		|| !ft_strcmp(str, "exit"))
-		return (CMD);
-	if (cmd->prev && cmd->prev->type == CMD)
-		return (UNDEFINED);
-	return (UNDEFINED);
 }
 
 t_bool	join_cmd(t_node *tmp, t_minishell *ms)
@@ -115,26 +94,6 @@ void	next_parsing(t_minishell *ms)
 		while (cmd->cmd && cmd->cmd[++j])
 			cmd->cmd[j] = ft_strtok(cmd->cmd[j], "\4", ' ');
 		cmd = cmd->next;
-	}
-}
-
-void	check_token_var(t_node *node, t_minishell *ms)
-{
-	size_t	i;
-
-	if (!node || (node->type != UNDEFINED && node->type != DQUOTE))
-		return ;
-	if (node && node->token)
-	{
-		i = -1;
-		while (node->token[++i])
-		{
-			if (node->token[i] == '$')
-			{
-				node->token = do_var_replacement(node->token, ms);
-				i = -1;
-			}
-		}
 	}
 }
 

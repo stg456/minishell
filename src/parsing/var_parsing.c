@@ -6,11 +6,19 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:08:28 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/03 17:46:13 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 20:36:44 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*return_free(char *value, char *name)
+{
+	free(name);
+	if (!value)
+		return (NULL);
+	return (value);
+}
 
 char	*get_env_var(char *name, t_minishell *ms)
 {
@@ -25,18 +33,14 @@ char	*get_env_var(char *name, t_minishell *ms)
 	if (ft_strcmp(name, "?") == 0)
 	{
 		value = ft_itoa(ms->status);
-		free(name);
-		return (value);
+		return (return_free(value, name));
 	}
 	while (*env)
 	{
 		if (!ft_strncmp(*env, name, len) && (*env)[len] == '=')
 		{
 			value = ft_strdup(*env + len + 1);
-			free(name);
-			if (!value)
-				return (NULL);
-			return (value);
+			return (return_free(value, name));
 		}
 		env++;
 	}
@@ -84,4 +88,24 @@ char	*do_var_replacement(char *str, t_minishell *ms)
 	free(str);
 	str = which_join(str_start, var_name, str_end);
 	return (str);
+}
+
+void	check_token_var(t_node *node, t_minishell *ms)
+{
+	size_t	i;
+
+	if (!node || (node->type != UNDEFINED && node->type != DQUOTE))
+		return ;
+	if (node && node->token)
+	{
+		i = -1;
+		while (node->token[++i])
+		{
+			if (node->token[i] == '$')
+			{
+				node->token = do_var_replacement(node->token, ms);
+				i = -1;
+			}
+		}
+	}
 }

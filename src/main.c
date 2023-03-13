@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 14:47:42 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/07 14:18:22 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 18:34:49 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	main(void)
 	t_minishell		*sh;
 	char			*buf;
 
-	signal(SIGQUIT, SIG_IGN);
 	sh = sh_init();
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sigint_handler);
 		buf = readline("Minishell$> ");
 		if (!buf)

@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:08:23 by stgerard          #+#    #+#             */
-/*   Updated: 2023/03/13 17:08:06 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 20:21:19 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ size_t		var_len_start(char *str);
 size_t		name_len(char *str);
 char		*ft_strndup(char *s1, size_t n, size_t start);
 void		open_fd(t_minishell *ms);
+void		check_token_var(t_node *node, t_minishell *ms);
+t_bool		which_type(char *str, t_node *cmd);
+void		which_cmd_fork(t_node *cmd, t_minishell *ms);
+t_bool		which_cmd_no_fork(t_node *cmd, t_minishell *ms);
+void		set_default_fd(t_minishell *ms);
 
 // linked_list.c
 
@@ -140,9 +145,5 @@ t_bool		ft_in_quote(char **buf);
 // signal.c
 
 void		sigint_handler(int signum);
-
-// utils
-char		*prompt_visual(void);
-char		*trimer(char *s1, char *buf);
 
 #endif
