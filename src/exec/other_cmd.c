@@ -6,7 +6,7 @@
 /*   By: misimon <misimon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:42:16 by misimon           #+#    #+#             */
-/*   Updated: 2023/03/10 18:45:32 by misimon          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:07:29 by misimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,25 @@ void	open_fd(t_minishell *ms)
 	{
 		if (node->type == INPUT_DIR && node->cmd[1])
 		{
-			printf("egmjigojg\n");
 			ms->new_fd[0] = open(node->cmd[1], O_RDONLY);
-			printf("open is good\n");
-			if (ms->new_fd[0] == -1)
-			{
-				perror("minishell");
-				exit(EXIT_FAILURE);
-				break ;
-			}
+			dup2(ms->new_fd[0], STDIN_FILENO);
+			break ;
 		}
 		node = node->prev;
+		ms->new_fd[0] = 0;
 	}
 	node = ms->cmd->tail;
 	while (node)
 	{
 		if (node->type == OUTPUT_DIR && node->cmd[1])
 		{
-			printf("egmjigojg\n");
-			ms->new_fd[1] = open(node->cmd[1], O_CREAT | O_WRONLY | O_TRUNC, 0644);;
-			printf("open is good\n");
-			if (ms->new_fd[1] == -1)
-			{
-				perror("minishell");
-				exit(EXIT_FAILURE);
-			}
+			ms->new_fd[1] = open(node->cmd[1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			dup2(ms->new_fd[1], STDOUT_FILENO);
+			printf("test\n");
 			break ;
 		}
 		node = node->prev;
+		ms->new_fd[1] = 1;
 	}
 }
 
@@ -114,21 +105,15 @@ void	do_multiple_pipe(t_minishell *ms, t_node *cmd, int tmp)
 	if (id == 0)
 	{
 		dup2(tmp, STDIN_FILENO);
-		if (cmd->next)
+		if (cmd->next && cmd->next->type == CMD)
 			dup2(cmd->fd[1], STDOUT_FILENO);
-		else
-		{
-			cmd->fd[1] = ms->new_fd[1];
-			dup2(cmd->fd[1], STDOUT_FILENO);
-		}
 		which_cmd_fork(cmd, ms);
 	}
 	else
 	{
 		signal(SIGINT, sighandler);
+		dup2(cmd->fd[0], tmp);
 		close(cmd->fd[1]);
-		// dup2(cmd->fd[0], tmp);
-		tmp = cmd->fd[0];
 		waitpid(id, &ms->status, 0);
 		ms->status = WEXITSTATUS(ms->status);
 	}
@@ -138,19 +123,20 @@ void	other_cmd(t_minishell *ms)
 {
 	char	*path;
 	t_node	*cmd;
-	int		tmp;
+	int		tmp[2];
 
 	path = getenv("PATH");
 	ms->cmd->all_path = ft_split(path, ':');
+	tmp[0] = dup(STDIN_FILENO);
+	tmp[1] = dup(STDOUT_FILENO);
 	open_fd(ms);
-	tmp = dup(ms->new_fd[0]);
 	cmd = ms->cmd->head;
 	while (cmd)
 	{
 		if (cmd->type == CMD)
 		{
 			if (which_cmd_no_fork(cmd, ms) == FALSE)
-				do_multiple_pipe(ms, cmd, tmp);
+				do_multiple_pipe(ms, cmd, ms->new_fd[0]);
 		}
 		else if (cmd->type == UNDEFINED)
 		{
@@ -160,5 +146,8 @@ void	other_cmd(t_minishell *ms)
 		}
 		cmd = cmd->next;
 	}
-	// close_all();s
+	dup2(tmp[0], STDIN_FILENO);
+	close(tmp[0]);
+	dup2(tmp[1], STDOUT_FILENO);
+	close(tmp[1]);
 }
